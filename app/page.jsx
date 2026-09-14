@@ -1,75 +1,66 @@
 import Link from 'next/link';
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-900 text-white font-sans">
-      {/* Navigation Bar */}
-      <header className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold tracking-tight text-blue-400">SolarTech</span>
-          </div>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
-            <Link href="/" className="hover:text-blue-400 transition">Home</Link>
-            <Link href="/packages" className="hover:text-blue-400 transition">Solar Packages</Link>
-            <Link href="/services" className="hover:text-blue-400 transition">Services</Link>
-            <Link href="/contact" className="hover:text-blue-400 transition">Contact</Link>
-          </nav>
-          <div>
-            <Link 
-              href="/quote"
-              className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow transition"
-            >
-              Get a Quote
-            </Link>
-          </div>
+    <div style={{ minHeight: '100vh', backgroundColor: '#0b0f19', color: '#ffffff', fontFamily: 'sans-serif' }}>
+      
+      {/* Navigation Header */}
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 2rem', backgroundColor: '#111827', borderBottom: '2px solid #ef4444' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          {/* Logo Image */}
+          <img 
+            src="https://i.ibb.co/rGYcpw14/Whats-App-Image-2026-09-14-at-10-04-51.jpg" 
+            alt="Company Logo" 
+            style={{ height: '40px', width: '40px', objectFit: 'cover', borderRadius: '50%', border: '2px solid #3b82f6' }} 
+          />
+          <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#3b82f6', letterSpacing: '0.5px' }}>SolarTech</span>
         </div>
-      </header>
+        
+        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+          <Link href="/" style={{ color: '#ffffff', textDecoration: 'none', fontWeight: '600' }}>Home</Link>
+          <Link href="/packages" style={{ color: '#9ca3af', textDecoration: 'none' }}>Solar Packages</Link>
+          <Link href="/services" style={{ color: '#9ca3af', textDecoration: 'none' }}>Services</Link>
+          <Link href="/quote" style={{ backgroundColor: '#ef4444', color: '#ffffff', padding: '0.5rem 1rem', borderRadius: '0.5rem', textDecoration: 'none', fontWeight: 'bold' }}>Get a Quote</Link>
+        </div>
+      </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6">
-            <span>⚡ 24/7 Uninterrupted Power Solutions</span>
-          </div>
-          
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 max-w-4xl">
-            Reliable Solar Energy for Your <span className="text-blue-400">Home & Business</span>
-          </h1>
-          
-          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mb-10">
-            Say goodbye to generator noise and fuel costs. We provide custom solar installations, high-efficiency panels, and long-lasting lithium battery storage.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
-            <Link 
-              href="/quote"
-              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg transition"
-            >
-              Request a Free Quote
-            </Link>
-            <Link 
-              href="/packages"
-              className="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold rounded-xl transition"
-            >
-              View Solar Packages
-            </Link>
-          </div>
-
-          {/* Trust Badges */}
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm text-gray-400 font-medium max-w-3xl w-full border-t border-slate-800 pt-8">
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-green-400 text-lg">✓</span> Professional Installation
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-green-400 text-lg">✓</span> Top-Tier Equipment
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-green-400 text-lg">✓</span> Reliable Maintenance
-            </div>
-          </div>
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '5rem 2rem', textAlign: 'center' }}>
+        <div style={{ display: 'inline-block', backgroundColor: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', padding: '0.5rem 1.25rem', borderRadius: '9999px', fontSize: '0.875rem', fontWeight: '700', marginBottom: '1.5rem', border: '1px solid rgba(239, 68, 68, 0.3)' }}>
+          🔥 24/7 Uninterrupted Power Solutions
+        </div>
+        <h1 style={{ fontSize: '3.5rem', fontWeight: '900', lineHeight: '1.2', marginBottom: '1.5rem', color: '#ffffff' }}>
+          Reliable Solar Energy for Your <span style={{ color: '#3b82f6' }}>Home & Business</span>
+        </h1>
+        <p style={{ fontSize: '1.25rem', color: '#9ca3af', maxWidth: '800px', margin: '0 auto 2.5rem auto', lineHeight: '1.6' }}>
+          Say goodbye to generator noise and high fuel costs. We deliver custom solar installations, high-efficiency panels, and long-lasting lithium storage engineered for maximum reliability.
+        </p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+          <Link href="/quote" style={{ backgroundColor: '#3b82f6', color: '#ffffff', padding: '1rem 2.5rem', borderRadius: '0.75rem', fontWeight: 'bold', textDecoration: 'none', boxShadow: '0 4px 14px rgba(59, 130, 246, 0.4)' }}>
+            Request a Free Quote
+          </Link>
+          <Link href="/packages" style={{ backgroundColor: '#1f2937', color: '#ffffff', padding: '1rem 2.5rem', borderRadius: '0.75rem', fontWeight: 'bold', textDecoration: 'none', border: '1px solid #ef4444' }}>
+            View Solar Packages
+          </Link>
         </div>
       </section>
+
+      {/* Features Grid with Strategic Color Accents */}
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 2rem 5rem 2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+        <div style={{ backgroundColor: '#111827', padding: '2rem', borderRadius: '1rem', borderTop: '4px solid #3b82f6', boxShadow: '0 4px 6px rgba(0,0,0,0.2)' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem', color: '#ffffff' }}>✓ Professional Installation</h3>
+          <p style={{ color: '#9ca3af', fontSize: '0.95rem', lineHeight: '1.5' }}>Expert engineers handle wiring, mounting, and safe system configuration tailored to your load requirements.</p>
+        </div>
+        <div style={{ backgroundColor: '#111827', padding: '2rem', borderRadius: '1rem', borderTop: '4px solid #ef4444', boxShadow: '0 4px 6px rgba(0,0,0,0.2)' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem', color: '#ffffff' }}>✓ Top-Tier Equipment</h3>
+          <p style={{ color: '#9ca3af', fontSize: '0.95rem', lineHeight: '1.5' }}>Equipped with original monocrystalline panels and high-performance lithium-ion batteries that stand the test of time.</p>
+        </div>
+        <div style={{ backgroundColor: '#111827', padding: '2rem', borderRadius: '1rem', borderTop: '4px solid #3b82f6', boxShadow: '0 4px 6px rgba(0,0,0,0.2)' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem', color: '#ffffff' }}>✓ Reliable Maintenance</h3>
+          <p style={{ color: '#9ca3af', fontSize: '0.95rem', lineHeight: '1.5' }}>Routine performance checks, cleanings, and active customer support to keep your power running smoothly.</p>
+        </div>
+      </section>
+
     </div>
   );
 }
