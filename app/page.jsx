@@ -87,13 +87,13 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* INSTALLATION IMAGE BANNER */}
+      {/* INSTALLATION IMAGE BANNER (Updated with your custom engineer photo) */}
       <section style={{ padding: '0 1.5rem', margin: '-2rem auto 3rem auto', maxWidth: '800px', zIndex: 10, position: 'relative' }}>
-        <div style={{ borderRadius: '1rem', overflow: 'hidden', border: '3px solid #ffffff', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
+        <div style={{ borderRadius: '1rem', overflow: 'hidden', border: '3px solid #ffffff', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', backgroundColor: '#0b0f19' }}>
           <img 
-            src="https://images.unsplash.com/photo-1509391365360-e835f377c8b8?auto=format&fit=crop&w=1000&q=80" 
+            src="https://i.ibb.co/ZRtPqLPz/Whats-App-Image-2026-09-14-at-15-40-58.jpg" 
             alt="Solar installation engineers" 
-            style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }}
+            style={{ width: '100%', height: 'auto', maxHeight: '400px', objectFit: 'cover', display: 'block' }}
           />
         </div>
       </section>
