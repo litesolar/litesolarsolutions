@@ -62,17 +62,26 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* HERO SECTION (Professional Light Background with Deep Blue & Red Accents) */}
-      <section style={{ position: 'relative', padding: '4rem 1.5rem 4rem 1.5rem', backgroundColor: '#f9fafb', backgroundImage: 'linear-gradient(rgba(249, 250, 251, 0.92), rgba(249, 250, 251, 0.97)), url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80")', backgroundSize: 'cover', backgroundPosition: 'center', borderBottom: '1px solid #e5e7eb' }}>
+      {/* HERO SECTION (Powered by your real installation roof background photo) */}
+      <section style={{ 
+        position: 'relative', 
+        padding: '5rem 1.5rem 5rem 1.5rem', 
+        backgroundColor: '#0b0f19', 
+        backgroundImage: 'linear-gradient(rgba(11, 15, 25, 0.90), rgba(11, 15, 25, 0.94)), url("https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png")', 
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
+        borderBottom: '1px solid #374151',
+        color: '#ffffff'
+      }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-block', backgroundColor: '#fee2e2', color: '#dc2626', border: '1px solid #fecaca', padding: '0.35rem 0.85rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '1px', marginBottom: '1rem' }}>
+          <div style={{ display: 'inline-block', backgroundColor: 'rgba(220, 38, 38, 0.2)', color: '#f87171', border: '1px solid rgba(220, 38, 38, 0.4)', padding: '0.35rem 0.85rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '1px', marginBottom: '1rem' }}>
             🔥 RELIABLE CLEAN ENERGY IN NIGERIA
           </div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: '900', lineHeight: '1.15', marginBottom: '1rem', color: '#111827', letterSpacing: '-0.5px' }}>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: '900', lineHeight: '1.15', marginBottom: '1rem', color: '#ffffff', letterSpacing: '-0.5px' }}>
             Hello, Nigeria.<br />
-            <span style={{ color: '#1e3a8a' }}>Power up</span> your home & business.
+            <span style={{ color: '#60a5fa' }}>Power up</span> your home & business.
           </h1>
-          <p style={{ fontSize: '1rem', color: '#4b5563', lineHeight: '1.6', marginBottom: '2rem' }}>
+          <p style={{ fontSize: '1rem', color: '#9ca3af', lineHeight: '1.6', marginBottom: '2rem' }}>
             Enjoy uninterrupted, climate-friendly, and cost-effective solar electricity engineered for Nigerian homes. Eliminate power outages forever with professional installations.
           </p>
 
@@ -87,19 +96,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* INSTALLATION IMAGE BANNER (Updated with your custom engineer photo) */}
-      <section style={{ padding: '0 1.5rem', margin: '-2rem auto 3rem auto', maxWidth: '800px', zIndex: 10, position: 'relative' }}>
-        <div style={{ borderRadius: '1rem', overflow: 'hidden', border: '3px solid #ffffff', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', backgroundColor: '#0b0f19' }}>
-          <img 
-            src="https://i.ibb.co/ZRtPqLPz/Whats-App-Image-2026-09-14-at-15-40-58.jpg" 
-            alt="Solar installation engineers" 
-            style={{ width: '100%', height: 'auto', maxHeight: '400px', objectFit: 'cover', display: 'block' }}
-          />
-        </div>
-      </section>
-
       {/* ABOUT US / MISSION */}
-      <section style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem 1.5rem 3rem 1.5rem' }}>
+      <section style={{ maxWidth: '800px', margin: '0 auto', padding: '3rem 1.5rem 2rem 1.5rem' }}>
         <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#1e3a8a', letterSpacing: '1.5px', marginBottom: '0.5rem' }}>
           ABOUT US
         </div>
