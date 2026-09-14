@@ -1,6 +1,5 @@
 import './globals.css';
 import Footer from './components/Footer';
-
 export const metadata = {
   title: 'SolarTech | Reliable Solar Energy Solutions',
   description: 'Custom solar installations, high-efficiency panels, and lithium battery storage for homes and businesses.',
