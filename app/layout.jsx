@@ -1,21 +1,30 @@
 import './globals.css';
-import Footer from './components/Footer';
+
 export const metadata = {
-  title: 'SolarTech | Reliable Solar Energy Solutions',
-  description: 'Custom solar installations, high-efficiency panels, and lithium battery storage for homes and businesses.',
+  title: 'LITESOLARSOLUTIONS | Reliable Solar Energy',
+  description: 'Illuminateing your world with affordable solar solutions and reliable power.',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-slate-900 text-white min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
-        {/* Main page content */}
-        <main className="flex-grow">
-          {children}
-        </main>
+      <body>
+        {children}
+      </body>
+    </html>
+  );
+}import './globals.css';
 
-        {/* Global Footer */}
-        <Footer />
+export const metadata = {
+  title: 'LITESOLARSOLUTIONS | Reliable Solar Energy',
+  description: 'Illuminateing your world with affordable solar solutions and reliable power.',
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
       </body>
     </html>
   );
