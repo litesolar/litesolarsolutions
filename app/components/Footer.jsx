@@ -2,28 +2,28 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 border-t border-slate-800 text-gray-400 py-12 px-4 sm:px-6 lg:px-8 mt-20">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+    <footer style={{ backgroundColor: '#030508', borderTop: '1px solid #1f2937', color: '#9ca3af', padding: '4rem 2rem 2rem 2rem', marginTop: '5rem' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
         <div>
-          <span className="text-2xl font-bold tracking-tight text-blue-400">SolarTech</span>
-          <p className="mt-4 text-sm text-gray-400">
+          <span style={{ fontSize: '1.25rem', fontWeight: '900', color: '#2563eb' }}>LITESOLARSOLUTIONS</span>
+          <p style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#9ca3af', lineHeight: '1.5' }}>
             Providing reliable, clean, and sustainable solar energy solutions for homes and businesses across Nigeria.
           </p>
         </div>
 
         <div>
-          <h4 className="text-white font-semibold mb-4">Quick Links</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/" className="hover:text-blue-400 transition">Home</Link></li>
-            <li><Link href="/packages" className="hover:text-blue-400 transition">Solar Packages</Link></li>
-            <li><Link href="/services" className="hover:text-blue-400 transition">Services</Link></li>
-            <li><Link href="/quote" className="hover:text-blue-400 transition">Get a Quote</Link></li>
+          <h4 style={{ color: '#ffffff', fontWeight: '700', marginBottom: '1rem' }}>Quick Links</h4>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem' }}>
+            <li><Link href="/" style={{ color: '#9ca3af', textDecoration: 'none' }}>Home</Link></li>
+            <li><Link href="/packages" style={{ color: '#9ca3af', textDecoration: 'none' }}>Solar Packages</Link></li>
+            <li><Link href="/services" style={{ color: '#9ca3af', textDecoration: 'none' }}>Services</Link></li>
+            <li><Link href="/quote" style={{ color: '#9ca3af', textDecoration: 'none' }}>Get a Quote</Link></li>
           </ul>
         </div>
 
         <div>
-          <h4 className="text-white font-semibold mb-4">Services</h4>
-          <ul className="space-y-2 text-sm">
+          <h4 style={{ color: '#ffffff', fontWeight: '700', marginBottom: '1rem' }}>Services</h4>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem', color: '#9ca3af' }}>
             <li>Residential Installation</li>
             <li>Commercial Solar Systems</li>
             <li>Inverter & Battery Upgrades</li>
@@ -32,14 +32,14 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-white font-semibold mb-4">Contact Us</h4>
-          <p className="text-sm text-gray-400 mb-2">Ready to power up? Reach out for a custom assessment.</p>
-          <p className="text-sm text-blue-400 font-semibold">Phone / WhatsApp: 080XXXXXXXX</p>
+          <h4 style={{ color: '#ffffff', fontWeight: '700', marginBottom: '1rem' }}>Contact Us</h4>
+          <p style={{ fontSize: '0.9rem', color: '#9ca3af', marginBottom: '0.5rem' }}>Ready to power up? Reach out for a custom assessment.</p>
+          <p style={{ fontSize: '0.95rem', color: '#dc2626', fontWeight: '700' }}>Phone / WhatsApp: 080XXXXXXXX</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto border-t border-slate-900 pt-6 text-center text-xs text-gray-500">
-        &copy; {new Date().getFullYear()} SolarTech. All rights reserved.
+      <div style={{ maxWidth: '1200px', margin: '0 auto', borderTop: '1px solid #111827', paddingTop: '1.5rem', textAlign: 'center', fontSize: '0.85rem', color: '#6b7280' }}>
+        &copy; {new Date().getFullYear()} LITESOLARSOLUTIONS. All rights reserved.
       </div>
     </footer>
   );
