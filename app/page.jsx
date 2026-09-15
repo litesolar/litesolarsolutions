@@ -28,14 +28,14 @@ export default function LandingPage() {
       appliances.iron * 1000;
 
     let recommended = "1.5KVA Starter Pack";
-    let price = "₦450,000";
+    let price = "₦1,000,000";
 
     if (totalWatts > 800 && totalWatts <= 2000) {
       recommended = "3.5KVA Standard Home Pack";
-      price = "₦980,000";
+      price = "₦2,500,000";
     } else if (totalWatts > 2000) {
       recommended = "5KVA / 10KVA Executive Mansion Pack";
-      price = "₦2,200,000+";
+      price = "₦5,200,000+";
     }
 
     return { totalWatts, recommended, price };
@@ -45,7 +45,10 @@ export default function LandingPage() {
 
   const departmentsList = [
     "Solar Panels",
-    "Gennex Solar Inverters",
+    "Deye Inverters",
+    "Fireman inverter",
+    "Kartel inverter",
+    "Sako inverter",
     "Growatt Inverters",
     "Lithium Batteries",
     "Tubular & AGM Batteries",
