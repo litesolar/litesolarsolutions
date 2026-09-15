@@ -28,14 +28,14 @@ export default function LandingPage() {
       appliances.iron * 1000;
 
     let recommended = "1.5KVA Starter Pack";
-    let price = "₦1,000,000";
+    let price = "₦450,000";
 
     if (totalWatts > 800 && totalWatts <= 2000) {
       recommended = "3.5KVA Standard Home Pack";
-      price = "₦2,500,000";
+      price = "₦980,000";
     } else if (totalWatts > 2000) {
       recommended = "5KVA / 10KVA Executive Mansion Pack";
-      price = "₦5,200,000+";
+      price = "₦2,200,000+";
     }
 
     return { totalWatts, recommended, price };
@@ -45,10 +45,7 @@ export default function LandingPage() {
 
   const departmentsList = [
     "Solar Panels",
-    "Kartel Inverters",
-    "Fireman inverters",
-    "Sako inverters",
-    "Deye inverters"
+    "Gennex Solar Inverters",
     "Growatt Inverters",
     "Lithium Batteries",
     "Tubular & AGM Batteries",
@@ -160,7 +157,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* FULL SHOP CATALOG SECTION (MIMICKING STOREFRONT) */}
+      {/* FULL SHOP CATALOG SECTION */}
       <section id="catalog" style={{ maxWidth: '1200px', margin: '3.5rem auto 3rem auto', padding: '0 1.5rem' }}>
         <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#dc2626', letterSpacing: '1.5px', marginBottom: '0.5rem' }}>
           FULL SHOP CATALOG
