@@ -10,9 +10,9 @@ export async function POST(request) {
     const body = await request.json();
     const { title, capacity, price, description, features } = body;
 
-    // Convert the comma-separated string from the form into a clean array for Prisma
-    const featuresArray = typeof features === 'string' 
-      ? features.split(',').map(f => f.trim()).filter(Boolean) 
+    // Turn comma-separated features text into a clean list for the database
+    const formattedFeatures = typeof features === 'string' 
+      ? features.split(',').map(item => item.trim()).filter(Boolean)
       : [];
 
     const newPackage = await prisma.package.create({
@@ -21,13 +21,13 @@ export async function POST(request) {
         capacity,
         price,
         description,
-        features: featuresArray, // Saved as an array of strings
+        features: formattedFeatures,
       },
     });
 
     return NextResponse.json(newPackage, { status: 201 });
   } catch (error) {
-    console.error("API Error:", error);
+    console.error("Prisma Creation Error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
