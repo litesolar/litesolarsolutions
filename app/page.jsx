@@ -80,12 +80,12 @@ export default function LandingPage() {
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.5rem', backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb', position: 'sticky', top: 0, zIndex: 1000, boxShadow: '0 2px 10px rgba(0,0,0,0.03)' }}>
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          {/* Shop By Department Toggle Button */}
+          {/* Store Toggle Button */}
           <button 
             onClick={() => setShowDepartments(!showDepartments)}
             style={{ backgroundColor: '#dc2626', color: '#fff', border: 'none', padding: '0.6rem 1rem', borderRadius: '0.4rem', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
           >
-            <span>☰</span> Shop By Department {showDepartments ? '▲' : '▼'}
+            <span>🏪</span> Store {showDepartments ? '▲' : '▼'}
           </button>
 
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}>
@@ -108,12 +108,12 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* DROPDOWN DEPARTMENT SIDEBAR / MENU */}
+      {/* DROPDOWN STORE DEPARTMENTS MENU (Only shows when toggled) */}
       {showDepartments && (
         <div style={{ backgroundColor: '#b91c1c', color: '#ffffff', padding: '1.5rem', borderBottom: '2px solid #991b1b', boxShadow: '0 10px 25px rgba(0,0,0,0.15)', zIndex: 999, position: 'relative' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h3 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '1rem', letterSpacing: '1px', textTransform: 'uppercase', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '0.5rem' }}>
-              Product Departments
+              Store Departments
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '0.75rem' }}>
               {departmentsList.map((dept, idx) => (
@@ -180,14 +180,18 @@ export default function LandingPage() {
             </ul>
           </div>
 
-          {/* Category Card 2 */}
+          {/* Category Card 2 (Updated with new inverters) */}
           <div style={{ backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '1rem', borderBottom: '2px solid #1e3a8a', paddingBottom: '0.4rem' }}>⚡ Hybrid Inverters</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem', color: '#4b5563', fontSize: '0.9rem' }}>
+              <li>▪ Deye Hybrid Inverters</li>
+              <li>▪ Fireman Inverter</li>
+              <li>▪ Kartel Inverter</li>
+              <li>▪ Sako Inverter</li>
+              <li>▪ Growatt Inverters</li>
               <li>▪ 10kW/48V Hybrid Inverter</li>
               <li>▪ Axpert King 5KVA Hybrid</li>
               <li>▪ Axpert MAX Twin 8KVA</li>
-              <li>▪ 5kW/48V MKS Par B Inverter</li>
               <li>▪ 1.2KVA/720W/12V Lobo Inverter</li>
             </ul>
           </div>
@@ -294,7 +298,7 @@ export default function LandingPage() {
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#ffffff', padding: '0.75rem 1rem', borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}>
-            <span>🧺 Washing Machine (800W)</span>
+            <span>🧺 Washing Machine (400W)</span>
             <input 
               type="number" 
               min="0" 
@@ -316,7 +320,7 @@ export default function LandingPage() {
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#ffffff', padding: '0.75rem 1rem', borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}>
-            <span> irons/Pressing Iron (1000W)</span>
+            <span>iron / Pressing Iron (1000W)</span>
             <input 
               type="number" 
               min="0" 
