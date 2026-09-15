@@ -4,6 +4,7 @@ import Link from 'next/link';
 import PackageList from './components/PackageList';
 
 export default function LandingPage() {
+  const [showDepartments, setShowDepartments] = useState(false);
   const [appliances, setAppliances] = useState({
     tv: 1,
     fans: 2,
@@ -27,14 +28,14 @@ export default function LandingPage() {
       appliances.iron * 1000;
 
     let recommended = "1.5KVA Starter Pack";
-    let price = "₦450,000";
+    let price = "₦1,000,000";
 
     if (totalWatts > 800 && totalWatts <= 2000) {
       recommended = "3.5KVA Standard Home Pack";
-      price = "₦980,000";
+      price = "₦2,500,000";
     } else if (totalWatts > 2000) {
       recommended = "5KVA / 10KVA Executive Mansion Pack";
-      price = "₦2,200,000+";
+      price = "₦5,200,000+";
     }
 
     return { totalWatts, recommended, price };
@@ -42,31 +43,88 @@ export default function LandingPage() {
 
   const result = calculateLoad();
 
+  const departmentsList = [
+    "Solar Panels",
+    "Kartel Inverters",
+    "Fireman inverters",
+    "Sako inverters",
+    "Deye inverters"
+    "Growatt Inverters",
+    "Lithium Batteries",
+    "Tubular & AGM Batteries",
+    "MPPT Solar Chargers",
+    "Solar Street Lights",
+    "Rechargeable Solar Fans",
+    "LED Bulbs & Lighting",
+    "Surge Arrestors",
+    "Solar Installation Accessories",
+    "MC4 Connectors & Cables",
+    "Battery Racks & Cabinets"
+  ];
+
   return (
     <div style={{ backgroundColor: '#ffffff', color: '#111827', minHeight: '100vh', fontFamily: 'sans-serif', paddingBottom: '5rem' }}>
       
       {/* Top Accent Strip */}
       <div style={{ height: '5px', background: 'linear-gradient(90deg, #1e3a8a 0%, #1e3a8a 50%, #dc2626 85%, #ef4444 100%)', width: '100%' }}></div>
 
-      {/* HEADER / NAVBAR */}
+      {/* TOP UTILITY BAR (HOTLINE & LOG IN) */}
+      <div style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.4rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8rem', fontWeight: 'bold' }}>
+        <div>📞 Hotline: <a href="tel:08179464060" style={{ color: '#fff', textDecoration: 'underline' }}>08179464060</a></div>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <span>⚡ Nationwide Delivery & Installation</span>
+        </div>
+      </div>
+
+      {/* MAIN HEADER / NAVBAR */}
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.5rem', backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb', position: 'sticky', top: 0, zIndex: 1000, boxShadow: '0 2px 10px rgba(0,0,0,0.03)' }}>
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}>
-          <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#1e3a8a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', color: '#fff', fontSize: '1.1rem', flexShrink: 0 }}>
-            ⚡
-          </div>
-          <div style={{ lineHeight: '1.2' }}>
-            <span style={{ fontSize: '0.95rem', fontWeight: '900', letterSpacing: '0.5px', color: '#1e3a8a', display: 'block' }}>LITESOLAR</span>
-            <span style={{ fontSize: '0.55rem', fontWeight: '700', letterSpacing: '1.2px', color: '#dc2626', display: 'block' }}>SOLUTIONS</span>
-          </div>
-        </Link>
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          {/* Shop By Department Toggle Button */}
+          <button 
+            onClick={() => setShowDepartments(!showDepartments)}
+            style={{ backgroundColor: '#dc2626', color: '#fff', border: 'none', padding: '0.6rem 1rem', borderRadius: '0.4rem', fontWeight: 'bold', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+          >
+            <span>☰</span> Shop By Department {showDepartments ? '▲' : '▼'}
+          </button>
+
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#1e3a8a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', color: '#fff', fontSize: '1.1rem', flexShrink: 0 }}>
+              ⚡
+            </div>
+            <div style={{ lineHeight: '1.2' }}>
+              <span style={{ fontSize: '0.95rem', fontWeight: '900', letterSpacing: '0.5px', color: '#1e3a8a', display: 'block' }}>LITESOLAR</span>
+              <span style={{ fontSize: '0.55rem', fontWeight: '700', letterSpacing: '1.2px', color: '#dc2626', display: 'block' }}>SOLUTIONS</span>
+            </div>
+          </Link>
+        </div>
 
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <Link href="#packages" style={{ color: '#4b5563', textDecoration: 'none', fontSize: '0.9rem', fontWeight: '600' }}>Packages</Link>
+          <Link href="#catalog" style={{ color: '#4b5563', textDecoration: 'none', fontSize: '0.9rem', fontWeight: '600' }}>Catalog</Link>
           <Link href="#calculator" style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.5rem 1.1rem', borderRadius: '2rem', textDecoration: 'none', fontSize: '0.85rem', fontWeight: '700', boxShadow: '0 4px 12px rgba(220, 38, 38, 0.3)' }}>
             Get a Quote
           </Link>
         </div>
       </header>
+
+      {/* DROPDOWN DEPARTMENT SIDEBAR / MENU */}
+      {showDepartments && (
+        <div style={{ backgroundColor: '#b91c1c', color: '#ffffff', padding: '1.5rem', borderBottom: '2px solid #991b1b', boxShadow: '0 10px 25px rgba(0,0,0,0.15)', zIndex: 999, position: 'relative' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <h3 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '1rem', letterSpacing: '1px', textTransform: 'uppercase', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '0.5rem' }}>
+              Product Departments
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '0.75rem' }}>
+              {departmentsList.map((dept, idx) => (
+                <Link key={idx} href="#catalog" onClick={() => setShowDepartments(false)} style={{ color: '#fff', textDecoration: 'none', fontSize: '0.9rem', padding: '0.4rem 0.6rem', borderRadius: '4px', backgroundColor: 'rgba(0,0,0,0.1)', display: 'block', transition: 'background 0.2s' }}>
+                  ▪ {dept}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* HERO SECTION */}
       <section style={{ 
@@ -95,28 +153,76 @@ export default function LandingPage() {
             <Link href="#calculator" style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.85rem 1.75rem', borderRadius: '0.5rem', fontWeight: 'bold', textDecoration: 'none', boxShadow: '0 4px 14px rgba(220, 38, 38, 0.3)' }}>
               Request Consultation →
             </Link>
-            <Link href="#packages" style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '0.85rem 1.75rem', borderRadius: '0.5rem', fontWeight: 'bold', textDecoration: 'none', boxShadow: '0 4px 14px rgba(30, 58, 138, 0.3)' }}>
-              View Power Packages
+            <Link href="#catalog" style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '0.85rem 1.75rem', borderRadius: '0.5rem', fontWeight: 'bold', textDecoration: 'none', boxShadow: '0 4px 14px rgba(30, 58, 138, 0.3)' }}>
+              Explore Shop Catalog
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ABOUT US / MISSION */}
-      <section style={{ maxWidth: '800px', margin: '0 auto', padding: '3.5rem 1.5rem 2rem 1.5rem' }}>
-        <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#1e3a8a', letterSpacing: '1.5px', marginBottom: '0.5rem' }}>
-          ABOUT US
+      {/* FULL SHOP CATALOG SECTION (MIMICKING STOREFRONT) */}
+      <section id="catalog" style={{ maxWidth: '1200px', margin: '3.5rem auto 3rem auto', padding: '0 1.5rem' }}>
+        <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#dc2626', letterSpacing: '1.5px', marginBottom: '0.5rem' }}>
+          FULL SHOP CATALOG
         </div>
-        <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '1rem', color: '#111827' }}>Our Mission</h2>
-        <p style={{ color: '#4b5563', fontSize: '0.95rem', lineHeight: '1.7' }}>
-          Our mission as a premier Solar Utility provider is simply <strong style={{ color: '#111827' }}>solar electricity for everyone!</strong> By eliminating friction, high fuel costs, and unreliable grid fragmentation in the residential and commercial marketplace.
-        </p>
+        <h2 style={{ fontSize: '2rem', fontWeight: '900', marginBottom: '1.5rem', color: '#111827' }}>Browse Our Solar Storefront</h2>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+          
+          {/* Category Card 1 */}
+          <div style={{ backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '1rem', borderBottom: '2px solid #1e3a8a', paddingBottom: '0.4rem' }}>☀️ Solar Panels</h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem', color: '#4b5563', fontSize: '0.9rem' }}>
+              <li>▪ 725 Watts Jinko Solar Panel</li>
+              <li>▪ 720 Watts Jinko Solar Panel</li>
+              <li>▪ 620 Watts Jinko Solar Panel</li>
+              <li>▪ 625 Watts Monocrystalline Panel</li>
+            </ul>
+          </div>
+
+          {/* Category Card 2 */}
+          <div style={{ backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '1rem', borderBottom: '2px solid #1e3a8a', paddingBottom: '0.4rem' }}>⚡ Hybrid Inverters</h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem', color: '#4b5563', fontSize: '0.9rem' }}>
+              <li>▪ 10kW/48V Hybrid Inverter</li>
+              <li>▪ Axpert King 5KVA Hybrid</li>
+              <li>▪ Axpert MAX Twin 8KVA</li>
+              <li>▪ 5kW/48V MKS Par B Inverter</li>
+              <li>▪ 1.2KVA/720W/12V Lobo Inverter</li>
+            </ul>
+          </div>
+
+          {/* Category Card 3 */}
+          <div style={{ backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '1rem', borderBottom: '2px solid #1e3a8a', paddingBottom: '0.4rem' }}>🔋 Batteries & UPS</h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem', color: '#4b5563', fontSize: '0.9rem' }}>
+              <li>▪ Newmax AGM Solar Battery</li>
+              <li>▪ Lithium-ion Battery Banks</li>
+              <li>▪ MPPT Solar Charge Controllers</li>
+              <li>▪ 3kva & 6kva Online UPS</li>
+              <li>▪ Multi-Functional Power Gateway</li>
+            </ul>
+          </div>
+
+          {/* Category Card 4 */}
+          <div style={{ backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '1rem', borderBottom: '2px solid #1e3a8a', paddingBottom: '0.4rem' }}>🌀 Fans, Lighting & Accessories</h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem', color: '#4b5563', fontSize: '0.9rem' }}>
+              <li>▪ 18 Inches Rechargeable Solar Fan</li>
+              <li>▪ 16” 120cm Height Solar Fan</li>
+              <li>▪ High-Output LED Bulbs</li>
+              <li>▪ DC/AC Surge Arrestors</li>
+              <li>▪ MC4 Connectors & Mounting Rails</li>
+            </ul>
+          </div>
+
+        </div>
       </section>
 
       {/* LIVE DATABASE PACKAGES SECTION */}
       <section id="packages" style={{ maxWidth: '1200px', margin: '0 auto 3rem auto', padding: '0 1.5rem' }}>
         <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#1e3a8a', letterSpacing: '1.5px', marginBottom: '0.5rem' }}>
-          CATALOG
+          BUNDLE PACKAGES
         </div>
         <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '1.5rem', color: '#111827' }}>Available Solar Packages</h2>
         <PackageList />
@@ -250,9 +356,9 @@ export default function LandingPage() {
           <span style={{ fontSize: '1.2rem' }}>⚡</span>
           <span>Home</span>
         </Link>
-        <Link href="#packages" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#4b5563', textDecoration: 'none', fontSize: '0.7rem', gap: '0.2rem' }}>
-          <span style={{ fontSize: '1.2rem' }}>📦</span>
-          <span>Packages</span>
+        <Link href="#catalog" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#4b5563', textDecoration: 'none', fontSize: '0.7rem', gap: '0.2rem' }}>
+          <span style={{ fontSize: '1.2rem' }}>📂</span>
+          <span>Catalog</span>
         </Link>
         <Link href="#calculator" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#4b5563', textDecoration: 'none', fontSize: '0.7rem', gap: '0.2rem' }}>
           <span style={{ fontSize: '1.2rem' }}>🧮</span>
