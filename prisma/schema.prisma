@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")://postgres:[Facility@12%&12]@db.vjlsfsqpzuzvaxulahqo.supabase.co:5432/postgres")
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -13,6 +13,7 @@ model Package {
   capacity    String
   price       String
   description String
+  image url   string
   features    String[]
   createdAt   DateTime @default(now())
 }
