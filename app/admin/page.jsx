@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [passcode, setPasscode] = useState('');
+  const [passcode, litesolar2026] = useState('');
   const [form, setForm] = useState({
     title: '',
     capacity: '',
