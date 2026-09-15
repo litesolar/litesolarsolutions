@@ -1,0 +1,18 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("postgresql://postgres:[YOUR-PASSWORD]@db.vjlsfsqpzuzvaxulahqo.supabase.co:5432/postgres")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Package {
+  id          String   @id @default(cuid())
+  title       String
+  capacity    String
+  price       String
+  description String
+  features    String[]
+  createdAt   DateTime @default(now())
+}
