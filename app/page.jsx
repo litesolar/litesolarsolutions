@@ -56,7 +56,7 @@ export default function StoreApp() {
         <div>
           Join our <Link href="#" style={{ color: '#fff', textDecoration: 'underline' }}>distributorship</Link> program or <Link href="#" style={{ color: '#fff', textDecoration: 'underline' }}>locate</Link> a distributor closest to you
         </div>
-        <div>
+        <div style={{ display: 'flex', gap: '1rem' }}>
           <span>SOLAR PROJECTS | ABOUT US | FREE SOLAR QUOTE</span>
         </div>
       </div>
@@ -66,6 +66,7 @@ export default function StoreApp() {
         <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            {/* THE STORE BUTTON: Toggles the comprehensive mega-menu drawer */}
             <button 
               onClick={() => setShowStoreMegaMenu(!showStoreMegaMenu)}
               style={{ backgroundColor: '#111827', color: '#fff', border: 'none', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', fontWeight: 'bold', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem', boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}
@@ -117,45 +118,59 @@ export default function StoreApp() {
         </nav>
       </header>
 
-      {/* THE STORE LAYOUT DRAWER */}
+      {/* ========================================================= */}
+      {/* THE STORE LAYOUT DRAWER (Hidden by default, opens on Store click) */}
+      {/* ========================================================= */}
       {showStoreMegaMenu && (
-        <div style={{ backgroundColor: '#991b1b', color: '#ffffff', padding: '1.25rem 1rem', borderBottom: '3px solid #7f1d1d', boxShadow: '0 10px 30px rgba(0,0,0,0.25)', zIndex: 999, position: 'relative' }}>
+        <div style={{ backgroundColor: '#991b1b', color: '#ffffff', padding: '1.5rem 1rem', borderBottom: '3px solid #7f1d1d', boxShadow: '0 10px 30px rgba(0,0,0,0.25)', zIndex: 999, position: 'relative' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '0.5rem' }}>
+            {/* Drawer Header & Controls */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '0.75rem' }}>
               <div style={{ fontSize: '0.9rem', fontWeight: '900', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                🏪 Gennex / Litesolar Storefront Layout
+                🏪 Gennex / Litesolar Comprehensive Storefront Layout
               </div>
               <button 
                 onClick={() => setShowStoreMegaMenu(false)} 
-                style={{ backgroundColor: '#111827', color: '#fff', border: 'none', padding: '0.3rem 0.6rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}
+                style={{ backgroundColor: '#111827', color: '#fff', border: 'none', padding: '0.4rem 0.8rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}
               >
                 Close [✕]
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-              <div style={{ gridColumn: 'span 2', backgroundColor: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '0.5rem' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#fca5a5', marginBottom: '0.5rem', letterSpacing: '1px' }}>ALL STORE DEPARTMENTS</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '0.5rem' }}>
-                  {["Solar Panels", "Deye Inverters", "Fireman Inverter", "Kartel Inverter", "Sako Inverter", "Growatt Inverters", "Lithium Batteries", "Rechargeable Fans", "MPPT Chargers", "LED Lighting"].map((item, i) => (
-                    <Link key={i} href="#catalog" onClick={() => setShowStoreMegaMenu(false)} style={{ color: '#fff', textDecoration: 'none', fontSize: '0.75rem', padding: '0.35rem', backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '3px', display: 'block' }}>
+            {/* Detailed Store Layout Grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+              
+              {/* Departments Section */}
+              <div style={{ gridColumn: 'span 2', backgroundColor: 'rgba(0,0,0,0.25)', padding: '1.2rem', borderRadius: '0.5rem' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#fca5a5', marginBottom: '0.75rem', letterSpacing: '1px' }}>ALL STORE DEPARTMENTS & CATALOG</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '0.6rem' }}>
+                  {[
+                    "Solar Panels", "Deye Inverters", "Fireman Inverter", "Kartel Inverter", 
+                    "Sako Inverter", "Growatt Inverters", "Lithium Batteries", "Tubular Batteries", 
+                    "Rechargeable Fans", "MPPT Chargers", "LED Lighting", "Solar Water Pumps"
+                  ].map((item, i) => (
+                    <Link key={i} href="#catalog" onClick={() => setShowStoreMegaMenu(false)} style={{ color: '#fff', textDecoration: 'none', fontSize: '0.75rem', padding: '0.45rem', backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '4px', display: 'block', transition: 'background 0.2s' }}>
                       ▪ {item}
                     </Link>
                   ))}
                 </div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <div style={{ backgroundColor: '#7f1d1d', padding: '0.85rem', borderRadius: '0.5rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.2)' }}>
-                  <div style={{ fontSize: '0.7rem', fontWeight: '900', marginBottom: '0.2rem' }}>RECHARGEABLE FANS WITH SOLAR</div>
-                  <div style={{ fontSize: '1.5rem' }}>🌀</div>
+              {/* Spotlight & Pay-Later Column */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{ backgroundColor: '#7f1d1d', padding: '1rem', borderRadius: '0.5rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.2)' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: '900', marginBottom: '0.3rem' }}>RECHARGEABLE FANS WITH SOLAR</div>
+                  <div style={{ fontSize: '1.8rem', margin: '0.3rem 0' }}>🌀</div>
+                  <span style={{ fontSize: '0.65rem', color: '#fca5a5', textTransform: 'uppercase', fontWeight: '700' }}>High Airflow & Long Battery Life</span>
                 </div>
-                <div style={{ backgroundColor: '#0f172a', padding: '0.85rem', borderRadius: '0.5rem', color: '#fff' }}>
-                  <div style={{ fontSize: '0.7rem', fontWeight: '900', color: '#38bdf8', marginBottom: '0.2rem' }}>PAY-LATER PACKAGES</div>
-                  <p style={{ fontSize: '0.65rem', color: '#94a3b8', margin: 0 }}>Get 1.2KVA to 20KVA systems with up to 12 months payment plan.</p>
+                
+                <div style={{ backgroundColor: '#0f172a', padding: '1rem', borderRadius: '0.5rem', color: '#fff', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: '900', color: '#38bdf8', marginBottom: '0.3rem' }}>PAY-LATER BUNDLE PACKAGES</div>
+                  <p style={{ fontSize: '0.7rem', color: '#94a3b8', margin: 0, lineHeight: '1.4' }}>Get complete 1.2KVA to 20KVA systems installed with up to 12 months flexible payment plans.</p>
                 </div>
               </div>
+
             </div>
 
           </div>
@@ -186,14 +201,14 @@ export default function StoreApp() {
       </section>
 
       {/* LOAD CALCULATOR */}
-      <section id="calculator" style={{ maxWidth: '800px', margin: '2rem auto', padding: '1.5rem 1rem', backgroundColor: '#ffffff', border: '1px solid #e5e7eb', borderRadius: '1rem' }}>
+      <section id="calculator" style={{ maxWidth: '800px', margin: '2rem auto', padding: '1.5rem 1rem', backgroundColor: '#ffffff', border: '1px solid #e5e7eb', borderRadius: '1rem', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
         <div style={{ fontSize: '0.7rem', fontWeight: '800', color: '#dc2626', letterSpacing: '1.5px', marginBottom: '0.4rem' }}>
           🧮 INSTANT SYSTEM SIZER
         </div>
         <h2 style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '0.4rem', color: '#111827' }}>Calculate What You Need</h2>
         <p style={{ color: '#4b5563', fontSize: '0.8rem', marginBottom: '1rem' }}>Select appliances to estimate your solar package:</p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.5rem', marginBottom: '1.25rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.6rem', marginBottom: '1.25rem' }}>
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
             <span>📺 TV (100W)</span>
@@ -231,7 +246,7 @@ export default function StoreApp() {
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
-            <span> irons Iron (1000W)</span>
+            <span>🔌 Iron (1000W)</span>
             <input type="number" min="0" value={appliances.iron} onChange={(e) => setAppliances({...appliances, iron: parseInt(e.target.value) || 0})} style={{ width: '50px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold' }} />
           </div>
 
