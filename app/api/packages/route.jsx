@@ -10,7 +10,7 @@ export async function POST(request) {
     const body = await request.json();
     const { title, capacity, price, description, features } = body;
 
-    // Turn comma-separated features text into a clean list for the database
+    // Turn comma-separated features text into a clean array for the database
     const formattedFeatures = typeof features === 'string' 
       ? features.split(',').map(item => item.trim()).filter(Boolean)
       : [];
