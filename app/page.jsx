@@ -44,30 +44,18 @@ export default function HomePage() {
   return (
     <div style={{ backgroundColor: '#ffffff', color: '#111827', minHeight: '100vh', fontFamily: 'sans-serif', paddingBottom: '6rem' }}>
       
-      {/* TOP ANNOUNCEMENT BAR (Distributorship removed & Spaced out) */}
+      {/* TOP ANNOUNCEMENT BAR (Socials Removed) */}
       <div style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.5rem 1rem', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontSize: '0.7rem', fontWeight: 'bold' }}>
-        <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
           <Link href="/projects" style={{ color: '#fff', textDecoration: 'none' }}>SOLAR PROJECTS</Link>
           <span>|</span>
           <Link href="/about" style={{ color: '#fff', textDecoration: 'none' }}>ABOUT US</Link>
-          <span>|</span>
-          <a href="https://instagram.com/litesolarsolutions" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            {/* Instagram SVG Icon */}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            @litesolarsolutions
-          </a>
-          <span>|</span>
-          <a href="https://tiktok.com/@litesolarenergy" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            {/* TikTok SVG Icon */}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-            @litesolarenergy
-          </a>
         </div>
       </div>
 
-      {/* CLEAN STICKY HEADER (Spacious & Relaxed) */}
+      {/* CLEAN STICKY HEADER (Navigation links moved to bottom) */}
       <header style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '0.8rem 1.25rem', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', position: 'sticky', top: 0, zIndex: 1000 }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <Link 
@@ -86,24 +74,6 @@ export default function HomePage() {
                 <span style={{ fontSize: '0.5rem', fontWeight: '700', letterSpacing: '0.5px', opacity: 0.9, display: 'block' }}>TECHNOLOGIES</span>
               </div>
             </Link>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
-            <Link href="/system-finder" style={{ color: '#fff', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 'bold' }}>
-              System Finder
-            </Link>
-            <Link href="/projects" style={{ color: '#fff', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 'bold' }}>
-              Projects
-            </Link>
-            <Link href="/faq" style={{ color: '#fff', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 'bold' }}>
-              FAQ
-            </Link>
-            <Link href="/contact" style={{ color: '#fff', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 'bold' }}>
-              Contact
-            </Link>
-            <a href="tel:07030671806" style={{ color: '#fff', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 'bold', backgroundColor: 'rgba(255,255,255,0.1)', padding: '0.4rem 0.75rem', borderRadius: '0.35rem' }}>
-              📞 07030671806
-            </a>
           </div>
 
         </div>
@@ -228,13 +198,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CONTACT US & SOCIAL HANDLES */}
+      {/* CONTACT US, NAVIGATION, & SOCIAL HANDLES ON A VERTICAL LINE */}
       <section style={{ maxWidth: '850px', margin: '2.5rem auto', padding: '2rem 1.5rem', backgroundColor: '#1e3a8a', color: '#ffffff', borderRadius: '0.75rem', textAlign: 'center' }}>
         <div style={{ fontSize: '0.7rem', fontWeight: '800', color: '#f87171', letterSpacing: '1px', marginBottom: '0.3rem' }}>🤝 GET IN TOUCH</div>
         <h2 style={{ fontSize: '1.35rem', fontWeight: '900', marginBottom: '0.6rem' }}>Contact Litesolar Technologies</h2>
         <p style={{ fontSize: '0.8rem', opacity: 0.9, marginBottom: '1.5rem' }}>Have questions about a system or need an inspection? Reach out to us directly:</p>
         
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '1.5rem', fontSize: '0.8rem' }}>
+        {/* Quick Action Buttons */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '1.75rem', fontSize: '0.8rem' }}>
           <a href="tel:07030671806" style={{ backgroundColor: '#fff', color: '#1e3a8a', padding: '0.6rem 1.25rem', borderRadius: '0.4rem', textDecoration: 'none', fontWeight: 'bold' }}>
             📞 Phone: 07030671806
           </a>
@@ -243,15 +214,30 @@ export default function HomePage() {
           </a>
         </div>
 
-        {/* Social Handles with Real Brand SVGs */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)', paddingTop: '1.25rem', display: 'flex', justifyContent: 'center', gap: '2rem', fontSize: '0.8rem', flexWrap: 'wrap' }}>
-          <a href="https://instagram.com/litesolarsolutions" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            Instagram: <strong>@litesolarsolutions</strong>
+        {/* Vertical Stack for Links and Socials */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)', paddingTop: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.85rem', fontSize: '0.85rem' }}>
+          <Link href="/system-finder" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>
+            System Finder
+          </Link>
+          <Link href="/projects" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>
+            Projects
+          </Link>
+          <Link href="/faq" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>
+            FAQ
+          </Link>
+          <Link href="/contact" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>
+            Contact
+          </Link>
+          <a href="tel:07030671806" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>
+            Phone: 07030671806
           </a>
-          <a href="https://tiktok.com/@litesolarenergy" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+          <a href="https://instagram.com/litesolarsolutions" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 'bold' }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            Instagram: @litesolarsolutions
+          </a>
+          <a href="https://tiktok.com/@litesolarenergy" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 'bold' }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-            TikTok: <strong>@litesolarenergy</strong>
+            TikTok: @litesolarenergy
           </a>
         </div>
       </section>
