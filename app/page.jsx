@@ -12,9 +12,9 @@ export default function StoreApp() {
     fridge: 0,
     ac: 0,
     lights: 4,
-    washingMachine: 1,
+    washingMachine: 0,
     pumpingMachine: 0,
-    iron: 2,
+    iron: 1,
   });
 
   const calculateLoad = () => {
@@ -51,12 +51,12 @@ export default function StoreApp() {
   return (
     <div style={{ backgroundColor: '#f3f4f6', color: '#111827', minHeight: '100vh', fontFamily: 'sans-serif', paddingBottom: '6rem', overflowX: 'hidden' }}>
       
-      {/* TOP ANNOUNCEMENT BAR (From your shared design) */}
+      {/* TOP ANNOUNCEMENT BAR */}
       <div style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.4rem 1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.7rem', fontWeight: 'bold' }}>
         <div>
           Join our <Link href="#" style={{ color: '#fff', textDecoration: 'underline' }}>distributorship</Link> program or <Link href="#" style={{ color: '#fff', textDecoration: 'underline' }}>locate</Link> a distributor closest to you
         </div>
-        <div style={{ display: { xs: 'none', md: 'flex' }, gap: '1rem' }}>
+        <div>
           <span>SOLAR PROJECTS | ABOUT US | FREE SOLAR QUOTE</span>
         </div>
       </div>
@@ -66,7 +66,6 @@ export default function StoreApp() {
         <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            {/* THE STORE BUTTON: Toggling this opens your detailed store layout drawer */}
             <button 
               onClick={() => setShowStoreMegaMenu(!showStoreMegaMenu)}
               style={{ backgroundColor: '#111827', color: '#fff', border: 'none', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', fontWeight: 'bold', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem', boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}
@@ -118,14 +117,11 @@ export default function StoreApp() {
         </nav>
       </header>
 
-      {/* ========================================================= */}
-      {/* THE STORE LAYOUT DRAWER (Appears when Store button is clicked) */}
-      {/* ========================================================= */}
+      {/* THE STORE LAYOUT DRAWER */}
       {showStoreMegaMenu && (
         <div style={{ backgroundColor: '#991b1b', color: '#ffffff', padding: '1.25rem 1rem', borderBottom: '3px solid #7f1d1d', boxShadow: '0 10px 30px rgba(0,0,0,0.25)', zIndex: 999, position: 'relative' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             
-            {/* Drawer Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '0.5rem' }}>
               <div style={{ fontSize: '0.9rem', fontWeight: '900', letterSpacing: '1px', textTransform: 'uppercase' }}>
                 🏪 Gennex / Litesolar Storefront Layout
@@ -138,10 +134,7 @@ export default function StoreApp() {
               </button>
             </div>
 
-            {/* Replicating the 3-Column Professional Store Layout from your screenshot */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-              
-              {/* Column 1 & 2: Main Departments Grid */}
               <div style={{ gridColumn: 'span 2', backgroundColor: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '0.5rem' }}>
                 <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#fca5a5', marginBottom: '0.5rem', letterSpacing: '1px' }}>ALL STORE DEPARTMENTS</div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '0.5rem' }}>
@@ -153,7 +146,6 @@ export default function StoreApp() {
                 </div>
               </div>
 
-              {/* Column 3: Featured Spotlight & Pay-Later Banner */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 <div style={{ backgroundColor: '#7f1d1d', padding: '0.85rem', borderRadius: '0.5rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.2)' }}>
                   <div style={{ fontSize: '0.7rem', fontWeight: '900', marginBottom: '0.2rem' }}>RECHARGEABLE FANS WITH SOLAR</div>
@@ -164,7 +156,6 @@ export default function StoreApp() {
                   <p style={{ fontSize: '0.65rem', color: '#94a3b8', margin: 0 }}>Get 1.2KVA to 20KVA systems with up to 12 months payment plan.</p>
                 </div>
               </div>
-
             </div>
 
           </div>
@@ -202,250 +193,48 @@ export default function StoreApp() {
         <h2 style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '0.4rem', color: '#111827' }}>Calculate What You Need</h2>
         <p style={{ color: '#4b5563', fontSize: '0.8rem', marginBottom: '1rem' }}>Select appliances to estimate your solar package:</p>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1.25rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
-            <span>📺 Television (100W)</span>
-            <input type="number" min="0" value={appliances.tv} onChange={(e) => setAppliances({...appliances, tv: parseInt(e.target.value) || 0})} style={{ width: '50px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold' }} />
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
-            <span>🌀 Ceiling Fans (75W)</span>
-            <input type="number" min="0" value={appliances.fans} onChange={(e) => setAppliances({...appliances, fans: parseInt(e.target.value) || 0})} style={{ width: '50px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold' }} />
-          </div>
-        </div>
-
-        <div style={{ backgroundColor: '#f3f4f6', padding: '1rem', borderRadius: '0.5rem', border: '2px solid #1e3a8a', textAlign: 'center' }}>
-          <div style={{ fontSize: '0.75rem', color: '#4b5563' }}>Estimated Load: <strong>{result.totalWatts} Watts</strong></div>
-          <div style={{ fontSize: '0.95rem', fontWeight: '900', color: '#1e3a8a', margin: '0.2rem 0' }}>Recommended: {result.recommended}</div>
-          <div style={{ fontSize: '1.1rem', fontWeight: '900', color: '#dc2626' }}>From {result.price}</div>
-        </div>
-      </section>
-
-      {/* WHATSAPP FLOATING BUTTON */}
-      <a 
-        href="https://wa.me/2347030671806" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', backgroundColor: '#25D366', color: '#fff', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', boxShadow: '0 4px 15px rgba(37, 211, 102, 0.4)', zIndex: 1100, textDecoration: 'none' }}
-        title="Chat on WhatsApp"
-      >
-        💬
-      </a>
-
-    </div>
-  );
-}'use client';
-import { useState } from 'react';
-import Link from 'next/link';
-
-export default function StoreApp() {
-  const [showStoreMegaMenu, setShowStoreMegaMenu] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  
-  const [appliances, setAppliances] = useState({
-    tv: 1,
-    fans: 2,
-    fridge: 0,
-    ac: 0,
-    lights: 4,
-    washingMachine: 1,
-    pumpingMachine: 0,
-    iron: 2,
-  });
-
-  const calculateLoad = () => {
-    let totalWatts = 
-      appliances.tv * 100 + 
-      appliances.fans * 75 + 
-      appliances.fridge * 200 + 
-      appliances.ac * 1500 + 
-      appliances.lights * 20 +
-      appliances.washingMachine * 800 +
-      appliances.pumpingMachine * 1100 +
-      appliances.iron * 1000;
-
-    let recommended = "1.5KVA Starter Pack";
-    let price = "₦1,000,000";
-
-    if (totalWatts > 800 && totalWatts <= 2000) {
-      recommended = "3.5KVA Standard Home Pack";
-      price = "₦2,500,000";
-    } else if (totalWatts > 2000) {
-      recommended = "5KVA / 10KVA Executive Mansion Pack";
-      price = "₦5,200,000+";
-    }
-
-    return { totalWatts, recommended, price };
-  };
-
-  const result = calculateLoad();
-
-  const storeCategories = [
-    "PANELS", "INVERTERS", "BATTERIES", "MPPTS", "SOLAR GENERATORS", "FANS", "OTHERS"
-  ];
-
-  return (
-    <div style={{ backgroundColor: '#f3f4f6', color: '#111827', minHeight: '100vh', fontFamily: 'sans-serif', paddingBottom: '6rem', overflowX: 'hidden' }}>
-      
-      {/* TOP ANNOUNCEMENT BAR (From your shared design) */}
-      <div style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.4rem 1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.7rem', fontWeight: 'bold' }}>
-        <div>
-          Join our <Link href="#" style={{ color: '#fff', textDecoration: 'underline' }}>distributorship</Link> program or <Link href="#" style={{ color: '#fff', textDecoration: 'underline' }}>locate</Link> a distributor closest to you
-        </div>
-        <div style={{ display: { xs: 'none', md: 'flex' }, gap: '1rem' }}>
-          <span>SOLAR PROJECTS | ABOUT US | FREE SOLAR QUOTE</span>
-        </div>
-      </div>
-
-      {/* MAIN COMPACT HEADER */}
-      <header style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.75rem 1rem', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', position: 'sticky', top: 0, zIndex: 1000 }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.5rem', marginBottom: '1.25rem' }}>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            {/* THE STORE BUTTON: Toggling this opens your detailed store layout drawer */}
-            <button 
-              onClick={() => setShowStoreMegaMenu(!showStoreMegaMenu)}
-              style={{ backgroundColor: '#111827', color: '#fff', border: 'none', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', fontWeight: 'bold', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem', boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}
-            >
-              <span>🏪</span> Store {showStoreMegaMenu ? '▲' : '▼'}
-            </button>
-
-            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none', color: '#fff' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', color: '#dc2626', fontSize: '1rem', flexShrink: 0 }}>
-                ⚡
-              </div>
-              <div style={{ lineHeight: '1.1' }}>
-                <span style={{ fontSize: '0.8rem', fontWeight: '900', letterSpacing: '0.5px', display: 'block' }}>LITESOLAR</span>
-                <span style={{ fontSize: '0.5rem', fontWeight: '700', letterSpacing: '1px', opacity: 0.9, display: 'block' }}>TECHNOLOGIES</span>
-              </div>
-            </Link>
-          </div>
-
-          {/* Search Bar */}
-          <div style={{ display: 'flex', flex: 1, maxWidth: '400px', backgroundColor: '#fff', borderRadius: '4px', overflow: 'hidden', border: '1px solid #ccc' }}>
-            <input 
-              type="text" 
-              placeholder="I'm shopping for..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{ width: '100%', padding: '0.45rem 0.6rem', border: 'none', outline: 'none', fontSize: '0.8rem', color: '#111827' }}
-            />
-            <button style={{ backgroundColor: '#047857', color: '#fff', border: 'none', padding: '0 0.85rem', fontWeight: 'bold', fontSize: '0.75rem', cursor: 'pointer' }}>
-              SEARCH
-            </button>
-          </div>
-
-          {/* Quick Action Hotline */}
-          <div>
-            <a href="tel:08179464060" style={{ color: '#fff', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-              <span>📞</span> 08179464060
-            </a>
-          </div>
-
-        </div>
-
-        {/* Category Navbar Strip */}
-        <nav style={{ maxWidth: '1400px', margin: '0.5rem auto 0 auto', display: 'flex', gap: '1rem', overflowX: 'auto', paddingBottom: '0.2rem', scrollbarWidth: 'none' }}>
-          {storeCategories.map((cat, idx) => (
-            <Link key={idx} href="#catalog" onClick={() => setShowStoreMegaMenu(true)} style={{ color: '#fff', textDecoration: 'none', fontSize: '0.75rem', fontWeight: '800', whiteSpace: 'nowrap' }}>
-              {cat}
-            </Link>
-          ))}
-        </nav>
-      </header>
-
-      {/* ========================================================= */}
-      {/* THE STORE LAYOUT DRAWER (Appears when Store button is clicked) */}
-      {/* ========================================================= */}
-      {showStoreMegaMenu && (
-        <div style={{ backgroundColor: '#991b1b', color: '#ffffff', padding: '1.25rem 1rem', borderBottom: '3px solid #7f1d1d', boxShadow: '0 10px 30px rgba(0,0,0,0.25)', zIndex: 999, position: 'relative' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            
-            {/* Drawer Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '0.5rem' }}>
-              <div style={{ fontSize: '0.9rem', fontWeight: '900', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                🏪 Gennex / Litesolar Storefront Layout
-              </div>
-              <button 
-                onClick={() => setShowStoreMegaMenu(false)} 
-                style={{ backgroundColor: '#111827', color: '#fff', border: 'none', padding: '0.3rem 0.6rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}
-              >
-                Close [✕]
-              </button>
-            </div>
-
-            {/* Replicating the 3-Column Professional Store Layout from your screenshot */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-              
-              {/* Column 1 & 2: Main Departments Grid */}
-              <div style={{ gridColumn: 'span 2', backgroundColor: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '0.5rem' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#fca5a5', marginBottom: '0.5rem', letterSpacing: '1px' }}>ALL STORE DEPARTMENTS</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '0.5rem' }}>
-                  {["Solar Panels", "Deye Inverters", "Fireman Inverter", "Kartel Inverter", "Sako Inverter", "Growatt Inverters", "Lithium Batteries", "Rechargeable Fans", "MPPT Chargers", "LED Lighting"].map((item, i) => (
-                    <Link key={i} href="#catalog" onClick={() => setShowStoreMegaMenu(false)} style={{ color: '#fff', textDecoration: 'none', fontSize: '0.75rem', padding: '0.35rem', backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '3px', display: 'block' }}>
-                      ▪ {item}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Column 3: Featured Spotlight & Pay-Later Banner */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <div style={{ backgroundColor: '#7f1d1d', padding: '0.85rem', borderRadius: '0.5rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.2)' }}>
-                  <div style={{ fontSize: '0.7rem', fontWeight: '900', marginBottom: '0.2rem' }}>RECHARGEABLE FANS WITH SOLAR</div>
-                  <div style={{ fontSize: '1.5rem' }}>🌀</div>
-                </div>
-                <div style={{ backgroundColor: '#0f172a', padding: '0.85rem', borderRadius: '0.5rem', color: '#fff' }}>
-                  <div style={{ fontSize: '0.7rem', fontWeight: '900', color: '#38bdf8', marginBottom: '0.2rem' }}>PAY-LATER PACKAGES</div>
-                  <p style={{ fontSize: '0.65rem', color: '#94a3b8', margin: 0 }}>Get 1.2KVA to 20KVA systems with up to 12 months payment plan.</p>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      )}
-
-      {/* HERO SECTION */}
-      <section style={{ 
-        padding: '3.5rem 1rem', 
-        backgroundColor: '#0b0f19', 
-        backgroundImage: 'linear-gradient(rgba(11, 15, 25, 0.9), rgba(11, 15, 25, 0.95)), url("https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png")', 
-        backgroundSize: 'cover', 
-        color: '#ffffff',
-        borderBottom: '1px solid #374151'
-      }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-block', backgroundColor: 'rgba(220, 38, 38, 0.25)', color: '#f87171', border: '1px solid rgba(220, 38, 38, 0.4)', padding: '0.3rem 0.75rem', borderRadius: '2rem', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '1px', marginBottom: '1rem' }}>
-            🔥 POWERING A SMARTER TOMORROW
-          </div>
-          <h1 style={{ fontSize: '2rem', fontWeight: '900', lineHeight: '1.2', marginBottom: '1rem', color: '#ffffff' }}>
-            Shop Superior Quality <br />
-            <span style={{ color: '#60a5fa' }}>Solar Products</span> at Best Prices.
-          </h1>
-          <p style={{ fontSize: '0.9rem', color: '#cbd5e1', lineHeight: '1.5', marginBottom: '1.5rem' }}>
-            Click the <strong style={{ color: '#fff' }}>Store</strong> button above anytime to browse full departments, categories, and bundle options.
-          </p>
-        </div>
-      </section>
-
-      {/* LOAD CALCULATOR */}
-      <section id="calculator" style={{ maxWidth: '800px', margin: '2rem auto', padding: '1.5rem 1rem', backgroundColor: '#ffffff', border: '1px solid #e5e7eb', borderRadius: '1rem' }}>
-        <div style={{ fontSize: '0.7rem', fontWeight: '800', color: '#dc2626', letterSpacing: '1.5px', marginBottom: '0.4rem' }}>
-          🧮 INSTANT SYSTEM SIZER
-        </div>
-        <h2 style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '0.4rem', color: '#111827' }}>Calculate What You Need</h2>
-        <p style={{ color: '#4b5563', fontSize: '0.8rem', marginBottom: '1rem' }}>Select appliances to estimate your solar package:</p>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1.25rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
-            <span>📺 Television (100W)</span>
+            <span>📺 TV (100W)</span>
             <input type="number" min="0" value={appliances.tv} onChange={(e) => setAppliances({...appliances, tv: parseInt(e.target.value) || 0})} style={{ width: '50px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold' }} />
           </div>
+
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
-            <span>🌀 Ceiling Fans (75W)</span>
+            <span>🌀 Fans (75W)</span>
             <input type="number" min="0" value={appliances.fans} onChange={(e) => setAppliances({...appliances, fans: parseInt(e.target.value) || 0})} style={{ width: '50px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold' }} />
           </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
+            <span>🧊 Fridge (200W)</span>
+            <input type="number" min="0" value={appliances.fridge} onChange={(e) => setAppliances({...appliances, fridge: parseInt(e.target.value) || 0})} style={{ width: '50px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold' }} />
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
+            <span>❄️ AC (1500W)</span>
+            <input type="number" min="0" value={appliances.ac} onChange={(e) => setAppliances({...appliances, ac: parseInt(e.target.value) || 0})} style={{ width: '50px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold' }} />
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
+            <span>💡 Lights (20W)</span>
+            <input type="number" min="0" value={appliances.lights} onChange={(e) => setAppliances({...appliances, lights: parseInt(e.target.value) || 0})} style={{ width: '50px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold' }} />
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
+            <span>👕 Washer (800W)</span>
+            <input type="number" min="0" value={appliances.washingMachine} onChange={(e) => setAppliances({...appliances, washingMachine: parseInt(e.target.value) || 0})} style={{ width: '50px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold' }} />
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
+            <span>💧 Pump (1100W)</span>
+            <input type="number" min="0" value={appliances.pumpingMachine} onChange={(e) => setAppliances({...appliances, pumpingMachine: parseInt(e.target.value) || 0})} style={{ width: '50px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold' }} />
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', fontSize: '0.85rem' }}>
+            <span> irons Iron (1000W)</span>
+            <input type="number" min="0" value={appliances.iron} onChange={(e) => setAppliances({...appliances, iron: parseInt(e.target.value) || 0})} style={{ width: '50px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold' }} />
+          </div>
+
         </div>
 
         <div style={{ backgroundColor: '#f3f4f6', padding: '1rem', borderRadius: '0.5rem', border: '2px solid #1e3a8a', textAlign: 'center' }}>
