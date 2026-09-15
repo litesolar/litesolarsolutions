@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 const handleSubmit = async (e) => {
   e.preventDefault();
   
