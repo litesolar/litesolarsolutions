@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [passcode, litesolar2026] = useState('');
+  const [passcode, setPasscode] = useState('');
   const [form, setForm] = useState({
     title: '',
     capacity: '',
@@ -14,10 +14,9 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Simple secure passcode check (You can make this more robust later)
   const handleLogin = (e) => {
     e.preventDefault();
-    if (passcode === 'admin123') { // Change this to your preferred passcode
+    if (passcode === 'mykey124') {
       setIsAuthenticated(true);
     } else {
       alert('Incorrect passcode!');
