@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+const globalForPrisma = global;
+const prisma = globalForPrisma.prisma || new PrismaClient();
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// GET: Fetch all packages for your public packages page
+// GET: Fetch all packages
 export async function GET() {
   try {
     const packages = await prisma.package.findMany({
@@ -11,11 +13,11 @@ export async function GET() {
     });
     return NextResponse.json(packages, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch packages' }, { status: 500 });
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
-// POST: Add a new package from your admin dashboard
+// POST: Add a new package
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -27,12 +29,13 @@ export async function POST(request) {
         capacity,
         price,
         description,
-        features: features.split(',').map(f => f.trim()), // Turn comma-separated features into an array
+        features: features ? features.split(',').map(f => f.trim()) : [],
       },
     });
 
     return NextResponse.json(newPackage, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to create package' }, { status: 500 });
+    // This will now send the exact database error to your screen!
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
