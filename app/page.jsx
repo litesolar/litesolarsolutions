@@ -10,9 +10,9 @@ export default function LandingPage() {
     fridge: 0,
     ac: 0,
     lights: 4,
-    washing machine: 1,
-    pumping machine 1,
-    iron 2,
+    washingMachine: 1,
+    pumpingMachine: 0,
+    iron: 2,
   });
 
   const calculateLoad = () => {
@@ -20,22 +20,21 @@ export default function LandingPage() {
       appliances.tv * 100 + 
       appliances.fans * 75 + 
       appliances.fridge * 200 + 
-      appliances.ac * 1500 +
-      appliances.washing machine * 300 +
-      appliances.pumping machine * 1000 +
-      appliances.iron * 300 +
-      appliances.lights * 20;
+      appliances.ac * 1500 + 
+      appliances.lights * 20 +
+      appliances.washingMachine * 800 +
+      appliances.pumpingMachine * 1100 +
+      appliances.iron * 1000;
 
-    // --- YOU CAN EDIT YOUR RECOMMENDED PACKAGES & PRICES HERE ---
     let recommended = "1.5KVA Starter Pack";
-    let price = "₦1,100,000";
+    let price = "₦1,000,000";
 
     if (totalWatts > 800 && totalWatts <= 2000) {
       recommended = "3.5KVA Standard Home Pack";
       price = "₦2,500,000";
     } else if (totalWatts > 2000) {
       recommended = "5KVA / 10KVA Executive Mansion Pack";
-      price = "₦5,200,000+"; // Change this text/number to whatever you want!
+      price = "₦5,200,000+";
     }
 
     return { totalWatts, recommended, price };
@@ -185,6 +184,39 @@ export default function LandingPage() {
               min="0" 
               value={appliances.ac} 
               onChange={(e) => setAppliances({...appliances, ac: parseInt(e.target.value) || 0})}
+              style={{ width: '60px', padding: '0.4rem', backgroundColor: '#f3f4f6', border: '1px solid #d1d5db', color: '#111827', borderRadius: '4px', textAlign: 'center', fontWeight: 'bold' }} 
+            />
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#ffffff', padding: '0.75rem 1rem', borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}>
+            <span>🧺 Washing Machine (800W)</span>
+            <input 
+              type="number" 
+              min="0" 
+              value={appliances.washingMachine} 
+              onChange={(e) => setAppliances({...appliances, washingMachine: parseInt(e.target.value) || 0})}
+              style={{ width: '60px', padding: '0.4rem', backgroundColor: '#f3f4f6', border: '1px solid #d1d5db', color: '#111827', borderRadius: '4px', textAlign: 'center', fontWeight: 'bold' }} 
+            />
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#ffffff', padding: '0.75rem 1rem', borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}>
+            <span>💧 Pumping Machine (1100W)</span>
+            <input 
+              type="number" 
+              min="0" 
+              value={appliances.pumpingMachine} 
+              onChange={(e) => setAppliances({...appliances, pumpingMachine: parseInt(e.target.value) || 0})}
+              style={{ width: '60px', padding: '0.4rem', backgroundColor: '#f3f4f6', border: '1px solid #d1d5db', color: '#111827', borderRadius: '4px', textAlign: 'center', fontWeight: 'bold' }} 
+            />
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#ffffff', padding: '0.75rem 1rem', borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}>
+            <span> irons/Pressing Iron (1000W)</span>
+            <input 
+              type="number" 
+              min="0" 
+              value={appliances.iron} 
+              onChange={(e) => setAppliances({...appliances, iron: parseInt(e.target.value) || 0})}
               style={{ width: '60px', padding: '0.4rem', backgroundColor: '#f3f4f6', border: '1px solid #d1d5db', color: '#111827', borderRadius: '4px', textAlign: 'center', fontWeight: 'bold' }} 
             />
           </div>
