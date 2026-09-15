@@ -1,253 +1,198 @@
-'use client';
-import { useState } from 'react';
+import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
 
-export default function HomePage() {
-  const [appliances, setAppliances] = useState({
-    tv: 1,
-    fans: 2,
-    fridge: 0,
-    ac: 0,
-    lights: 4,
-    washingMachine: 0,
-    pumpingMachine: 0,
-    iron: 1,
-  });
+const globalForPrisma = global;
+const prisma = globalForPrisma.prisma || new PrismaClient();
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-  const calculateLoad = () => {
-    let totalWatts = 
-      appliances.tv * 100 + 
-      appliances.fans * 75 + 
-      appliances.fridge * 200 + 
-      appliances.ac * 1500 + 
-      appliances.lights * 20 +
-      appliances.washingMachine * 800 +
-      appliances.pumpingMachine * 1100 +
-      appliances.iron * 1000;
+export const dynamic = 'force-dynamic';
 
-    let recommended = "1.5KVA Starter Pack";
-    let price = "₦1,000,000";
-
-    if (totalWatts > 800 && totalWatts <= 2000) {
-      recommended = "3.5KVA Standard Home Pack";
-      price = "₦2,500,000";
-    } else if (totalWatts > 2000) {
-      recommended = "5KVA / 10KVA Executive Mansion Pack";
-      price = "₦5,200,000+";
-    }
-
-    return { totalWatts, recommended, price };
-  };
-
-  const result = calculateLoad();
+export default async function HomePage() {
+  let packages = [];
+  
+  try {
+    packages = await prisma.package.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+  } catch (error) {
+    console.error("Failed to load packages from database:", error);
+  }
 
   return (
-    <div style={{ backgroundColor: '#ffffff', color: '#111827', minHeight: '100vh', fontFamily: 'sans-serif', paddingBottom: '6rem' }}>
+    <div style={{ backgroundColor: '#ffffff', color: '#1f2937', minHeight: '100vh', fontFamily: 'system-ui, -apple-system, sans-serif', paddingBottom: '5rem', fontSize: '14px' }}>
       
-      {/* TOP ANNOUNCEMENT BAR (Socials Removed) */}
-      <div style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.5rem 1rem', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontSize: '0.7rem', fontWeight: 'bold' }}>
-        <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
-          <Link href="/projects" style={{ color: '#fff', textDecoration: 'none' }}>SOLAR PROJECTS</Link>
+      {/* TOP ANNOUNCEMENT BAR */}
+      <div style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '0.4rem 1rem', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontSize: '11px', fontWeight: '600' }}>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <Link href="/projects" style={{ color: '#fff', textDecoration: 'none' }}>PROJECTS</Link>
           <span>|</span>
           <Link href="/about" style={{ color: '#fff', textDecoration: 'none' }}>ABOUT US</Link>
         </div>
       </div>
 
-      {/* CLEAN STICKY HEADER (Navigation links moved to bottom) */}
-      <header style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '0.8rem 1.25rem', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', position: 'sticky', top: 0, zIndex: 1000 }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      {/* CLEAN STICKY HEADER */}
+      <header style={{ backgroundColor: '#ffffff', color: '#1e3a8a', padding: '0.6rem 1rem', borderBottom: '1px solid #e5e7eb', position: 'sticky', top: 0, zIndex: 1000, boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <Link 
-              href="/store"
-              style={{ backgroundColor: '#dc2626', color: '#fff', textDecoration: 'none', padding: '0.5rem 0.85rem', borderRadius: '0.35rem', fontWeight: 'bold', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
-            >
-              <span>🏪</span> Store
-            </Link>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none', color: '#1e3a8a' }}>
+            <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#1e3a8a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '14px' }}>
+              ⚡
+            </div>
+            <div style={{ lineHeight: '1.1' }}>
+              <span style={{ fontSize: '13px', fontWeight: '800', letterSpacing: '0.3px', display: 'block' }}>litesolarsolutions</span>
+              <span style={{ fontSize: '9px', fontWeight: '600', color: '#2563eb', letterSpacing: '0.5px', display: 'block' }}>SOLAR TECHNOLOGIES</span>
+            </div>
+          </Link>
 
-            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: '#fff' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', color: '#1e3a8a', fontSize: '0.9rem' }}>
-                ⚡
-              </div>
-              <div style={{ lineHeight: '1.15' }}>
-                <span style={{ fontSize: '0.8rem', fontWeight: '900', letterSpacing: '0.5px', display: 'block' }}>LITESOLAR</span>
-                <span style={{ fontSize: '0.5rem', fontWeight: '700', letterSpacing: '0.5px', opacity: 0.9, display: 'block' }}>TECHNOLOGIES</span>
-              </div>
-            </Link>
-          </div>
-
+          <Link 
+            href="/store"
+            style={{ backgroundColor: '#2563eb', color: '#fff', textDecoration: 'none', padding: '0.4rem 0.75rem', borderRadius: '0.25rem', fontWeight: '600', fontSize: '12px' }}
+          >
+            Store Catalog 🏪
+          </Link>
         </div>
       </header>
 
-      {/* HERO SECTION WITH BACKGROUND IMAGE */}
+      {/* HERO SECTION WITH HIGH VISIBILITY BACKGROUND IMAGE */}
       <section style={{ 
-        padding: '4rem 1rem', 
-        backgroundColor: '#0b0f19', 
-        backgroundImage: 'linear-gradient(rgba(11, 15, 25, 0.90), rgba(11, 15, 25, 0.94)), url("https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png")', 
+        padding: '3rem 1rem', 
+        backgroundColor: '#1e3a8a', 
+        backgroundImage: 'linear-gradient(rgba(30, 58, 138, 0.75), rgba(30, 58, 138, 0.85)), url("https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png")', 
         backgroundSize: 'cover', 
         backgroundPosition: 'center',
         color: '#ffffff',
         textAlign: 'center',
-        borderBottom: '1px solid #374151'
+        borderBottom: '1px solid #e5e7eb'
       }}>
-        <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-block', backgroundColor: 'rgba(220, 38, 38, 0.25)', color: '#f87171', border: '1px solid rgba(220, 38, 38, 0.4)', padding: '0.3rem 0.75rem', borderRadius: '2rem', fontSize: '0.7rem', fontWeight: '800', marginBottom: '1rem' }}>
-            🔥 POWERING A SMARTER TOMORROW
+        <div style={{ maxWidth: '650px', margin: '0 auto' }}>
+          <div style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.2)', color: '#ffffff', border: '1px solid rgba(255, 255, 255, 0.4)', padding: '0.2rem 0.6rem', borderRadius: '1rem', fontSize: '10px', fontWeight: '700', marginBottom: '0.75rem' }}>
+            ✨ POWERING NIGERIA SUSTAINABLY
           </div>
-          <h1 style={{ fontSize: '2rem', fontWeight: '900', lineHeight: '1.25', marginBottom: '1rem', color: '#ffffff' }}>
-            Shop Superior Quality <br />
-            <span style={{ color: '#60a5fa' }}>Solar Products</span> at Best Prices.
+          <h1 style={{ fontSize: '1.65rem', fontWeight: '800', lineHeight: '1.3', marginBottom: '0.75rem', color: '#ffffff' }}>
+            Illuminating your world with <span style={{ color: '#93c5fd' }}>affordable solar energy</span>
           </h1>
-          <p style={{ fontSize: '0.9rem', color: '#cbd5e1', lineHeight: '1.6', marginBottom: '1.5rem' }}>
-            Reliable solar panels, high-performance inverters, and lithium batteries engineered for Nigerian homes and businesses.
+          <p style={{ fontSize: '13px', color: '#e2e8f0', lineHeight: '1.5', marginBottom: '1.25rem' }}>
+            Reliable solar panels, high-performance inverters, and lithium batteries engineered for modern homes and businesses.
           </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link 
               href="/store"
-              style={{ backgroundColor: '#dc2626', color: '#fff', textDecoration: 'none', padding: '0.8rem 1.75rem', borderRadius: '0.4rem', fontWeight: '900', fontSize: '0.85rem' }}
+              style={{ backgroundColor: '#2563eb', color: '#fff', textDecoration: 'none', padding: '0.6rem 1.25rem', borderRadius: '0.3rem', fontWeight: '700', fontSize: '12px' }}
             >
-              Browse Complete Store Catalog ➔
+              Browse Packages ➔
             </Link>
             <Link 
               href="/request-a-quote"
-              style={{ backgroundColor: '#1e3a8a', color: '#fff', textDecoration: 'none', padding: '0.8rem 1.75rem', borderRadius: '0.4rem', fontWeight: '900', fontSize: '0.85rem', border: '1px solid #374151' }}
+              style={{ backgroundColor: '#ffffff', color: '#1e3a8a', textDecoration: 'none', padding: '0.6rem 1.25rem', borderRadius: '0.3rem', fontWeight: '700', fontSize: '12px', border: '1px solid #cbd5e1' }}
             >
-              Request a Custom Quote
+              Request Custom Quote
             </Link>
           </div>
         </div>
       </section>
 
-      {/* LOAD CALCULATOR */}
-      <section style={{ maxWidth: '750px', margin: '2rem auto', padding: '1.5rem', backgroundColor: '#ffffff', border: '1px solid #e5e7eb', borderRadius: '0.75rem', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-        <div style={{ fontSize: '0.7rem', fontWeight: '800', color: '#dc2626', letterSpacing: '1px', marginBottom: '0.3rem' }}>
-          🧮 INSTANT SYSTEM SIZER
+      {/* LIVE DATABASE PACKAGES SECTION */}
+      <section style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <div>
+            <div style={{ fontSize: '10px', fontWeight: '800', color: '#2563eb', letterSpacing: '0.5px' }}>⚡ LIVE INVENTORY</div>
+            <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a' }}>Published Solar Packages</h2>
+          </div>
         </div>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '0.4rem', color: '#111827' }}>Calculate What You Need</h2>
-        <p style={{ color: '#4b5563', fontSize: '0.8rem', marginBottom: '1.25rem' }}>Select appliances to estimate your solar package:</p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.75rem', marginBottom: '1.25rem' }}>
-          {[
-            { label: '📺 TV (100W)', key: 'tv' },
-            { label: '🌀 Fans (75W)', key: 'fans' },
-            { label: '🧊 Fridge (200W)', key: 'fridge' },
-            { label: '❄️ AC (1500W)', key: 'ac' },
-            { label: '💡 Lights (20W)', key: 'lights' },
-            { label: '👕 Washer (800W)', key: 'washingMachine' },
-            { label: '💧 Pump (1100W)', key: 'pumpingMachine' },
-            { label: '🔌 Iron (1000W)', key: 'iron' }
-          ].map((item, idx) => (
-            <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f9fafb', padding: '0.5rem 0.75rem', borderRadius: '0.35rem', border: '1px solid #e5e7eb', fontSize: '0.8rem' }}>
-              <span>{item.label}</span>
-              <input type="number" min="0" value={appliances[item.key]} onChange={(e) => setAppliances({...appliances, [item.key]: parseInt(e.target.value) || 0})} style={{ width: '45px', padding: '0.2rem', textAlign: 'center', fontWeight: 'bold', fontSize: '0.8rem' }} />
+        {packages.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#f8fafc', borderRadius: '0.5rem', border: '1px solid #e2e8f0' }}>
+            <p style={{ color: '#64748b', fontSize: '13px' }}>No packages published yet. Use your admin dashboard to upload items!</p>
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
+            {packages.map((pkg) => (
+              <div key={pkg.id} style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+                <div>
+                  <span style={{ display: 'inline-block', backgroundColor: '#eff6ff', color: '#1e3a8a', padding: '0.15rem 0.5rem', borderRadius: '9999px', fontSize: '11px', fontWeight: '700', marginBottom: '0.5rem', border: '1px solid #bfdbfe' }}>
+                    {pkg.capacity}
+                  </span>
+                  <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.4rem', color: '#1e3a8a' }}>{pkg.title}</h3>
+                  <p style={{ color: '#64748b', fontSize: '12px', marginBottom: '0.75rem', lineHeight: '1.4' }}>{pkg.description}</p>
+                  
+                  {pkg.features && pkg.features.length > 0 && (
+                    <ul style={{ listStyleType: 'disc', paddingLeft: '1rem', marginBottom: '1rem', color: '#475569', fontSize: '11px', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                      {pkg.features.map((feature, idx) => (
+                        <li key={idx}>{feature}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+
+                <div>
+                  <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#16a34a', marginBottom: '0.75rem' }}>
+                    {pkg.price}
+                  </div>
+                  <a 
+                    href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%20I%20am%20interested%20in%20the%20${encodeURIComponent(pkg.title)}%20(${encodeURIComponent(pkg.price)})`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ display: 'block', textAlign: 'center', backgroundColor: '#2563eb', color: '#fff', padding: '0.5rem', borderRadius: '0.25rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px' }}
+                  >
+                    Enquire on WhatsApp 💬
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* RECENT PROJECTS PREVIEW */}
+      <section style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1rem' }}>
+        <div style={{ backgroundColor: '#f8fafc', padding: '1.25rem', borderRadius: '0.5rem', border: '1px solid #e2e8f0' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+            <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>⚡ RECENT INSTALLATIONS</div>
+            <Link href="/projects" style={{ fontSize: '11px', fontWeight: '700', color: '#2563eb', textDecoration: 'none' }}>View All ➔</Link>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
+            <div style={{ backgroundColor: '#fff', padding: '0.85rem', borderRadius: '0.35rem', border: '1px solid #e2e8f0' }}>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.2rem' }}>5KVA Residential Hybrid System</div>
+              <div style={{ fontSize: '11px', color: '#64748b' }}>Ikeja, Lagos • Monocrystalline setup.</div>
             </div>
-          ))}
-        </div>
-
-        <div style={{ backgroundColor: '#f3f4f6', padding: '1rem', borderRadius: '0.5rem', border: '2px solid #1e3a8a', textAlign: 'center' }}>
-          <div style={{ fontSize: '0.75rem', color: '#4b5563' }}>Estimated Load: <strong>{result.totalWatts} Watts</strong></div>
-          <div style={{ fontSize: '0.95rem', fontWeight: '900', color: '#1e3a8a', margin: '0.25rem 0' }}>Recommended: {result.recommended}</div>
-          <div style={{ fontSize: '1.1rem', fontWeight: '900', color: '#dc2626', marginBottom: '0.85rem' }}>From {result.price}</div>
-          <Link href="/request-a-quote" style={{ display: 'inline-block', backgroundColor: '#1e3a8a', color: '#fff', padding: '0.5rem 1.25rem', borderRadius: '4px', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 'bold' }}>
-            Get Exact Quote for this Setup
-          </Link>
-        </div>
-      </section>
-
-      {/* PROJECTS PAGE PREVIEW */}
-      <section style={{ maxWidth: '850px', margin: '2.5rem auto', padding: '1.75rem', backgroundColor: '#f8fafc', borderRadius: '0.75rem', border: '1px solid #e2e8f0' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-          <div>
-            <div style={{ fontSize: '0.7rem', fontWeight: '800', color: '#1e3a8a', letterSpacing: '1px' }}>⚡ RECENT INSTALLATIONS</div>
-            <h2 style={{ fontSize: '1.35rem', fontWeight: '900', color: '#111827' }}>Our Featured Solar Projects</h2>
-          </div>
-          <Link href="/projects" style={{ fontSize: '0.8rem', fontWeight: 'bold', color: '#dc2626', textDecoration: 'none' }}>View All Projects ➔</Link>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
-          <div style={{ backgroundColor: '#fff', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #cbd5e1' }}>
-            <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.3rem' }}>5KVA Residential Hybrid System</div>
-            <div style={{ fontSize: '0.75rem', color: '#4b5563', marginBottom: '0.5rem' }}>Ikeja, Lagos • Fully powered with Lithium Iron batteries and Monocrystalline panels.</div>
-            <span style={{ fontSize: '0.65rem', backgroundColor: '#dcfce7', color: '#166534', padding: '0.15rem 0.5rem', borderRadius: '3px', fontWeight: 'bold' }}>Completed</span>
-          </div>
-          <div style={{ backgroundColor: '#fff', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #cbd5e1' }}>
-            <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.3rem' }}>10KVA Commercial Office Setup</div>
-            <div style={{ fontSize: '0.75rem', color: '#4b5563', marginBottom: '0.5rem' }}>Ibadan, Oyo State • Zero downtime configuration supporting heavy office loads and ACs.</div>
-            <span style={{ fontSize: '0.65rem', backgroundColor: '#dcfce7', color: '#166534', padding: '0.15rem 0.5rem', borderRadius: '3px', fontWeight: 'bold' }}>Completed</span>
+            <div style={{ backgroundColor: '#fff', padding: '0.85rem', borderRadius: '0.35rem', border: '1px solid #e2e8f0' }}>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.2rem' }}>10KVA Commercial Setup</div>
+              <div style={{ fontSize: '11px', color: '#64748b' }}>Ibadan, Oyo State • Zero downtime configuration.</div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ PAGE PREVIEW */}
-      <section style={{ maxWidth: '850px', margin: '2.5rem auto', padding: '1.75rem', backgroundColor: '#ffffff', borderRadius: '0.75rem', border: '1px solid #e5e7eb' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-          <div>
-            <div style={{ fontSize: '0.7rem', fontWeight: '800', color: '#dc2626', letterSpacing: '1px' }}>❓ GOT QUESTIONS?</div>
-            <h2 style={{ fontSize: '1.35rem', fontWeight: '900', color: '#111827' }}>Frequently Asked Questions</h2>
-          </div>
-          <Link href="/faq" style={{ fontSize: '0.8rem', fontWeight: 'bold', color: '#1e3a8a', textDecoration: 'none' }}>View Full FAQ ➔</Link>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.8rem' }}>
-          <div style={{ backgroundColor: '#f9fafb', padding: '0.85rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb' }}>
-            <strong style={{ color: '#1e3a8a' }}>Q: How long do your lithium batteries last?</strong>
-            <p style={{ color: '#4b5563', marginTop: '0.25rem' }}>A: Our premium lithium iron phosphate (LiFePO4) batteries are engineered for 10+ years (over 6,000 charge cycles) with proper maintenance.</p>
-          </div>
-          <div style={{ backgroundColor: '#f9fafb', padding: '0.85rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb' }}>
-            <strong style={{ color: '#1e3a8a' }}>Q: Do you offer installation services outside Lagos?</strong>
-            <p style={{ color: '#4b5563', marginTop: '0.25rem' }}>A: Yes! Litesolar Technologies provides nationwide delivery and professional installation teams across Nigeria.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT US, NAVIGATION, & SOCIAL HANDLES ON A VERTICAL LINE */}
-      <section style={{ maxWidth: '850px', margin: '2.5rem auto', padding: '2rem 1.5rem', backgroundColor: '#1e3a8a', color: '#ffffff', borderRadius: '0.75rem', textAlign: 'center' }}>
-        <div style={{ fontSize: '0.7rem', fontWeight: '800', color: '#f87171', letterSpacing: '1px', marginBottom: '0.3rem' }}>🤝 GET IN TOUCH</div>
-        <h2 style={{ fontSize: '1.35rem', fontWeight: '900', marginBottom: '0.6rem' }}>Contact Litesolar Technologies</h2>
-        <p style={{ fontSize: '0.8rem', opacity: 0.9, marginBottom: '1.5rem' }}>Have questions about a system or need an inspection? Reach out to us directly:</p>
+      {/* FOOTER & CONTACT */}
+      <footer style={{ maxWidth: '900px', margin: '2rem auto 0 auto', padding: '1.5rem 1rem', backgroundColor: '#1e3a8a', color: '#ffffff', borderRadius: '0.5rem', textAlign: 'center' }}>
+        <div style={{ fontSize: '10px', fontWeight: '800', color: '#93c5fd', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>🤝 GET IN TOUCH</div>
+        <h2 style={{ fontSize: '1.1rem', fontWeight: '800', marginBottom: '0.4rem' }}>litesolarsolutions</h2>
+        <p style={{ fontSize: '11px', opacity: '0.9', marginBottom: '1rem' }}>Contact us for inspections, purchases, and nationwide installations:</p>
         
-        {/* Quick Action Buttons */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '1.75rem', fontSize: '0.8rem' }}>
-          <a href="tel:07030671806" style={{ backgroundColor: '#fff', color: '#1e3a8a', padding: '0.6rem 1.25rem', borderRadius: '0.4rem', textDecoration: 'none', fontWeight: 'bold' }}>
-            📞 Phone: 07030671806
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1.25rem', fontSize: '11px' }}>
+          <a href="tel:07030671806" style={{ backgroundColor: '#fff', color: '#1e3a8a', padding: '0.4rem 0.85rem', borderRadius: '0.25rem', textDecoration: 'none', fontWeight: '700' }}>
+            📞 07030671806
           </a>
-          <a href="https://wa.me/2347030671806" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: '#25D366', color: '#fff', padding: '0.6rem 1.25rem', borderRadius: '0.4rem', textDecoration: 'none', fontWeight: 'bold' }}>
+          <a href="https://wa.me/2347030671806" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: '#25D366', color: '#fff', padding: '0.4rem 0.85rem', borderRadius: '0.25rem', textDecoration: 'none', fontWeight: '700' }}>
             💬 WhatsApp Us
           </a>
         </div>
 
-        {/* Vertical Stack for Links and Socials */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)', paddingTop: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.85rem', fontSize: '0.85rem' }}>
-          <Link href="/system-finder" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>
-            System Finder
-          </Link>
-          <Link href="/projects" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>
-            Projects
-          </Link>
-          <Link href="/faq" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>
-            FAQ
-          </Link>
-          <Link href="/contact" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>
-            Contact
-          </Link>
-          <a href="tel:07030671806" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold' }}>
-            Phone: 07030671806
-          </a>
-          <a href="https://instagram.com/litesolarsolutions" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 'bold' }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            Instagram: @litesolarsolutions
-          </a>
-          <a href="https://tiktok.com/@litesolarenergy" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 'bold' }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-            TikTok: @litesolarenergy
-          </a>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', fontSize: '12px' }}>
+          <Link href="/projects" style={{ color: '#fff', textDecoration: 'none' }}>Projects</Link>
+          <Link href="/faq" style={{ color: '#fff', textDecoration: 'none' }}>FAQ</Link>
+          <Link href="/contact" style={{ color: '#fff', textDecoration: 'none' }}>Contact</Link>
+          <a href="https://instagram.com/litesolarsolutions" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none' }}>Instagram: @litesolarsolutions</a>
+          <a href="https://tiktok.com/@litesolarenergy" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none' }}>TikTok: @litesolarenergy</a>
         </div>
-      </section>
+      </footer>
 
       {/* WHATSAPP FLOATING BUTTON */}
       <a 
         href="https://wa.me/2347030671806" 
         target="_blank" 
         rel="noopener noreferrer" 
-        style={{ position: 'fixed', bottom: '1.25rem', right: '1.25rem', backgroundColor: '#25D366', color: '#fff', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', boxShadow: '0 4px 12px rgba(37, 211, 102, 0.4)', zIndex: 1100, textDecoration: 'none' }}
+        style={{ position: 'fixed', bottom: '1rem', right: '1rem', backgroundColor: '#25D366', color: '#fff', width: '42px', height: '42px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem', boxShadow: '0 3px 8px rgba(37, 211, 102, 0.4)', zIndex: 1100, textDecoration: 'none' }}
         title="Chat on WhatsApp"
       >
         💬
