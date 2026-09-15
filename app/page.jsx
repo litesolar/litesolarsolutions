@@ -10,6 +10,9 @@ export default function LandingPage() {
     fridge: 0,
     ac: 0,
     lights: 4,
+    washing machine: 1,
+    pumping machine 1,
+    iron 2,
   });
 
   const calculateLoad = () => {
@@ -17,18 +20,22 @@ export default function LandingPage() {
       appliances.tv * 100 + 
       appliances.fans * 75 + 
       appliances.fridge * 200 + 
-      appliances.ac * 1500 + 
+      appliances.ac * 1500 +
+      appliances.washing machine * 300 +
+      appliances.pumping machine * 1000 +
+      appliances.iron * 300 +
       appliances.lights * 20;
 
+    // --- YOU CAN EDIT YOUR RECOMMENDED PACKAGES & PRICES HERE ---
     let recommended = "1.5KVA Starter Pack";
-    let price = "₦450,000";
+    let price = "₦1,100,000";
 
     if (totalWatts > 800 && totalWatts <= 2000) {
       recommended = "3.5KVA Standard Home Pack";
-      price = "₦980,000";
+      price = "₦2,500,000";
     } else if (totalWatts > 2000) {
       recommended = "5KVA / 10KVA Executive Mansion Pack";
-      price = "₦2,200,000+";
+      price = "₦5,200,000+"; // Change this text/number to whatever you want!
     }
 
     return { totalWatts, recommended, price };
@@ -62,7 +69,7 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* HERO SECTION WITH EXPANDED BACKGROUND IMAGE */}
+      {/* HERO SECTION */}
       <section style={{ 
         position: 'relative', 
         padding: '7rem 1.5rem 7rem 1.5rem', 
@@ -118,7 +125,7 @@ export default function LandingPage() {
       </section>
 
       {/* INTERACTIVE LOAD CALCULATOR */}
-      <section id="calculator" style={{ maxWidth: '800px', margin: '0 auto 3rem auto', padding: '2rem 1.5rem', backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '1rem', boxShadow: '0 4px 20px rgba(0,0,0,0.02)' }}>
+      <section id="calculator" style={{ maxWidth: '800px', margin: '0 auto 4rem auto', padding: '2rem 1.5rem', backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '1rem', boxShadow: '0 4px 20px rgba(0,0,0,0.02)' }}>
         <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#dc2626', letterSpacing: '1.5px', marginBottom: '0.5rem' }}>
           🧮 INSTANT SYSTEM SIZER
         </div>
@@ -191,19 +198,6 @@ export default function LandingPage() {
           <div style={{ fontSize: '1.25rem', fontWeight: '900', color: '#dc2626', marginBottom: '1rem' }}>Starting from {result.price}</div>
           <a href="#packages" style={{ display: 'inline-block', backgroundColor: '#dc2626', color: '#fff', padding: '0.65rem 1.5rem', borderRadius: '0.4rem', fontWeight: 'bold', textDecoration: 'none', fontSize: '0.9rem', boxShadow: '0 4px 10px rgba(220,38,38,0.3)' }}>
             View Matching Packages →
-          </a>
-        </div>
-      </section>
-
-      {/* SOCIAL FOOTER / INFO SECTION */}
-      <section style={{ maxWidth: '800px', margin: '0 auto 4rem auto', padding: '0 1.5rem', textAlign: 'center' }}>
-        <p style={{ color: '#4b5563', fontSize: '0.9rem', marginBottom: '1rem' }}>Connect with us on social media:</p>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', fontSize: '0.9rem', fontWeight: 'bold' }}>
-          <a href="https://instagram.com/litesolarsolutions" target="_blank" rel="noopener noreferrer" style={{ color: '#e1306c', textDecoration: 'none' }}>
-            IG: @litesolarsolutions
-          </a>
-          <a href="https://tiktok.com/@litesolarenergy" target="_blank" rel="noopener noreferrer" style={{ color: '#000000', textDecoration: 'none' }}>
-            TikTok: @litesolarenergy
           </a>
         </div>
       </section>
