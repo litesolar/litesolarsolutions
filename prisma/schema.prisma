@@ -13,7 +13,7 @@ model Package {
   capacity    String
   price       String
   description String
-  image       string
+  image       String?
   features    String[]
   createdAt   DateTime @default(now())
 }
