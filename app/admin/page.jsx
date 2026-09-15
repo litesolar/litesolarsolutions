@@ -2,8 +2,6 @@
 import { useState } from 'react';
 
 export default function AdminDashboard() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [passcode, setPasscode] = useState('');
   const [form, setForm] = useState({
     title: '',
     capacity: '',
@@ -13,15 +11,6 @@ export default function AdminDashboard() {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (passcode === 'mykey124') {
-      setIsAuthenticated(true);
-    } else {
-      alert('Incorrect passcode!');
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,38 +24,20 @@ export default function AdminDashboard() {
         body: JSON.stringify(form),
       });
 
+      const data = await res.json();
+
       if (res.ok) {
         setMessage('✅ Package successfully added live!');
         setForm({ title: '', capacity: '', price: '', description: '', features: '' });
       } else {
-        setMessage('❌ Error adding package. Try again.');
+        setMessage('❌ Error: ' + (data.error || 'Failed to add package'));
       }
     } catch (err) {
-      setMessage('❌ Network error.');
+      setMessage('❌ Network error: ' + err.message);
     } finally {
       setLoading(false);
     }
   };
-
-  if (!isAuthenticated) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#0b0f19', color: '#fff', fontFamily: 'sans-serif' }}>
-        <form onSubmit={handleLogin} style={{ backgroundColor: '#111827', padding: '2rem', borderRadius: '0.75rem', border: '1px solid #374151', width: '320px' }}>
-          <h2 style={{ marginBottom: '1rem', fontSize: '1.25rem' }}>Admin Login</h2>
-          <input 
-            type="password" 
-            placeholder="Enter Admin Passcode" 
-            value={passcode}
-            onChange={(e) => setPasscode(e.target.value)}
-            style={{ width: '100%', padding: '0.75rem', marginBottom: '1rem', borderRadius: '0.5rem', border: '1px solid #4b5563', backgroundColor: '#1f2937', color: '#fff' }}
-          />
-          <button type="submit" style={{ width: '100%', padding: '0.75rem', backgroundColor: '#dc2626', color: '#fff', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>
-            Access Dashboard
-          </button>
-        </form>
-      </div>
-    );
-  }
 
   return (
     <div style={{ maxWidth: '600px', margin: '3rem auto', padding: '2rem', backgroundColor: '#0b0f19', color: '#fff', borderRadius: '1rem', fontFamily: 'sans-serif', border: '1px solid #374151' }}>
