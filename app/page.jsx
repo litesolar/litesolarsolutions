@@ -27,14 +27,14 @@ export default function LandingPage() {
       appliances.iron * 1000;
 
     let recommended = "1.5KVA Starter Pack";
-    let price = "₦1,000,000";
+    let price = "₦450,000";
 
     if (totalWatts > 800 && totalWatts <= 2000) {
       recommended = "3.5KVA Standard Home Pack";
-      price = "₦2,500,000";
+      price = "₦980,000";
     } else if (totalWatts > 2000) {
       recommended = "5KVA / 10KVA Executive Mansion Pack";
-      price = "₦5,200,000+";
+      price = "₦2,200,000+";
     }
 
     return { totalWatts, recommended, price };
@@ -118,8 +118,7 @@ export default function LandingPage() {
         <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#1e3a8a', letterSpacing: '1.5px', marginBottom: '0.5rem' }}>
           CATALOG
         </div>
-        <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '0.5rem', color: '#111827' }}>Available Solar Packages</h2>
-        <p style={{ color: '#4b5563', fontSize: '0.95rem', marginBottom: '1.5rem' }}>Managed live from your secure admin dashboard.</p>
+        <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '1.5rem', color: '#111827' }}>Available Solar Packages</h2>
         <PackageList />
       </section>
 
