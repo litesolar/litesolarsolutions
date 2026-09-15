@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import PackageList from './components/PackageList';
 
 export default function LandingPage() {
   const [appliances, setAppliances] = useState({
@@ -41,7 +42,7 @@ export default function LandingPage() {
       {/* Top Accent Strip (15% Red & 5% Accent Red) */}
       <div style={{ height: '5px', background: 'linear-gradient(90deg, #1e3a8a 0%, #1e3a8a 50%, #dc2626 85%, #ef4444 100%)', width: '100%' }}></div>
 
-      {/* HEADER / NAVBAR (Clean White & Blue Corporate Balance) */}
+      {/* HEADER / NAVBAR */}
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 1.5rem', backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb', position: 'sticky', top: 0, zIndex: 1000, boxShadow: '0 2px 10px rgba(0,0,0,0.03)' }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
           <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#1e3a8a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', color: '#fff', fontSize: '1.2rem', boxShadow: '0 2px 8px rgba(30,58,138,0.3)' }}>
@@ -53,16 +54,15 @@ export default function LandingPage() {
           </div>
         </Link>
 
-        {/* Desktop / Quick Nav */}
         <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
-          <Link href="/packages" style={{ color: '#4b5563', textDecoration: 'none', fontSize: '0.9rem', fontWeight: '600' }}>Packages</Link>
-          <Link href="/quote" style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.6rem 1.25rem', borderRadius: '2rem', textDecoration: 'none', fontSize: '0.85rem', fontWeight: '700', boxShadow: '0 4px 12px rgba(220, 38, 38, 0.3)' }}>
+          <Link href="#packages" style={{ color: '#4b5563', textDecoration: 'none', fontSize: '0.9rem', fontWeight: '600' }}>Packages</Link>
+          <Link href="#calculator" style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.6rem 1.25rem', borderRadius: '2rem', textDecoration: 'none', fontSize: '0.85rem', fontWeight: '700', boxShadow: '0 4px 12px rgba(220, 38, 38, 0.3)' }}>
             Get a Quote
           </Link>
         </div>
       </header>
 
-      {/* HERO SECTION (Powered by your real installation roof background photo) */}
+      {/* HERO SECTION */}
       <section style={{ 
         position: 'relative', 
         padding: '5rem 1.5rem 5rem 1.5rem', 
@@ -86,10 +86,10 @@ export default function LandingPage() {
           </p>
 
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <Link href="/quote" style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.85rem 1.75rem', borderRadius: '0.5rem', fontWeight: 'bold', textDecoration: 'none', boxShadow: '0 4px 14px rgba(220, 38, 38, 0.3)' }}>
+            <Link href="#calculator" style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.85rem 1.75rem', borderRadius: '0.5rem', fontWeight: 'bold', textDecoration: 'none', boxShadow: '0 4px 14px rgba(220, 38, 38, 0.3)' }}>
               Request Consultation →
             </Link>
-            <Link href="/packages" style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '0.85rem 1.75rem', borderRadius: '0.5rem', fontWeight: 'bold', textDecoration: 'none', boxShadow: '0 4px 14px rgba(30, 58, 138, 0.3)' }}>
+            <Link href="#packages" style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '0.85rem 1.75rem', borderRadius: '0.5rem', fontWeight: 'bold', textDecoration: 'none', boxShadow: '0 4px 14px rgba(30, 58, 138, 0.3)' }}>
               View Power Packages
             </Link>
           </div>
@@ -105,6 +105,16 @@ export default function LandingPage() {
         <p style={{ color: '#4b5563', fontSize: '0.95rem', lineHeight: '1.7' }}>
           Our mission as a premier Solar Utility provider is simply <strong style={{ color: '#111827' }}>solar electricity for everyone!</strong> By eliminating friction, high fuel costs, and unreliable grid fragmentation in the residential and commercial marketplace.
         </p>
+      </section>
+
+      {/* LIVE DATABASE PACKAGES SECTION */}
+      <section id="packages" style={{ maxWidth: '1200px', margin: '0 auto 3rem auto', padding: '0 1.5rem' }}>
+        <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#1e3a8a', letterSpacing: '1.5px', marginBottom: '0.5rem' }}>
+          CATALOG
+        </div>
+        <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '0.5rem', color: '#111827' }}>Available Solar Packages</h2>
+        <p style={{ color: '#4b5563', fontSize: '0.95rem', marginBottom: '1.5rem' }}>Managed live from your secure admin dashboard.</p>
+        <PackageList />
       </section>
 
       {/* INTERACTIVE LOAD CALCULATOR */}
@@ -179,15 +189,28 @@ export default function LandingPage() {
           <div style={{ fontSize: '0.8rem', color: '#4b5563', marginBottom: '0.25rem' }}>Estimated Load Requirement: <strong style={{ color: '#111827' }}>{result.totalWatts} Watts</strong></div>
           <div style={{ fontSize: '1.1rem', fontWeight: '950', color: '#1e3a8a', marginBottom: '0.5rem' }}>Recommended: {result.recommended}</div>
           <div style={{ fontSize: '1.25rem', fontWeight: '900', color: '#dc2626', marginBottom: '1rem' }}>Starting from {result.price}</div>
-          <Link href="/quote" style={{ display: 'inline-block', backgroundColor: '#dc2626', color: '#fff', padding: '0.65rem 1.5rem', borderRadius: '0.4rem', fontWeight: 'bold', textDecoration: 'none', fontSize: '0.9rem', boxShadow: '0 4px 10px rgba(220,38,38,0.3)' }}>
-            Lock In This Package →
-          </Link>
+          <a href="#packages" style={{ display: 'inline-block', backgroundColor: '#dc2626', color: '#fff', padding: '0.65rem 1.5rem', borderRadius: '0.4rem', fontWeight: 'bold', textDecoration: 'none', fontSize: '0.9rem', boxShadow: '0 4px 10px rgba(220,38,38,0.3)' }}>
+            View Matching Packages →
+          </a>
+        </div>
+      </section>
+
+      {/* SOCIAL FOOTER / INFO SECTION */}
+      <section style={{ maxWidth: '800px', margin: '0 auto 4rem auto', padding: '0 1.5rem', textAlign: 'center' }}>
+        <p style={{ color: '#4b5563', fontSize: '0.9rem', marginBottom: '1rem' }}>Connect with us on social media:</p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', fontSize: '0.9rem', fontWeight: 'bold' }}>
+          <a href="https://instagram.com/litesolarsolutions" target="_blank" rel="noopener noreferrer" style={{ color: '#e1306c', textDecoration: 'none' }}>
+            IG: @litesolarsolutions
+          </a>
+          <a href="https://tiktok.com/@litesolarenergy" target="_blank" rel="noopener noreferrer" style={{ color: '#000000', textDecoration: 'none' }}>
+            TikTok: @litesolarenergy
+          </a>
         </div>
       </section>
 
       {/* FLOATING WHATSAPP BUTTON */}
       <a 
-        href="https://wa.me/234XXXXXXXXXX" 
+        href="https://wa.me/2347030671806" 
         target="_blank" 
         rel="noopener noreferrer" 
         style={{ position: 'fixed', bottom: '5rem', right: '1.5rem', backgroundColor: '#25D366', color: '#fff', width: '56px', height: '56px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', boxShadow: '0 4px 15px rgba(37, 211, 102, 0.4)', zIndex: 1100, textDecoration: 'none' }}
@@ -202,15 +225,15 @@ export default function LandingPage() {
           <span style={{ fontSize: '1.2rem' }}>⚡</span>
           <span>Home</span>
         </Link>
-        <Link href="/packages" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#4b5563', textDecoration: 'none', fontSize: '0.7rem', gap: '0.2rem' }}>
+        <Link href="#packages" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#4b5563', textDecoration: 'none', fontSize: '0.7rem', gap: '0.2rem' }}>
           <span style={{ fontSize: '1.2rem' }}>📦</span>
           <span>Packages</span>
         </Link>
-        <Link href="/quote" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#4b5563', textDecoration: 'none', fontSize: '0.7rem', gap: '0.2rem' }}>
-          <span style={{ fontSize: '1.2rem' }}>📋</span>
-          <span>Get Quote</span>
+        <Link href="#calculator" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#4b5563', textDecoration: 'none', fontSize: '0.7rem', gap: '0.2rem' }}>
+          <span style={{ fontSize: '1.2rem' }}>🧮</span>
+          <span>Calculator</span>
         </Link>
-        <a href="https://wa.me/234XXXXXXXXXX" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#16a34a', textDecoration: 'none', fontSize: '0.7rem', gap: '0.2rem' }}>
+        <a href="https://wa.me/2347030671806" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#16a34a', textDecoration: 'none', fontSize: '0.7rem', gap: '0.2rem' }}>
           <span style={{ fontSize: '1.2rem' }}>💬</span>
           <span>WhatsApp</span>
         </a>
