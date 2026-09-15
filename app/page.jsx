@@ -61,19 +61,20 @@ export default function StoreApp() {
         </div>
       </div>
 
-      {/* MAIN COMPACT HEADER */}
+      {/* CLEAN LANDING PAGE HEADER (Expands only when Store is clicked) */}
       <header style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.75rem 1rem', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', position: 'sticky', top: 0, zIndex: 1000 }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            {/* THE STORE BUTTON: Toggles the comprehensive mega-menu drawer */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            {/* STORE TOGGLE BUTTON */}
             <button 
               onClick={() => setShowStoreMegaMenu(!showStoreMegaMenu)}
-              style={{ backgroundColor: '#111827', color: '#fff', border: 'none', padding: '0.5rem 0.75rem', borderRadius: '0.4rem', fontWeight: 'bold', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem', boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}
+              style={{ backgroundColor: '#111827', color: '#fff', border: 'none', padding: '0.5rem 0.85rem', borderRadius: '0.4rem', fontWeight: 'bold', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem', boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}
             >
               <span>🏪</span> Store {showStoreMegaMenu ? '▲' : '▼'}
             </button>
 
+            {/* BRAND LOGO */}
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none', color: '#fff' }}>
               <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', color: '#dc2626', fontSize: '1rem', flexShrink: 0 }}>
                 ⚡
@@ -85,22 +86,11 @@ export default function StoreApp() {
             </Link>
           </div>
 
-          {/* Search Bar */}
-          <div style={{ display: 'flex', flex: 1, maxWidth: '400px', backgroundColor: '#fff', borderRadius: '4px', overflow: 'hidden', border: '1px solid #ccc' }}>
-            <input 
-              type="text" 
-              placeholder="I'm shopping for..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{ width: '100%', padding: '0.45rem 0.6rem', border: 'none', outline: 'none', fontSize: '0.8rem', color: '#111827' }}
-            />
-            <button style={{ backgroundColor: '#047857', color: '#fff', border: 'none', padding: '0 0.85rem', fontWeight: 'bold', fontSize: '0.75rem', cursor: 'pointer' }}>
-              SEARCH
-            </button>
-          </div>
-
-          {/* Quick Action Hotline */}
-          <div>
+          {/* STANDARD LANDING NAV / ACTIONS (Hidden when store drawer is open to keep it clean, or can stay minimal) */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <Link href="#calculator" style={{ color: '#fff', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 'bold' }}>
+              Load Calculator
+            </Link>
             <a href="tel:08179464060" style={{ color: '#fff', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
               <span>📞</span> 08179464060
             </a>
@@ -108,56 +98,77 @@ export default function StoreApp() {
 
         </div>
 
-        {/* Category Navbar Strip */}
-        <nav style={{ maxWidth: '1400px', margin: '0.5rem auto 0 auto', display: 'flex', gap: '1rem', overflowX: 'auto', paddingBottom: '0.2rem', scrollbarWidth: 'none' }}>
-          {storeCategories.map((cat, idx) => (
-            <Link key={idx} href="#catalog" onClick={() => setShowStoreMegaMenu(true)} style={{ color: '#fff', textDecoration: 'none', fontSize: '0.75rem', fontWeight: '800', whiteSpace: 'nowrap' }}>
-              {cat}
-            </Link>
-          ))}
-        </nav>
+        {/* ========================================================= */}
+        {/* STORE SEARCH & CATEGORY STRIP (Appears ONLY when Store is clicked) */}
+        {/* ========================================================= */}
+        {showStoreMegaMenu && (
+          <div style={{ marginTop: '0.75rem', paddingTop: '0.75rem', borderTop: '1px solid rgba(255,255,255,0.2)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            
+            {/* Search Bar Row inside Store View */}
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', width: '100%', maxWidth: '500px', backgroundColor: '#fff', borderRadius: '4px', overflow: 'hidden', border: '1px solid #ccc' }}>
+                <input 
+                  type="text" 
+                  placeholder="Search store products (panels, inverters, batteries...)" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{ width: '100%', padding: '0.5rem 0.75rem', border: 'none', outline: 'none', fontSize: '0.8rem', color: '#111827' }}
+                />
+                <button style={{ backgroundColor: '#047857', color: '#fff', border: 'none', padding: '0 1rem', fontWeight: 'bold', fontSize: '0.75rem', cursor: 'pointer' }}>
+                  SEARCH
+                </button>
+              </div>
+            </div>
+
+            {/* Category Navbar Strip */}
+            <nav style={{ display: 'flex', justifyContent: 'center', gap: '1.25rem', overflowX: 'auto', paddingBottom: '0.2rem', scrollbarWidth: 'none' }}>
+              {storeCategories.map((cat, idx) => (
+                <Link key={idx} href="#catalog" onClick={() => setShowStoreMegaMenu(false)} style={{ color: '#fff', textDecoration: 'none', fontSize: '0.75rem', fontWeight: '800', whiteSpace: 'nowrap', opacity: 0.95 }}>
+                  {cat}
+                </Link>
+              ))}
+            </nav>
+
+          </div>
+        )}
       </header>
 
       {/* ========================================================= */}
-      {/* THE STORE LAYOUT DRAWER (Hidden by default, opens on Store click) */}
+      {/* FULL STORE MEGA-MENU DRAWER (Appears on Store click) */}
       {/* ========================================================= */}
       {showStoreMegaMenu && (
         <div style={{ backgroundColor: '#991b1b', color: '#ffffff', padding: '1.5rem 1rem', borderBottom: '3px solid #7f1d1d', boxShadow: '0 10px 30px rgba(0,0,0,0.25)', zIndex: 999, position: 'relative' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             
-            {/* Drawer Header & Controls */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '0.75rem' }}>
               <div style={{ fontSize: '0.9rem', fontWeight: '900', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                🏪 Gennex / Litesolar Comprehensive Storefront Layout
+                🏪 Litesolar Storefront Departments & Catalog
               </div>
               <button 
                 onClick={() => setShowStoreMegaMenu(false)} 
                 style={{ backgroundColor: '#111827', color: '#fff', border: 'none', padding: '0.4rem 0.8rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}
               >
-                Close [✕]
+                Close Store [✕]
               </button>
             </div>
 
-            {/* Detailed Store Layout Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
               
-              {/* Departments Section */}
               <div style={{ gridColumn: 'span 2', backgroundColor: 'rgba(0,0,0,0.25)', padding: '1.2rem', borderRadius: '0.5rem' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#fca5a5', marginBottom: '0.75rem', letterSpacing: '1px' }}>ALL STORE DEPARTMENTS & CATALOG</div>
+                <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#fca5a5', marginBottom: '0.75rem', letterSpacing: '1px' }}>ALL STORE DEPARTMENTS</div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '0.6rem' }}>
                   {[
                     "Solar Panels", "Deye Inverters", "Fireman Inverter", "Kartel Inverter", 
                     "Sako Inverter", "Growatt Inverters", "Lithium Batteries", "Tubular Batteries", 
                     "Rechargeable Fans", "MPPT Chargers", "LED Lighting", "Solar Water Pumps"
                   ].map((item, i) => (
-                    <Link key={i} href="#catalog" onClick={() => setShowStoreMegaMenu(false)} style={{ color: '#fff', textDecoration: 'none', fontSize: '0.75rem', padding: '0.45rem', backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '4px', display: 'block', transition: 'background 0.2s' }}>
+                    <Link key={i} href="#catalog" onClick={() => setShowStoreMegaMenu(false)} style={{ color: '#fff', textDecoration: 'none', fontSize: '0.75rem', padding: '0.45rem', backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '4px', display: 'block' }}>
                       ▪ {item}
                     </Link>
                   ))}
                 </div>
               </div>
 
-              {/* Spotlight & Pay-Later Column */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div style={{ backgroundColor: '#7f1d1d', padding: '1rem', borderRadius: '0.5rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.2)' }}>
                   <div style={{ fontSize: '0.75rem', fontWeight: '900', marginBottom: '0.3rem' }}>RECHARGEABLE FANS WITH SOLAR</div>
@@ -195,7 +206,7 @@ export default function StoreApp() {
             <span style={{ color: '#60a5fa' }}>Solar Products</span> at Best Prices.
           </h1>
           <p style={{ fontSize: '0.9rem', color: '#cbd5e1', lineHeight: '1.5', marginBottom: '1.5rem' }}>
-            Click the <strong style={{ color: '#fff' }}>Store</strong> button above anytime to browse full departments, categories, and bundle options.
+            Click the <strong style={{ color: '#fff' }}>Store</strong> button in the header anytime to browse full store departments, categories, and bundle options.
           </p>
         </div>
       </section>
