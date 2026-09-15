@@ -39,49 +39,49 @@ export default function LandingPage() {
   return (
     <div style={{ backgroundColor: '#ffffff', color: '#111827', minHeight: '100vh', fontFamily: 'sans-serif', paddingBottom: '5rem' }}>
       
-      {/* Top Accent Strip (15% Red & 5% Accent Red) */}
+      {/* Top Accent Strip */}
       <div style={{ height: '5px', background: 'linear-gradient(90deg, #1e3a8a 0%, #1e3a8a 50%, #dc2626 85%, #ef4444 100%)', width: '100%' }}></div>
 
       {/* HEADER / NAVBAR */}
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 1.5rem', backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb', position: 'sticky', top: 0, zIndex: 1000, boxShadow: '0 2px 10px rgba(0,0,0,0.03)' }}>
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
-          <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#1e3a8a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', color: '#fff', fontSize: '1.2rem', boxShadow: '0 2px 8px rgba(30,58,138,0.3)' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.5rem', backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb', position: 'sticky', top: 0, zIndex: 1000, boxShadow: '0 2px 10px rgba(0,0,0,0.03)' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#1e3a8a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', color: '#fff', fontSize: '1.1rem', flexShrink: 0 }}>
             ⚡
           </div>
-          <div>
-            <span style={{ fontSize: '1.05rem', fontWeight: '900', letterSpacing: '0.5px', color: '#1e3a8a', display: 'block' }}>LITESOLAR</span>
-            <span style={{ fontSize: '0.65rem', fontWeight: '700', letterSpacing: '1.5px', color: '#dc2626' }}>SOLUTIONS</span>
+          <div style={{ lineHeight: '1.2' }}>
+            <span style={{ fontSize: '0.95rem', fontWeight: '900', letterSpacing: '0.5px', color: '#1e3a8a', display: 'block' }}>LITESOLAR</span>
+            <span style={{ fontSize: '0.55rem', fontWeight: '700', letterSpacing: '1.2px', color: '#dc2626', display: 'block' }}>SOLUTIONS</span>
           </div>
         </Link>
 
-        <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <Link href="#packages" style={{ color: '#4b5563', textDecoration: 'none', fontSize: '0.9rem', fontWeight: '600' }}>Packages</Link>
-          <Link href="#calculator" style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.6rem 1.25rem', borderRadius: '2rem', textDecoration: 'none', fontSize: '0.85rem', fontWeight: '700', boxShadow: '0 4px 12px rgba(220, 38, 38, 0.3)' }}>
+          <Link href="#calculator" style={{ backgroundColor: '#dc2626', color: '#ffffff', padding: '0.5rem 1.1rem', borderRadius: '2rem', textDecoration: 'none', fontSize: '0.85rem', fontWeight: '700', boxShadow: '0 4px 12px rgba(220, 38, 38, 0.3)' }}>
             Get a Quote
           </Link>
         </div>
       </header>
 
-      {/* HERO SECTION */}
+      {/* HERO SECTION WITH EXPANDED BACKGROUND IMAGE */}
       <section style={{ 
         position: 'relative', 
-        padding: '5rem 1.5rem 5rem 1.5rem', 
+        padding: '7rem 1.5rem 7rem 1.5rem', 
         backgroundColor: '#0b0f19', 
-        backgroundImage: 'linear-gradient(rgba(11, 15, 25, 0.90), rgba(11, 15, 25, 0.94)), url("https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png")', 
+        backgroundImage: 'linear-gradient(rgba(11, 15, 25, 0.82), rgba(11, 15, 25, 0.88)), url("https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png")', 
         backgroundSize: 'cover', 
-        backgroundPosition: 'center', 
+        backgroundPosition: 'center center', 
         borderBottom: '1px solid #374151',
         color: '#ffffff'
       }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-block', backgroundColor: 'rgba(220, 38, 38, 0.2)', color: '#f87171', border: '1px solid rgba(220, 38, 38, 0.4)', padding: '0.35rem 0.85rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '1px', marginBottom: '1rem' }}>
+          <div style={{ display: 'inline-block', backgroundColor: 'rgba(220, 38, 38, 0.25)', color: '#f87171', border: '1px solid rgba(220, 38, 38, 0.4)', padding: '0.35rem 0.85rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '1px', marginBottom: '1.25rem' }}>
             🔥 RELIABLE CLEAN ENERGY IN NIGERIA
           </div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: '900', lineHeight: '1.15', marginBottom: '1rem', color: '#ffffff', letterSpacing: '-0.5px' }}>
+          <h1 style={{ fontSize: '2.8rem', fontWeight: '900', lineHeight: '1.15', marginBottom: '1.25rem', color: '#ffffff', letterSpacing: '-0.5px' }}>
             Hello, Nigeria.<br />
             <span style={{ color: '#60a5fa' }}>Power up</span> your home & business.
           </h1>
-          <p style={{ fontSize: '1rem', color: '#9ca3af', lineHeight: '1.6', marginBottom: '2rem' }}>
+          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', lineHeight: '1.6', marginBottom: '2.25rem', maxWidth: '700px' }}>
             Enjoy uninterrupted, climate-friendly, and cost-effective solar electricity engineered for Nigerian homes. Eliminate power outages forever with professional installations.
           </p>
 
@@ -97,7 +97,7 @@ export default function LandingPage() {
       </section>
 
       {/* ABOUT US / MISSION */}
-      <section style={{ maxWidth: '800px', margin: '0 auto', padding: '3rem 1.5rem 2rem 1.5rem' }}>
+      <section style={{ maxWidth: '800px', margin: '0 auto', padding: '3.5rem 1.5rem 2rem 1.5rem' }}>
         <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#1e3a8a', letterSpacing: '1.5px', marginBottom: '0.5rem' }}>
           ABOUT US
         </div>
@@ -219,7 +219,7 @@ export default function LandingPage() {
         💬
       </a>
 
-      {/* BOTTOM NAVIGATION BAR (Mobile friendly) */}
+      {/* BOTTOM NAVIGATION BAR */}
       <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: '#ffffff', borderTop: '1px solid #e5e7eb', display: 'flex', justifyContent: 'space-around', alignItems: 'center', padding: '0.6rem 0', zIndex: 1000, boxShadow: '0 -2px 10px rgba(0,0,0,0.05)' }}>
         <Link href="/" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#1e3a8a', textDecoration: 'none', fontSize: '0.7rem', gap: '0.2rem', fontWeight: 'bold' }}>
           <span style={{ fontSize: '1.2rem' }}>⚡</span>
