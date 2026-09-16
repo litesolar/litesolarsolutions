@@ -47,18 +47,17 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* CLEAN STICKY HEADER */}
-      <header style={{ backgroundColor: '#ffffff', color: '#1e3a8a', padding: '0.6rem 1rem', borderBottom: '1px solid #e5e7eb', position: 'sticky', top: 0, zIndex: 1000, boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+      {/* CLEAN STICKY HEADER WITH LOGO */}
+      <header style={{ backgroundColor: '#ffffff', color: '#1e3a8a', padding: '0.5rem 1rem', borderBottom: '1px solid #e5e7eb', position: 'sticky', top: 0, zIndex: 1000, boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none', color: '#1e3a8a' }}>
-            <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#1e3a8a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '14px' }}>
-              ⚡
-            </div>
-            <div style={{ lineHeight: '1.1' }}>
-              <span style={{ fontSize: '13px', fontWeight: '800', letterSpacing: '0.3px', display: 'block' }}>litesolarsolutions</span>
-              <span style={{ fontSize: '9px', fontWeight: '600', color: '#2563eb', letterSpacing: '0.5px', display: 'block' }}>SOLAR TECHNOLOGIES</span>
-            </div>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: '#1e3a8a' }}>
+            <img 
+              src="https://i.ibb.co/TBbM6PH8/Whats-App-Image-2026-09-14-at-10-04-51.jpg" 
+              alt="litesolarsolutions logo" 
+              style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} 
+            />
+            <span style={{ fontSize: '15px', fontWeight: '800', letterSpacing: '0.3px' }}>litesolarsolutions</span>
           </Link>
 
           <Link 
