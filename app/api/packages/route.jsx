@@ -19,9 +19,8 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { title, capacity, price, description, image, features } = body;
+    const { title, capacity, price, description, image, installationKits } = body;
 
-    // Validate that capacity exists
     if (!capacity) {
       return NextResponse.json({ error: "Argument 'capacity' is missing." }, { status: 400 });
     }
@@ -33,7 +32,8 @@ export async function POST(request) {
         price,
         description,
         image,
-        features,
+        // If your database column is named 'features', we pass installationKits directly into it as a string
+        features: installationKits || "",
       },
     });
 
