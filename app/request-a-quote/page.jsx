@@ -70,24 +70,24 @@ export default function RequestQuotePage() {
                 <input type="text" placeholder="Enter full name" required style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '0.8rem' }} />
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Phone Number[cite: 1]</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Phone Number</label>
                 <input type="tel" placeholder="07030671806" required style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '0.8rem' }} />
               </div>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>WhatsApp Number[cite: 1]</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>WhatsApp Number</label>
                 <input type="tel" placeholder="07030671806" required style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '0.8rem' }} />
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Email Address[cite: 1]</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Email Address</label>
                 <input type="email" placeholder="yourname@email.com" style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '0.8rem' }} />
               </div>
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Location / Installation Address[cite: 1]</label>
+              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Location / Installation Address</label>
               <input type="text" placeholder="e.g. Bodija, Ibadan, Oyo State" required style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '0.8rem' }} />
             </div>
 
@@ -96,7 +96,7 @@ export default function RequestQuotePage() {
             </h2>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Property Type[cite: 1]</label>
+              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Property Type</label>
               <select style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '0.8rem', backgroundColor: '#fff' }}>
                 <option>House</option>
                 <option>Apartment</option>
@@ -109,9 +109,9 @@ export default function RequestQuotePage() {
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.3rem' }}>Appliances to Power[cite: 1]</label>
+              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.3rem' }}>Appliances to Power</label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.5rem', fontSize: '0.75rem' }}>
-                {['Lights[cite: 1]', 'Fans[cite: 1]', 'TV[cite: 1]', 'Refrigerator[cite: 1]', 'Freezer[cite: 1]', 'AC[cite: 1]', 'Washing Machine[cite: 1]', 'Water Pump[cite: 1]', 'Computers[cite: 1]', 'Other[cite: 1]'].map((app, i) => (
+                {['Lights', 'Fans', 'TV', 'Refrigerator', 'Freezer', 'AC', 'Washing Machine', 'Water Pump', 'Computers', 'Other'.map((app, i) => (
                   <label key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: '#f9fafb', padding: '0.4rem', borderRadius: '4px', border: '1px solid #f3f4f6' }}>
                     <input type="checkbox" /> {app}
                   </label>
@@ -123,25 +123,25 @@ export default function RequestQuotePage() {
               <div>
                 <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Current Power Source[cite: 1]</label>
                 <select style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '0.8rem', backgroundColor: '#fff' }}>
-                  <option>Grid[cite: 1]</option>
-                  <option>Generator[cite: 1]</option>
-                  <option>Existing Solar[cite: 1]</option>
-                  <option>Combination[cite: 1]</option>
+                  <option>Grid</option>
+                  <option>Generator</option>
+                  <option>Existing Solar</option>
+                  <option>Combination</option>
                 </select>
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Desired Backup Requirement[cite: 1]</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Desired Backup Requirement</label>
                 <select style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '0.8rem', backgroundColor: '#fff' }}>
-                  <option>4 hours[cite: 1]</option>
-                  <option>8 hours[cite: 1]</option>
-                  <option>12 hours[cite: 1]</option>
-                  <option>24 hours[cite: 1]</option>
+                  <option>4 hours</option>
+                  <option>8 hours</option>
+                  <option>12 hours</option>
+                  <option>24 hours</option>
                 </select>
               </div>
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Additional Message / Notes[cite: 1]</label>
+              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Additional Message / Notes</label>
               <textarea rows="3" placeholder="Any specific load details or requests..." style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '0.8rem' }}></textarea>
             </div>
 
