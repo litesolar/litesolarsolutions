@@ -32,8 +32,7 @@ export async function POST(request) {
         price,
         description,
         image,
-        // If your database column is named 'features', we pass installationKits directly into it as a string
-        features: installationKits || "",
+        installationKits: installationKits || "", // Matches the new schema field name exactly
       },
     });
 
