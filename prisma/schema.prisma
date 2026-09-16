@@ -14,6 +14,6 @@ model Package {
   price            String
   description      String?
   image            String?
-  installationKits String?
+  installationKits String?  @map("features") 
   createdAt        DateTime @default(now())
 }
