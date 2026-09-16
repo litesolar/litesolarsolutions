@@ -1,63 +1,164 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function StorePage() {
-  const products = [
-    { id: 1, name: '5KVA Hybrid Inverter', price: '₦850,000', category: 'Inverters', img: '⚡' },
-    { id: 2, name: '24V 100Ah Lithium Battery', price: '₦1,200,000', category: 'Batteries', img: '🔋' },
-    { id: 3, name: '450W Monocrystalline Solar Panel', price: '₦145,000', category: 'Panels', img: '☀️' },
-    { id: 4, name: '10KVA Pure Sine Wave Inverter', price: '₦1,650,000', category: 'Inverters', img: '⚡' },
-  ];
+  const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/packages')
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setPackages(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
+  const addToCart = (pkg) => {
+    const existing = cart.find(item => item.id === pkg.id);
+    if (existing) {
+      setCart(cart.map(item => item.id === pkg.id ? { ...item, qty: item.qty + 1 } : item));
+    } else {
+      setCart([...cart, { ...pkg, qty: 1 }]);
+    }
+  };
+
+  const totalCartItems = cart.reduce((sum, item) => sum + item.qty, 0);
+  const cartTotalPrice = cart.reduce((sum, item) => {
+    const cleanPrice = parseFloat(String(item.price).replace(/,/g, '')) || 0;
+    return sum + (cleanPrice * item.qty);
+  }, 0);
+
+  const checkoutWhatsAppText = encodeURIComponent(
+    `Hello litesolarsolutions, I want to place an order for the following items:\n` +
+    cart.map(item => `- ${item.title} (Qty: ${item.qty}) - ₦${item.price}`).join('\n') +
+    `\n\nTotal Estimated Price: ₦${cartTotalPrice.toLocaleString()}`
+  );
 
   return (
-    <div style={{ backgroundColor: '#ffffff', color: '#111827', minHeight: '100vh', fontFamily: 'sans-serif', paddingBottom: '6rem' }}>
+    <div style={{ backgroundColor: '#f8fafc', color: '#1f2937', minHeight: '100vh', fontFamily: 'system-ui, -apple-system, sans-serif', paddingBottom: '7rem', fontSize: '14px' }}>
       
       {/* HEADER */}
-      <header style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '1rem 1.25rem', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Link href="/" style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.9rem' }}>
-            ← Back to Home
+      <header style={{ backgroundColor: '#ffffff', color: '#1e3a8a', padding: '0.5rem 1rem', borderBottom: '1px solid #e5e7eb', position: 'sticky', top: 0, zIndex: 1000, boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: '#1e3a8a' }}>
+            <img src="https://i.ibb.co/TBbM6PH8/Whats-App-Image-2026-09-14-at-10-04-51.jpg" alt="logo" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} />
+            <span style={{ fontSize: '15px', fontWeight: '800' }}>litesolarsolutions</span>
           </Link>
-          <span style={{ fontWeight: '900', letterSpacing: '0.5px' }}>LITESOLAR STORE</span>
-          <a href="https://wa.me/2347030671806" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none', fontSize: '0.8rem', backgroundColor: '#25D366', padding: '0.4rem 0.75rem', borderRadius: '0.35rem', fontWeight: 'bold' }}>
-            💬 Order via WhatsApp
-          </a>
+
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <div style={{ position: 'relative', backgroundColor: '#eff6ff', padding: '0.4rem 0.75rem', borderRadius: '0.25rem', fontSize: '12px', fontWeight: '700', color: '#1e3a8a', border: '1px solid #bfdbfe' }}>
+              🛒 Cart: {totalCartItems}
+            </div>
+            <Link href="/" style={{ fontSize: '12px', fontWeight: '700', color: '#2563eb', textDecoration: 'none' }}>
+              ← Home
+            </Link>
+          </div>
         </div>
       </header>
 
-      {/* STORE HERO */}
-      <section style={{ padding: '3rem 1rem', backgroundColor: '#f8fafc', textAlign: 'center', borderBottom: '1px solid #e2e8f0' }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: '900', color: '#111827', marginBottom: '0.5rem' }}>Solar Products Catalog</h1>
-        <p style={{ color: '#4b5563', fontSize: '0.9rem' }}>Top-grade inverters, batteries, and solar panels available for nationwide delivery.</p>
-      </section>
-
-      {/* PRODUCT GRID */}
-      <section style={{ maxWidth: '1200px', margin: '2rem auto', padding: '0 1rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
-          {products.map((item) => (
-            <div key={item.id} style={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '0.75rem', padding: '1.25rem', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <div>
-                <div style={{ height: '140px', backgroundColor: '#f3f4f6', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', marginBottom: '1rem' }}>
-                  {item.img}
-                </div>
-                <span style={{ fontSize: '0.7rem', fontWeight: '800', color: '#1e3a8a', backgroundColor: '#eff6ff', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>{item.category}</span>
-                <h3 style={{ fontSize: '1rem', fontWeight: '800', color: '#111827', margin: '0.5rem 0' }}>{item.name}</h3>
-              </div>
-              <div>
-                <div style={{ fontSize: '1.1rem', fontWeight: '900', color: '#dc2626', marginBottom: '1rem' }}>{item.price}</div>
-                <a 
-                  href={`https://wa.me/2347030671806?text=Hello,%20I%20am%20interested%20in%20buying%20the%20${encodeURIComponent(item.name)}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  style={{ display: 'block', width: '100%', backgroundColor: '#1e3a8a', color: '#fff', textAlign: 'center', padding: '0.65rem', borderRadius: '0.4rem', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.85rem' }}
-                >
-                  Buy on WhatsApp
-                </a>
-              </div>
-            </div>
-          ))}
+      {/* HERO BANNER */}
+      <section style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '2.5rem 1rem', textAlign: 'center' }}>
+        <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#93c5fd', letterSpacing: '1px', marginBottom: '0.4rem' }}>ONLINE STORE CATALOG</div>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: '900', marginBottom: '0.5rem' }}>Ready-to-Deploy <span style={{ color: '#93c5fd' }}>Solar Packages</span></h1>
+          <p style={{ fontSize: '13px', color: '#cbd5e1' }}>Browse certified inverters, panels, and lithium battery kits stored in Ijebu Ode, ready for nationwide delivery.</p>
         </div>
       </section>
+
+      {/* STORE GRID */}
+      <main style={{ maxWidth: '1100px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>Loading store catalog...</div>
+        ) : packages.length === 0 ? (
+          <div style={{ textAlign: 'center', backgroundColor: '#fff', padding: '3rem', borderRadius: '0.75rem', border: '1px solid #e2e8f0' }}>
+            <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.5rem' }}>No Packages Listed Yet</h2>
+            <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '1rem' }}>Check back soon or request a custom quote for your specific property.</p>
+            <Link href="/request-a-quote" style={{ backgroundColor: '#2563eb', color: '#fff', padding: '0.5rem 1rem', borderRadius: '0.3rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px' }}>Request Custom Quote</Link>
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
+            {packages.map((pkg) => (
+              <div key={pkg.id} style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '0.75rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 2px 4px rgba(0,0,0,0.03)' }}>
+                
+                {/* Square Image container */}
+                <div style={{ width: '100%', height: '200px', backgroundColor: '#f1f5f9', overflow: 'hidden' }}>
+                  <img 
+                    src={pkg.imageUrl || "https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png"} 
+                    alt={pkg.title} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                  />
+                </div>
+
+                <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                  <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.3rem' }}>{pkg.title}</h3>
+                  <div style={{ fontSize: '1.1rem', fontWeight: '900', color: '#16a34a', marginBottom: '0.75rem' }}>₦{pkg.price}</div>
+                  <p style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.4', marginBottom: '1.25rem', flexGrow: 1 }}>{pkg.description}</p>
+                  
+                  {/* BUTTON GROUP: WhatsApp Order + Add to Cart */}
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <Link 
+                      href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%20I%20want%20to%20order%20the%20package:%20${pkg.title}%20priced%20at%20₦${pkg.price}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ flex: 1, textAlign: 'center', backgroundColor: '#2563eb', color: '#fff', padding: '0.5rem', borderRadius: '0.3rem', textDecoration: 'none', fontWeight: '700', fontSize: '11px' }}
+                    >
+                      Order on WhatsApp 💬
+                    </Link>
+                    
+                    <button 
+                      onClick={() => addToCart(pkg)}
+                      style={{ backgroundColor: '#1e3a8a', color: '#fff', border: 'none', padding: '0.5rem 0.75rem', borderRadius: '0.3rem', fontWeight: '700', fontSize: '11px', cursor: 'pointer', whiteSpace: 'nowrap' }}
+                      title="Add to Cart"
+                    >
+                      🛒 +
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
+
+      {/* FLOATING CART CHECKOUT BAR (Appears when items are added) */}
+      {cart.length > 0 && (
+        <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: '#1e3a8a', color: '#fff', padding: '1rem', zIndex: 1050, boxShadow: '0 -4px 10px rgba(0,0,0,0.15)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <div style={{ maxWidth: '600px' }}>
+            <div style={{ fontSize: '11px', color: '#93c5fd', fontWeight: '700' }}>CART SUMMARY ({totalCartItems} items)</div>
+            <div style={{ fontSize: '13px', fontWeight: '800' }}>
+              {cart.map(item => `${item.title} (x${item.qty})`).join(', ')}
+            </div>
+          </div>
+          
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <div style={{ fontSize: '1.1rem', fontWeight: '900', color: '#4ade80' }}>
+              ₦{cartTotalPrice.toLocaleString()}
+            </div>
+            <a 
+              href={`https://wa.me/2347030671806?text=${checkoutWhatsAppText}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ backgroundColor: '#25D366', color: '#fff', padding: '0.6rem 1.25rem', borderRadius: '0.3rem', textDecoration: 'none', fontWeight: '800', fontSize: '12px' }}
+            >
+              Checkout on WhatsApp 💬
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* WHATSAPP FLOATING BUTTON */}
+      <a href="https://wa.me/2347030671806" target="_blank" rel="noopener noreferrer" style={{ position: 'fixed', bottom: cart.length > 0 ? '4.5rem' : '1rem', right: '1rem', backgroundColor: '#25D366', color: '#fff', width: '42px', height: '42px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem', boxShadow: '0 3px 8px rgba(37, 211, 102, 0.4)', zIndex: 1100, textDecoration: 'none', transition: 'bottom 0.2s' }} title="Chat on WhatsApp">
+        💬
+      </a>
 
     </div>
   );
