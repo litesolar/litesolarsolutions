@@ -107,39 +107,58 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TRUST & GUARANTEE BAR */}
-      <section style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', padding: '1rem' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', gap: '2.5rem', textAlign: 'left' }}>
-          
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', maxWidth: '260px' }}>
-            <span style={{ fontSize: '18px' }}>🛡️</span>
-            <div>
-              <div style={{ fontSize: '12px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.15rem' }}>Genuine Components</div>
-              <div style={{ fontSize: '11px', color: '#64748b', lineHeight: '1.4' }}>Top-tier panels, inverters, and long-lasting lithium batteries.</div>
-            </div>
+      {/* TRUST & GUARANTEE SECTION WITH DETAILED IMAGES & DESCRIPTIONS */}
+      <section style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', padding: '2rem 1rem' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>💎 WHY CHOOSE US</div>
+            <h2 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e3a8a' }}>Our Core Guarantees & Excellence</h2>
           </div>
 
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', maxWidth: '260px' }}>
-            <span style={{ fontSize: '18px' }}>🔧</span>
-            <div>
-              <div style={{ fontSize: '12px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.15rem' }}>Expert Installation</div>
-              <div style={{ fontSize: '11px', color: '#64748b', lineHeight: '1.4' }}>Professional engineering teams for safe, clean setups.</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+            
+            {/* Genuine Components Card */}
+            <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
+              <img 
+                src="https://i.ibb.co/0p7tfrvw/Whats-App-Image-2026-09-16-at-05-40-07-1.jpg" 
+                alt="Genuine Solar Components" 
+                style={{ width: '100%', height: '180px', objectFit: 'cover' }} 
+              />
+              <div style={{ padding: '1.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                  <span style={{ fontSize: '18px' }}>🛡️</span>
+                  <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e3a8a' }}>Genuine High-Grade Components</h3>
+                </div>
+                <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5' }}>
+                  We source and supply 100% authentic, durable solar panels, high-efficiency hybrid inverters, and long-lasting deep-cycle lithium batteries designed to withstand tough power conditions and deliver optimal energy output for decades.
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', maxWidth: '260px' }}>
-            <span style={{ fontSize: '18px' }}>⚡</span>
-            <div>
-              <div style={{ fontSize: '12px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.15rem' }}>Nationwide Delivery</div>
-              <div style={{ fontSize: '11px', color: '#64748b', lineHeight: '1.4' }}>Fast, secure delivery and deployment across Nigeria.</div>
+            {/* Expert Installation Card */}
+            <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
+              <img 
+                src="https://i.ibb.co/zHjNx5rm/Whats-App-Image-2026-09-16-at-06-16-42.jpg" 
+                alt="Expert Engineering Installation" 
+                style={{ width: '100%', height: '180px', objectFit: 'cover' }} 
+              />
+              <div style={{ padding: '1.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                  <span style={{ fontSize: '18px' }}>🔧</span>
+                  <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e3a8a' }}>Expert Professional Installation</h3>
+                </div>
+                <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5' }}>
+                  Our certified electrical engineers execute meticulous, clean wiring, proper load balancing, and secure circuit configurations. From our base in Ijebu Ode to locations nationwide, we guarantee safe and flawless setup.
+                </p>
+              </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </section>
 
       {/* INTERACTIVE SYSTEM SIZER CALCULATOR ON HOMEPAGE */}
-      <section style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1rem' }}>
+      <section style={{ maxWidth: '900px', margin: '2.5rem auto', padding: '0 1rem' }}>
         <div style={{ backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
           <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>🧮 INSTANT SYSTEM SIZER</div>
           <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.5rem' }}>Calculate What Power You Need</h2>
