@@ -81,7 +81,7 @@ export default function QuotePage() {
               <input 
                 type="tel" 
                 required 
-                placeholder="e.g., 08012345678" 
+                placeholder="e.g., 07030671806" 
                 style={{ width: '100%', backgroundColor: '#111827', border: '1px solid #374151', borderRadius: '0.5rem', padding: '0.85rem', color: '#ffffff', fontSize: '0.95rem', outline: 'none' }} 
               />
             </div>
@@ -91,7 +91,7 @@ export default function QuotePage() {
               <input 
                 type="text" 
                 required 
-                placeholder="e.g., Ibadan, Oyo State" 
+                placeholder="e.g., ijebu ode, ogunstate" 
                 style={{ width: '100%', backgroundColor: '#111827', border: '1px solid #374151', borderRadius: '0.5rem', padding: '0.85rem', color: '#ffffff', fontSize: '0.95rem', outline: 'none' }} 
               />
             </div>
