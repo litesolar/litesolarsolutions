@@ -53,7 +53,7 @@ export default async function HomePage() {
         </div>
       </header>
 
-      {/* HERO SECTION WITH HIGH VISIBILITY BACKGROUND IMAGE */}
+      {/* HERO SECTION */}
       <section style={{ 
         padding: '3rem 1rem', 
         backgroundColor: '#1e3a8a', 
@@ -91,6 +91,15 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* NEW: TRUST & GUARANTEE BAR */}
+      <section style={{ backgroundColor: '#f1f5f9', borderBottom: '1px solid #e2e8f0', padding: '0.75rem 1rem' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '0.5rem', textAlign: 'center', fontSize: '11px', fontWeight: '700', color: '#334155' }}>
+          <div>🛡️ Genuine Components</div>
+          <div>🔧 Expert Installation</div>
+          <div>⚡ Nationwide Delivery</div>
+        </div>
+      </section>
+
       {/* LIVE DATABASE PACKAGES SECTION */}
       <section style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
@@ -106,41 +115,60 @@ export default async function HomePage() {
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-            {packages.map((pkg) => (
-              <div key={pkg.id} style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-                <div>
-                  <span style={{ display: 'inline-block', backgroundColor: '#eff6ff', color: '#1e3a8a', padding: '0.15rem 0.5rem', borderRadius: '9999px', fontSize: '11px', fontWeight: '700', marginBottom: '0.5rem', border: '1px solid #bfdbfe' }}>
-                    {pkg.capacity}
-                  </span>
-                  <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.4rem', color: '#1e3a8a' }}>{pkg.title}</h3>
-                  <p style={{ color: '#64748b', fontSize: '12px', marginBottom: '0.75rem', lineHeight: '1.4' }}>{pkg.description}</p>
-                  
-                  {pkg.features && pkg.features.length > 0 && (
-                    <ul style={{ listStyleType: 'disc', paddingLeft: '1rem', marginBottom: '1rem', color: '#475569', fontSize: '11px', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                      {pkg.features.map((feature, idx) => (
-                        <li key={idx}>{feature}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+            {packages.map((pkg) => {
+              // Format price cleanly with commas and Naira sign if it's purely numeric
+              const formattedPrice = !isNaN(pkg.price) 
+                ? `₦${Number(pkg.price).toLocaleString()}` 
+                : pkg.price;
 
-                <div>
-                  <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#16a34a', marginBottom: '0.75rem' }}>
-                    {pkg.price}
+              return (
+                <div key={pkg.id} style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+                  <div>
+                    <span style={{ display: 'inline-block', backgroundColor: '#eff6ff', color: '#1e3a8a', padding: '0.15rem 0.5rem', borderRadius: '9999px', fontSize: '11px', fontWeight: '700', marginBottom: '0.5rem', border: '1px solid #bfdbfe' }}>
+                      {pkg.capacity}
+                    </span>
+                    <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.4rem', color: '#1e3a8a', textTransform: 'capitalize' }}>{pkg.title}</h3>
+                    <p style={{ color: '#64748b', fontSize: '12px', marginBottom: '0.75rem', lineHeight: '1.4' }}>{pkg.description}</p>
+                    
+                    {pkg.features && pkg.features.length > 0 && (
+                      <ul style={{ listStyleType: 'disc', paddingLeft: '1rem', marginBottom: '1rem', color: '#475569', fontSize: '11px', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                        {pkg.features.map((feature, idx) => (
+                          <li key={idx}>{feature}</li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
-                  <a 
-                    href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%20I%20am%20interested%20in%20the%20${encodeURIComponent(pkg.title)}%20(${encodeURIComponent(pkg.price)})`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ display: 'block', textAlign: 'center', backgroundColor: '#2563eb', color: '#fff', padding: '0.5rem', borderRadius: '0.25rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px' }}
-                  >
-                    Enquire on WhatsApp 💬
-                  </a>
+
+                  <div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#16a34a', marginBottom: '0.75rem' }}>
+                      {formattedPrice}
+                    </div>
+                    <a 
+                      href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%20I%20am%20interested%20in%20the%20${encodeURIComponent(pkg.title)}%20(${encodeURIComponent(formattedPrice)})`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{ display: 'block', textAlign: 'center', backgroundColor: '#2563eb', color: '#fff', padding: '0.5rem', borderRadius: '0.25rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px' }}
+                    >
+                      Enquire on WhatsApp 💬
+                    </a>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
+      </section>
+
+      {/* NEW: ENERGY CALCULATOR / CUSTOM LOAD BANNER */}
+      <section style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1rem' }}>
+        <div style={{ backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '0.5rem', padding: '1.5rem', textAlign: 'center' }}>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#2563eb', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>💡 NEED A CUSTOM CONFIGURATION?</div>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.4rem' }}>Unsure of your exact power requirement?</h3>
+          <p style={{ fontSize: '12px', color: '#475569', marginBottom: '1rem' }}>Tell us your appliances (TVs, ACs, Fridges), and our engineers will size the ideal system for your budget.</p>
+          <Link href="/request-a-quote" style={{ display: 'inline-block', backgroundColor: '#1e3a8a', color: '#fff', padding: '0.5rem 1rem', borderRadius: '0.25rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px' }}>
+            Request System Sizing ➔
+          </Link>
+        </div>
       </section>
 
       {/* RECENT PROJECTS PREVIEW */}
