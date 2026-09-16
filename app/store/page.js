@@ -97,7 +97,7 @@ export default function StorePage() {
                 {/* Square Image container */}
                 <div style={{ width: '100%', height: '200px', backgroundColor: '#f1f5f9', overflow: 'hidden' }}>
                   <img 
-                    src={pkg.imageUrl || "https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png"} 
+                    src={pkg.image || "https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png"} 
                     alt={pkg.title} 
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                   />
