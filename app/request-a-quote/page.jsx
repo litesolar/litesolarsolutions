@@ -98,13 +98,13 @@ export default function RequestQuotePage() {
             <div>
               <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Property Type[cite: 1]</label>
               <select style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '0.8rem', backgroundColor: '#fff' }}>
-                <option>House[cite: 1]</option>
-                <option>Apartment[cite: 1]</option>
-                <option>Office[cite: 1]</option>
-                <option>Shop[cite: 1]</option>
-                <option>Hotel[cite: 1]</option>
-                <option>Factory[cite: 1]</option>
-                <option>Other[cite: 1]</option>
+                <option>House</option>
+                <option>Apartment</option>
+                <option>Office</option>
+                <option>Shop</option>
+                <option>Hotel</option>
+                <option>Factory</option>
+                <option>Other</option>
               </select>
             </div>
 
