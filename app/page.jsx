@@ -107,7 +107,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TRUST & GUARANTEE BAR (LEFT-ALIGNED HORIZONTAL WITH EXPLANATIONS) */}
+      {/* TRUST & GUARANTEE BAR */}
       <section style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', padding: '1rem' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', gap: '2.5rem', textAlign: 'left' }}>
           
@@ -179,6 +179,44 @@ export default function HomePage() {
               Get Custom Quote for this Setup on WhatsApp 💬
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* PHOTO GALLERY / INSTALLATION SHOWCASE */}
+      <section style={{ maxWidth: '900px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>📸 OUR WORK IN ACTION</div>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a' }}>Recent Solar Installations</h2>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
+          
+          {/* Photo Card 1 */}
+          <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+            <img 
+              src="https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png" 
+              alt="Residential Solar Setup" 
+              style={{ width: '100%', height: '160px', objectFit: 'cover' }} 
+            />
+            <div style={{ padding: '1rem' }}>
+              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>5KVA Residential Hybrid System</h3>
+              <p style={{ fontSize: '11px', color: '#64748b' }}>Clean rooftop solar panel array with lithium battery backup in Ibadan.</p>
+            </div>
+          </div>
+
+          {/* Photo Card 2 */}
+          <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+            <img 
+              src="https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png" 
+              alt="Commercial Inverter Setup" 
+              style={{ width: '100%', height: '160px', objectFit: 'cover' }} 
+            />
+            <div style={{ padding: '1rem' }}>
+              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>10KVA Commercial Setup</h3>
+              <p style={{ fontSize: '11px', color: '#64748b' }}>Zero-downtime power configuration for business offices and stores.</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
