@@ -6,6 +6,7 @@ export default function StorePage() {
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null); // For the details modal
 
   useEffect(() => {
     fetch('/api/packages')
@@ -64,7 +65,7 @@ export default function StorePage() {
         </div>
       </header>
 
-      {/* HERO BANNER - PROFESSIONAL REFINEMENT */}
+      {/* HERO BANNER */}
       <section style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '2.5rem 1rem', textAlign: 'center' }}>
         <div style={{ maxWidth: '750px', margin: '0 auto' }}>
           <div style={{ fontSize: '10px', fontWeight: '800', color: '#93c5fd', letterSpacing: '1.2px', marginBottom: '0.4rem' }}>
@@ -79,7 +80,7 @@ export default function StorePage() {
         </div>
       </section>
 
-      {/* STORE GRID */}
+      {/* STORE GRID (Catalog View) */}
       <main style={{ maxWidth: '1100px', margin: '2.5rem auto', padding: '0 1rem' }}>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>Loading store catalog...</div>
@@ -94,34 +95,40 @@ export default function StorePage() {
             {packages.map((pkg) => (
               <div key={pkg.id} style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '0.75rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 2px 4px rgba(0,0,0,0.03)' }}>
                 
-                {/* Square Image container */}
-                <div style={{ width: '100%', height: '200px', backgroundColor: '#f1f5f9', overflow: 'hidden' }}>
+                {/* Full Uncropped Image Container */}
+                <div 
+                  onClick={() => setSelectedProduct(pkg)}
+                  style={{ width: '100%', height: '220px', backgroundColor: '#f8fafc', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderBottom: '1px solid #f1f5f9' }}
+                  title="Click to view full specifications"
+                >
                   <img 
                     src={pkg.image || "https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png"} 
                     alt={pkg.title} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} 
                   />
                 </div>
 
                 <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                  <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.3rem' }}>{pkg.title}</h3>
-                  <div style={{ fontSize: '1.1rem', fontWeight: '900', color: '#16a34a', marginBottom: '0.75rem' }}>₦{pkg.price}</div>
-                  <p style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.4', marginBottom: '1.25rem', flexGrow: 1 }}>{pkg.description}</p>
+                  <h3 
+                    onClick={() => setSelectedProduct(pkg)}
+                    style={{ fontSize: '15px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.3rem', cursor: 'pointer' }}
+                  >
+                    {pkg.title}
+                  </h3>
+                  <div style={{ fontSize: '1.1rem', fontWeight: '900', color: '#16a34a', marginBottom: '1rem' }}>₦{pkg.price}</div>
                   
-                  {/* BUTTON GROUP: WhatsApp Order + Add to Cart */}
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <Link 
-                      href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%20I%20want%20to%20order%20the%20package:%20${pkg.title}%20priced%20at%20₦${pkg.price}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ flex: 1, textAlign: 'center', backgroundColor: '#2563eb', color: '#fff', padding: '0.5rem', borderRadius: '0.3rem', textDecoration: 'none', fontWeight: '700', fontSize: '11px' }}
+                  {/* BUTTON GROUP */}
+                  <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto' }}>
+                    <button 
+                      onClick={() => setSelectedProduct(pkg)}
+                      style={{ flex: 1, backgroundColor: '#f1f5f9', color: '#1e3a8a', border: '1px solid #cbd5e1', padding: '0.5rem', borderRadius: '0.3rem', fontWeight: '700', fontSize: '11px', cursor: 'pointer' }}
                     >
-                      Order on WhatsApp 💬
-                    </Link>
+                      View Specs 🔍
+                    </button>
                     
                     <button 
                       onClick={() => addToCart(pkg)}
-                      style={{ backgroundColor: '#1e3a8a', color: '#fff', border: 'none', padding: '0.5rem 0.75rem', borderRadius: '0.3rem', fontWeight: '700', fontSize: '11px', cursor: 'pointer', whiteSpace: 'nowrap' }}
+                      style={{ backgroundColor: '#1e3a8a', color: '#fff', border: 'none', padding: '0.5rem 0.8rem', borderRadius: '0.3rem', fontWeight: '700', fontSize: '11px', cursor: 'pointer' }}
                       title="Add to Cart"
                     >
                       🛒 +
@@ -135,7 +142,60 @@ export default function StorePage() {
         )}
       </main>
 
-      {/* FLOATING CART CHECKOUT BAR (Appears when items are added) */}
+      {/* PRODUCT DETAILS MODAL (POPUP FOR SPECS) */}
+      {selectedProduct && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+          <div style={{ backgroundColor: '#fff', borderRadius: '0.75rem', maxWidth: '600px', width: '100%', maxHeight: '90vh', overflowY: 'auto', padding: '1.5rem', boxShadow: '0 10px 25px rgba(0,0,0,0.2)', position: 'relative' }}>
+            
+            {/* Close Button */}
+            <button 
+              onClick={() => setSelectedProduct(null)}
+              style={{ position: 'absolute', top: '1rem', right: '1rem', backgroundColor: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '50%', width: '32px', height: '32px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              ✕
+            </button>
+
+            <div style={{ width: '100%', height: '260px', backgroundColor: '#f8fafc', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem', borderRadius: '0.5rem' }}>
+              <img 
+                src={selectedProduct.image || "https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png"} 
+                alt={selectedProduct.title} 
+                style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} 
+              />
+            </div>
+
+            <h2 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#1e3a8a', marginBottom: '0.3rem' }}>{selectedProduct.title}</h2>
+            <div style={{ fontSize: '1.2rem', fontWeight: '900', color: '#16a34a', marginBottom: '1rem' }}>₦{selectedProduct.price}</div>
+            
+            <div style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1.5rem' }}>
+              <h4 style={{ fontSize: '11px', fontWeight: '800', color: '#64748b', marginBottom: '0.5rem', letterSpacing: '0.5px' }}>FULL SPECIFICATIONS & INCLUSIONS:</h4>
+              <p style={{ fontSize: '12px', color: '#334155', lineHeight: '1.6', whiteSpace: 'pre-line' }}>{selectedProduct.description || 'No specific description provided for this package.'}</p>
+            </div>
+
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <a 
+                href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%20I%20want%20to%20order%20the%20package:%20${selectedProduct.title}%20priced%20at%20₦${selectedProduct.price}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ flex: 1, textAlign: 'center', backgroundColor: '#25D366', color: '#fff', padding: '0.75rem', borderRadius: '0.3rem', textDecoration: 'none', fontWeight: '800', fontSize: '12px' }}
+              >
+                Order on WhatsApp 💬
+              </a>
+              <button 
+                onClick={() => {
+                  addToCart(selectedProduct);
+                  setSelectedProduct(null);
+                }}
+                style={{ backgroundColor: '#1e3a8a', color: '#fff', border: 'none', padding: '0.75rem 1.25rem', borderRadius: '0.3rem', fontWeight: '800', fontSize: '12px', cursor: 'pointer' }}
+              >
+                Add to Cart 🛒
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* FLOATING CART CHECKOUT BAR */}
       {cart.length > 0 && (
         <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: '#1e3a8a', color: '#fff', padding: '1rem', zIndex: 1050, boxShadow: '0 -4px 10px rgba(0,0,0,0.15)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div style={{ maxWidth: '600px' }}>
