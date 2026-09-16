@@ -64,12 +64,18 @@ export default function StorePage() {
         </div>
       </header>
 
-      {/* HERO BANNER */}
+      {/* HERO BANNER - PROFESSIONAL REFINEMENT */}
       <section style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '2.5rem 1rem', textAlign: 'center' }}>
-        <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-          <div style={{ fontSize: '10px', fontWeight: '800', color: '#93c5fd', letterSpacing: '1px', marginBottom: '0.4rem' }}>ONLINE STORE CATALOG</div>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: '900', marginBottom: '0.5rem' }}>Ready-to-Deploy <span style={{ color: '#93c5fd' }}>Solar Packages</span></h1>
-          <p style={{ fontSize: '13px', color: '#cbd5e1' }}>Browse certified inverters, panels, and lithium battery kits stored in Ijebu Ode, ready for nationwide delivery.</p>
+        <div style={{ maxWidth: '750px', margin: '0 auto' }}>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#93c5fd', letterSpacing: '1.2px', marginBottom: '0.4rem' }}>
+            PROFESSIONAL ENERGY STOREFRONT
+          </div>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: '900', marginBottom: '0.5rem', lineHeight: '1.3' }}>
+            Engineered Power Systems & <span style={{ color: '#93c5fd' }}>Turnkey Solar Solutions</span>
+          </h1>
+          <p style={{ fontSize: '13px', color: '#cbd5e1', lineHeight: '1.5' }}>
+            Explore our curated inventory of enterprise-grade inverters, high-efficiency panels, and advanced lithium energy storage systems—expertly configured and deployed across Nigeria.
+          </p>
         </div>
       </section>
 
