@@ -15,6 +15,7 @@ export default function AdminDashboard() {
   const [newPrice, setNewPrice] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [newImageUrl, setNewImageUrl] = useState('');
+  const [newFeatures, setNewFeatures] = useState(''); // Added state for Installation Kits
   const [submitting, setSubmitting] = useState(false);
 
   // Simple password check
@@ -58,6 +59,7 @@ export default function AdminDashboard() {
         price: newPrice,
         description: newDescription,
         imageUrl: newImageUrl || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png',
+        features: newFeatures, // Sends the comma-separated installation kits
       }),
     })
       .then((res) => res.json())
@@ -66,6 +68,7 @@ export default function AdminDashboard() {
         setNewPrice('');
         setNewDescription('');
         setNewImageUrl('');
+        setNewFeatures(''); // Clears the installation kits input after submit
         setSubmitting(false);
         fetchPackages();
       })
@@ -87,12 +90,11 @@ export default function AdminDashboard() {
       .catch((err) => console.error(err));
   };
 
-  // Clear typed login credentials button action
   const handleClearInput = () => {
     setPassword('');
   };
 
-  // IF NOT LOGGED IN, SHOW LOGIN SCREEN WITH DELETE / CLEAR BUTTON
+  // IF NOT LOGGED IN, SHOW LOGIN SCREEN
   if (!isAuthenticated) {
     return (
       <div style={{ backgroundColor: '#f8fafc', color: '#1f2937', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'system-ui, -apple-system, sans-serif', padding: '1rem' }}>
@@ -238,8 +240,20 @@ export default function AdminDashboard() {
               <textarea 
                 value={newDescription} 
                 onChange={(e) => setNewDescription(e.target.value)} 
-                placeholder="Detail what is included (Inverter, Panels, Lithium Battery, etc.)..." 
+                placeholder="Detail the package overview..." 
                 rows="2"
+                style={{ width: '100%', padding: '0.5rem', borderRadius: '0.3rem', border: '1px solid #cbd5e1', fontSize: '12px' }} 
+              />
+            </div>
+
+            {/* CHANGED FROM 'FEATURES' TO 'INSTALLATION KITS' */}
+            <div style={{ gridColumn: '1 / -1' }}>
+              <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: '#475569', marginBottom: '0.3rem' }}>INSTALLATION KITS (Comma separated)</label>
+              <input 
+                type="text"
+                value={newFeatures} 
+                onChange={(e) => setNewFeatures(e.target.value)} 
+                placeholder="e.g. Mounting rails, 10mm DC cables, AC breakers, Connectors" 
                 style={{ width: '100%', padding: '0.5rem', borderRadius: '0.3rem', border: '1px solid #cbd5e1', fontSize: '12px' }} 
               />
             </div>
@@ -256,7 +270,7 @@ export default function AdminDashboard() {
           </form>
         </section>
 
-        {/* EXISTING PACKAGES LIST / INVENTORY WITH DELETE BUTTONS */}
+        {/* EXISTING PACKAGES LIST / INVENTORY */}
         <section style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
           <h2 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '1rem' }}>📦 Current Store Inventory ({packages.length})</h2>
 
