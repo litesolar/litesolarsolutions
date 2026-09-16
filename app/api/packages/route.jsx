@@ -5,11 +5,11 @@ const globalForPrisma = global;
 const prisma = globalForPrisma.prisma || new PrismaClient();
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// GET: Fetch all store packages from the database
+// GET: Fetch all store packages from PostgreSQL
 export async function GET() {
   try {
     const packages = await prisma.package.findMany({
-      orderBy: { id: 'desc' },
+      orderBy: { createdAt: 'desc' },
     });
     return NextResponse.json(packages, { status: 200 });
   } catch (error) {
@@ -22,14 +22,23 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { title, price, description, imageUrl } = body;
+    const { title, capacity, price, description, image, features } = body;
+
+    // Convert features to a clean array if it comes as a comma-separated string or array
+    const formattedFeatures = Array.isArray(features)
+      ? features
+      : typeof features === 'string'
+      ? features.split(',').map(item => item.trim()).filter(Boolean)
+      : [];
 
     const newPackage = await prisma.package.create({
       data: {
-        title,
+        title: title || 'Solar Package',
+        capacity: capacity || 'Standard',
         price: String(price),
         description: description || '',
-        imageUrl: imageUrl || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png',
+        image: image || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png',
+        features: formattedFeatures,
       },
     });
 
@@ -40,7 +49,7 @@ export async function POST(request) {
   }
 }
 
-// DELETE: Remove a package by its ID
+// DELETE: Remove a package by its CUID string ID
 export async function DELETE(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -51,7 +60,7 @@ export async function DELETE(request) {
     }
 
     await prisma.package.delete({
-      where: { id: Number(id) },
+      where: { id: String(id) },
     });
 
     return NextResponse.json({ success: true }, { status: 200 });
