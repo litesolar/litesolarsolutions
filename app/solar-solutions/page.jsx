@@ -64,7 +64,7 @@ export default function SolarSolutionsPage() {
             TAILORED ENERGY ARCHITECTURE
           </div>
           <h1 style={{ fontSize: '1.75rem', fontWeight: '900', marginBottom: '0.75rem', lineHeight: '1.2' }}>
-            Solar Solutions Designed Around <span style={{ color: '#60a5fa' }}>Your Energy Needs</span>[cite: 1]
+            Solar Solutions Designed Around <span style={{ color: '#60a5fa' }}>Your Energy Needs</span>
           </h1>
           <p style={{ fontSize: '0.85rem', color: '#cbd5e1', lineHeight: '1.5' }}>
             Explore our professionally engineered options engineered for maximum efficiency, uptime, and long-term financial savings.
@@ -79,15 +79,15 @@ export default function SolarSolutionsPage() {
             <div key={idx} style={{ backgroundColor: '#ffffff', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid #e5e7eb', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>{item.icon}</div>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: '900', color: '#111827', marginBottom: '0.5rem' }}>{item.title}[cite: 1]</h3>
-                <p style={{ fontSize: '0.8rem', color: '#4b5563', lineHeight: '1.5', marginBottom: '1rem' }}>{item.description}[cite: 1]</p>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: '900', color: '#111827', marginBottom: '0.5rem' }}>{item.title}</h3>
+                <p style={{ fontSize: '0.8rem', color: '#4b5563', lineHeight: '1.5', marginBottom: '1rem' }}>{item.description}</p>
                 <div style={{ fontSize: '0.7rem', fontWeight: '700', color: '#1e3a8a', backgroundColor: '#eff6ff', padding: '0.3rem 0.6rem', borderRadius: '4px', display: 'inline-block', marginBottom: '1.25rem' }}>
-                  Ideal For: {item.ideal}[cite: 1]
+                  Ideal For: {item.ideal}
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '0.5rem', borderTop: '1px solid #f3f4f6', paddingTop: '1rem' }}>
                 <Link href="/request-a-quote" style={{ flex: 1, textAlign: 'center', backgroundColor: '#dc2626', color: '#fff', padding: '0.5rem', borderRadius: '4px', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 'bold' }}>
-                  Request Quote[cite: 1]
+                  Request Quote
                 </Link>
                 <a href="https://wa.me/2347030671806" target="_blank" rel="noopener noreferrer" style={{ flex: 1, textAlign: 'center', backgroundColor: '#111827', color: '#fff', padding: '0.5rem', borderRadius: '4px', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 'bold' }}>
                   Enquire
