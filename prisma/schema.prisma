@@ -1,19 +1,10 @@
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
-}
-
 model Package {
-  id          String   @id @default(cuid())
-  title       String
-  capacity    String
-  price       String
-  description String
-  image       String?
-  features    String[]
-  createdAt   DateTime @default(now())
+  id               Int      @id @default(autoincrement())
+  title            String
+  capacity         String
+  price            String
+  description      String?
+  image            String?
+  installationKits String?  // Changed from features to match what you want!
+  createdAt        DateTime @default(now())
 }
