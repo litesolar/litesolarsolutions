@@ -191,7 +191,6 @@ export default function HomePage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
           
-          {/* Photo Card 1 */}
           <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
             <img 
               src="https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png" 
@@ -200,25 +199,112 @@ export default function HomePage() {
             />
             <div style={{ padding: '1rem' }}>
               <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>5KVA Residential Hybrid System</h3>
-              <p style={{ fontSize: '11px', color: '#64748b' }}>Clean rooftop solar panel array with lithium battery backup in ijebu ode.</p>
+              <p style={{ fontSize: '11px', color: '#64748b' }}>Clean rooftop solar panel array with lithium battery backup in Ijebu Ode.</p>
             </div>
           </div>
 
-          {/* Photo Card 2 */}
           <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
             <img 
               src="https://i.ibb.co/LXpJTbsP/Whats-App-Image-2026-09-14-at-15-40-58.jpg" 
-              alt="Residential Inverter Setup" 
+              alt="Commercial Inverter Setup" 
               style={{ width: '100%', height: '160px', objectFit: 'cover' }} 
             />
             <div style={{ padding: '1rem' }}>
-              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>3.5KVA Residential Hybrid Setup</h3>
-              <p style={{ fontSize: '11px', color: '#64748b' }}>Zero-downtime power configuration for your home no more nepa wahala.</p>
+              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>3.5KVA Hybrid Setup</h3>
+              <p style={{ fontSize: '11px', color: '#64748b' }}>Zero-downtime power configuration for modern homes.</p>
             </div>
           </div>
 
         </div>
       </section>
+
+      {/* CLIENT TESTIMONIALS */}
+      <section style={{ maxWidth: '900px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>⭐ TRUSTED REVIEWS</div>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a' }}>What Our Customers Say</h2>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
+          <div style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '0.5rem', padding: '1.25rem' }}>
+            <p style={{ fontSize: '12px', color: '#475569', fontStyle: 'italic', marginBottom: '0.75rem' }}>
+              &ldquo;Litesolar installed my 5KVA hybrid system in Ijebu Ode. The transition is seamless, and my family now enjoys 24/7 steady power with zero noise.&rdquo;
+            </p>
+            <div style={{ fontSize: '12px', fontWeight: '800', color: '#1e3a8a' }}>— Mr. Adebayo, Ijebu Ode</div>
+          </div>
+
+          <div style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '0.5rem', padding: '1.25rem' }}>
+            <p style={{ fontSize: '12px', color: '#475569', fontStyle: 'italic', marginBottom: '0.75rem' }}>
+              &ldquo;Top-tier professionalism! Their engineering team completed our office inverter setup in one day. Highly recommended for any business.&rdquo;
+            </p>
+            <div style={{ fontSize: '12px', fontWeight: '800', color: '#1e3a8a' }}>— Mrs. Chinwe, Ogun State</div>
+          </div>
+        </div>
+      </section>
+
+      {/* FREQUENTLY ASKED QUESTIONS */}
+      <section style={{ maxWidth: '900px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>❓ GOT QUESTIONS?</div>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a' }}>Frequently Asked Questions</h2>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', padding: '1rem' }}>
+            <div style={{ fontSize: '12px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.3rem' }}>Q: How long do your lithium batteries last?</div>
+            <div style={{ fontSize: '11px', color: '#64748b', lineHeight: '1.4' }}>Our premium LiFePO4 lithium batteries are engineered for over 10 years of reliable daily use with built-in safety management systems.</div>
+          </div>
+
+          <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', padding: '1rem' }}>
+            <div style={{ fontSize: '12px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.3rem' }}>Q: Do you offer nationwide delivery and installation?</div>
+            <div style={{ fontSize: '11px', color: '#64748b', lineHeight: '1.4' }}>Yes, we deliver and execute professional solar installations across all states in Nigeria through our certified engineering teams.</div>
+          </div>
+        </div>
+      </section>
+
+      {/* PROFESSIONAL CORPORATE FOOTER */}
+      <footer style={{ backgroundColor: '#1e3a8a', color: '#ffffff', padding: '2.5rem 1rem 1.5rem 1rem', marginTop: '3rem' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '2rem', marginBottom: '2rem' }}>
+          
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+              <img 
+                src="https://i.ibb.co/TBbM6PH8/Whats-App-Image-2026-09-14-at-10-04-51.jpg" 
+                alt="litesolarsolutions logo" 
+                style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }} 
+              />
+              <span style={{ fontSize: '14px', fontWeight: '800' }}>litesolarsolutions</span>
+            </div>
+            <p style={{ fontSize: '11px', color: '#cbd5e1', maxWidth: '280px', lineHeight: '1.4' }}>
+              Illuminating Nigerian homes and businesses with clean, reliable, and affordable solar energy solutions.
+            </p>
+          </div>
+
+          <div>
+            <div style={{ fontSize: '11px', fontWeight: '800', color: '#93c5fd', marginBottom: '0.75rem' }}>QUICK LINKS</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '12px' }}>
+              <Link href="/store" style={{ color: '#fff', textDecoration: 'none' }}>Store Catalog</Link>
+              <Link href="/request-a-quote" style={{ color: '#fff', textDecoration: 'none' }}>Request Quote</Link>
+              <Link href="/projects" style={{ color: '#fff', textDecoration: 'none' }}>Our Projects</Link>
+              <Link href="/about" style={{ color: '#fff', textDecoration: 'none' }}>About Us</Link>
+            </div>
+          </div>
+
+          <div>
+            <div style={{ fontSize: '11px', fontWeight: '800', color: '#93c5fd', marginBottom: '0.75rem' }}>CONTACT US</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '12px' }}>
+              <a href="tel:07030671806" style={{ color: '#fff', textDecoration: 'none' }}>📞 07030671806</a>
+              <a href="https://wa.me/2347030671806" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none' }}>💬 WhatsApp Support</a>
+              <span style={{ color: '#cbd5e1', fontSize: '11px' }}>📍 Ijebu Ode, Ogun State</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div style={{ maxWidth: '900px', margin: '0 auto', borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '1rem', textAlign: 'center', fontSize: '11px', color: '#94a3b8' }}>
+          &copy; 2026 litesolarsolutions. All rights reserved.
+        </div>
+      </footer>
 
       {/* WHATSAPP FLOATING BUTTON */}
       <a 
