@@ -46,7 +46,7 @@ export default function RequestQuotePage() {
         {submitted ? (
           <div style={{ backgroundColor: '#ffffff', padding: '2.5rem', borderRadius: '0.75rem', border: '1px solid #e5e7eb', textAlign: 'center' }}>
             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎉</div>
-            <h2 style={{ fontSize: '1.35rem', fontWeight: '900', color: '#111827', marginBottom: '0.5ktrem' }}>Quote Request Received!</h2>
+            <h2 style={{ fontSize: '1.35rem', fontWeight: '900', color: '#111827', marginBottom: '0.5rem' }}>Quote Request Received!</h2>
             <p style={{ fontSize: '0.85rem', color: '#4b5563', lineHeight: '1.5', marginBottom: '1.5rem' }}>
               Thank you! Your quote request has been submitted successfully. Our engineering team will review your specifications and contact you shortly via phone or WhatsApp.
             </p>
@@ -111,17 +111,17 @@ export default function RequestQuotePage() {
             <div>
               <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.3rem' }}>Appliances to Power</label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.5rem', fontSize: '0.75rem' }}>
-                {['Lights', 'Fans', 'TV', 'Refrigerator', 'Freezer', 'AC', 'Washing Machine', 'Water Pump', 'Computers', 'Other'.map((app, i) => (
+                {['Lights', 'Fans', 'TV', 'Refrigerator', 'Freezer', 'AC', 'Washing Machine', 'Water Pump', 'Computers', 'Other'].map((app, i) => (
                   <label key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: '#f9fafb', padding: '0.4rem', borderRadius: '4px', border: '1px solid #f3f4f6' }}>
                     <input type="checkbox" /> {app}
                   </label>
-                }
+                ))}
               </div>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Current Power Source[cite: 1]</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>Current Power Source</label>
                 <select style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #d1d5db', fontSize: '0.8rem', backgroundColor: '#fff' }}>
                   <option>Grid</option>
                   <option>Generator</option>
@@ -146,7 +146,7 @@ export default function RequestQuotePage() {
             </div>
 
             <button type="submit" style={{ backgroundColor: '#dc2626', color: '#fff', padding: '0.75rem', borderRadius: '4px', border: 'none', fontWeight: '900', fontSize: '0.85rem', cursor: 'pointer', marginTop: '0.5rem', boxShadow: '0 4px 10px rgba(220, 38, 38, 0.3)' }}>
-              REQUEST MY QUOTE[cite: 1]
+              REQUEST MY QUOTE
             </button>
 
           </form>
