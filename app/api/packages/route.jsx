@@ -3,7 +3,17 @@ import { PrismaClient } from '@prisma/client';
 
 // Prevent creating multiple prisma instances during serverless hot-reloads
 const globalForPrisma = global;
-const prisma = globalForPrisma.prisma || new PrismaClient();
+
+// Explicitly append connection_limit and disable prepared statements for Supabase pooler
+const connectionString = process.env.DATABASE_URL + (process.env.DATABASE_URL?.includes('?') ? '&' : '?') + 'pgbouncer=true&connection_limit=1';
+
+const prisma = globalForPrisma.prisma || new PrismaClient({
+  datasources: {
+    db: {
+      url: connectionString,
+    },
+  },
+});
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
