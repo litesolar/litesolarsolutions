@@ -6,7 +6,7 @@ export default function StorePage() {
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null); // For the details modal
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     fetch('/api/packages')
@@ -80,7 +80,7 @@ export default function StorePage() {
         </div>
       </section>
 
-      {/* STORE GRID (Catalog View) */}
+      {/* STORE GRID */}
       <main style={{ maxWidth: '1100px', margin: '2.5rem auto', padding: '0 1rem' }}>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>Loading store catalog...</div>
@@ -95,7 +95,6 @@ export default function StorePage() {
             {packages.map((pkg) => (
               <div key={pkg.id} style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '0.75rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 2px 4px rgba(0,0,0,0.03)' }}>
                 
-                {/* Full Uncropped Image Container */}
                 <div 
                   onClick={() => setSelectedProduct(pkg)}
                   style={{ width: '100%', height: '220px', backgroundColor: '#f8fafc', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderBottom: '1px solid #f1f5f9' }}
@@ -117,7 +116,6 @@ export default function StorePage() {
                   </h3>
                   <div style={{ fontSize: '1.1rem', fontWeight: '900', color: '#16a34a', marginBottom: '1rem' }}>₦{pkg.price}</div>
                   
-                  {/* BUTTON GROUP */}
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto' }}>
                     <button 
                       onClick={() => setSelectedProduct(pkg)}
@@ -142,12 +140,11 @@ export default function StorePage() {
         )}
       </main>
 
-      {/* PRODUCT DETAILS MODAL (POPUP FOR SPECS) */}
+      {/* PRODUCT DETAILS MODAL */}
       {selectedProduct && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
           <div style={{ backgroundColor: '#fff', borderRadius: '0.75rem', maxWidth: '600px', width: '100%', maxHeight: '90vh', overflowY: 'auto', padding: '1.5rem', boxShadow: '0 10px 25px rgba(0,0,0,0.2)', position: 'relative' }}>
             
-            {/* Close Button */}
             <button 
               onClick={() => setSelectedProduct(null)}
               style={{ position: 'absolute', top: '1rem', right: '1rem', backgroundColor: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '50%', width: '32px', height: '32px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -166,10 +163,26 @@ export default function StorePage() {
             <h2 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#1e3a8a', marginBottom: '0.3rem' }}>{selectedProduct.title}</h2>
             <div style={{ fontSize: '1.2rem', fontWeight: '900', color: '#16a34a', marginBottom: '1rem' }}>₦{selectedProduct.price}</div>
             
-            <div style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1.5rem' }}>
-              <h4 style={{ fontSize: '11px', fontWeight: '800', color: '#64748b', marginBottom: '0.5rem', letterSpacing: '0.5px' }}>FULL SPECIFICATIONS & INCLUSIONS:</h4>
-              <p style={{ fontSize: '12px', color: '#334155', lineHeight: '1.6', whiteSpace: 'pre-line' }}>{selectedProduct.description || 'No specific description provided for this package.'}</p>
-            </div>
+            {/* DESCRIPTION */}
+            {selectedProduct.description && (
+              <div style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem' }}>
+                <h4 style={{ fontSize: '11px', fontWeight: '800', color: '#64748b', marginBottom: '0.4rem', letterSpacing: '0.5px' }}>DESCRIPTION:</h4>
+                <p style={{ fontSize: '12px', color: '#334155', lineHeight: '1.5', whiteSpace: 'pre-line' }}>{selectedProduct.description}</p>
+              </div>
+            )}
+
+            {/* INSTALLATION KITS (Renamed & styled cleanly) */}
+            {selectedProduct.features && (
+              <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1.5rem' }}>
+                <h4 style={{ fontSize: '11px', fontWeight: '800', color: '#166534', marginBottom: '0.5rem', letterSpacing: '0.5px' }}>INSTALLATION KITS & INCLUSIONS:</h4>
+                <ul style={{ margin: 0, paddingLeft: '1.25rem', fontSize: '12px', color: '#14532d', lineHeight: '1.6' }}>
+                  {selectedProduct.features.split(',').map((item, index) => {
+                    const trimmed = item.trim();
+                    return trimmed ? <li key={index}>{trimmed}</li> : null;
+                  })}
+                </ul>
+              </div>
+            )}
 
             <div style={{ display: 'flex', gap: '1rem' }}>
               <a 
