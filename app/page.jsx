@@ -200,20 +200,20 @@ export default function HomePage() {
             />
             <div style={{ padding: '1rem' }}>
               <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>5KVA Residential Hybrid System</h3>
-              <p style={{ fontSize: '11px', color: '#64748b' }}>Clean rooftop solar panel array with lithium battery backup in Ibadan.</p>
+              <p style={{ fontSize: '11px', color: '#64748b' }}>Clean rooftop solar panel array with lithium battery backup in ijebu ode.</p>
             </div>
           </div>
 
           {/* Photo Card 2 */}
           <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
             <img 
-              src="https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png" 
-              alt="Commercial Inverter Setup" 
+              src="https://i.ibb.co/LXpJTbsP/Whats-App-Image-2026-09-14-at-15-40-58.jpg" 
+              alt="Residential Inverter Setup" 
               style={{ width: '100%', height: '160px', objectFit: 'cover' }} 
             />
             <div style={{ padding: '1rem' }}>
-              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>10KVA Commercial Setup</h3>
-              <p style={{ fontSize: '11px', color: '#64748b' }}>Zero-downtime power configuration for business offices and stores.</p>
+              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>3.5KVA Residential Hybrid Setup</h3>
+              <p style={{ fontSize: '11px', color: '#64748b' }}>Zero-downtime power configuration for your home no more nepa wahala.</p>
             </div>
           </div>
 
