@@ -107,12 +107,34 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TRUST & GUARANTEE BAR */}
-      <section style={{ backgroundColor: '#f1f5f9', borderBottom: '1px solid #e2e8f0', padding: '0.75rem 1rem' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '0.5rem', textAlign: 'center', fontSize: '11px', fontWeight: '700', color: '#334155' }}>
-          <div>🛡️ Genuine Components</div>
-          <div>🔧 Expert Installation</div>
-          <div>⚡ Nationwide Delivery</div>
+      {/* TRUST & GUARANTEE BAR (LEFT-ALIGNED HORIZONTAL WITH EXPLANATIONS) */}
+      <section style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', padding: '1rem' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', gap: '2.5rem', textAlign: 'left' }}>
+          
+          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', maxWidth: '260px' }}>
+            <span style={{ fontSize: '18px' }}>🛡️</span>
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.15rem' }}>Genuine Components</div>
+              <div style={{ fontSize: '11px', color: '#64748b', lineHeight: '1.4' }}>Top-tier panels, inverters, and long-lasting lithium batteries.</div>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', maxWidth: '260px' }}>
+            <span style={{ fontSize: '18px' }}>🔧</span>
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.15rem' }}>Expert Installation</div>
+              <div style={{ fontSize: '11px', color: '#64748b', lineHeight: '1.4' }}>Professional engineering teams for safe, clean setups.</div>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', maxWidth: '260px' }}>
+            <span style={{ fontSize: '18px' }}>⚡</span>
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.15rem' }}>Nationwide Delivery</div>
+              <div style={{ fontSize: '11px', color: '#64748b', lineHeight: '1.4' }}>Fast, secure delivery and deployment across Nigeria.</div>
+            </div>
+          </div>
+
         </div>
       </section>
 
