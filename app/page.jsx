@@ -69,6 +69,15 @@ export default function HomePage() {
         </div>
       </header>
 
+      {/* WELCOME BANNER SECTION (ADDED HERE) */}
+      <section style={{ backgroundColor: '#f0fdf4', borderBottom: '1px solid #dcfce7', padding: '0.75rem 1rem', textAlign: 'center' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <p style={{ fontSize: '12px', color: '#166534', fontWeight: '700', margin: 0 }}>
+            👋 Welcome to litesolarsolutions! Experience uninterrupted power with our certified solar systems, hybrid inverters, and lithium energy storage.
+          </p>
+        </div>
+      </section>
+
       {/* HERO SECTION */}
       <section style={{ 
         padding: '3rem 1rem', 
