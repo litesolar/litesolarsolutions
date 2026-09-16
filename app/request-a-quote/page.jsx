@@ -115,7 +115,7 @@ export default function RequestQuotePage() {
                   <label key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: '#f9fafb', padding: '0.4rem', borderRadius: '4px', border: '1px solid #f3f4f6' }}>
                     <input type="checkbox" /> {app}
                   </label>
-                ))}
+                }
               </div>
             </div>
 
