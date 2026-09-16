@@ -16,7 +16,7 @@ export default function AdminDashboard() {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
-  const [features, setFeatures] = useState('');
+  const [features, setFeatures] = useState(''); // Stores the Installation Kits string
   const [submitting, setSubmitting] = useState(false);
 
   const handleLogin = (e) => {
@@ -255,13 +255,14 @@ export default function AdminDashboard() {
               />
             </div>
 
+            {/* CHANGED FROM 'FEATURES' TO 'INSTALLATION KITS' */}
             <div style={{ gridColumn: '1 / -1' }}>
-              <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: '#475569', marginBottom: '0.3rem' }}>FEATURES (Comma separated)</label>
+              <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: '#475569', marginBottom: '0.3rem' }}>INSTALLATION KITS (Comma separated)</label>
               <input 
                 type="text" 
                 value={features} 
                 onChange={(e) => setFeatures(e.target.value)} 
-                placeholder="e.g. Inbuilt lithium battery, 450W panel, Cables and accessories" 
+                placeholder="e.g. Mounting rails, 10mm DC cables, AC breakers, Connectors" 
                 style={{ width: '100%', padding: '0.5rem', borderRadius: '0.3rem', border: '1px solid #cbd5e1', fontSize: '12px' }} 
               />
             </div>
