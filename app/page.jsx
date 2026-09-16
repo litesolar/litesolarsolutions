@@ -1,22 +1,39 @@
-import { PrismaClient } from '@prisma/client';
+'use client';
+import { useState } from 'react';
 import Link from 'next/link';
 
-const globalForPrisma = global;
-const prisma = globalForPrisma.prisma || new PrismaClient();
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
-
-export const dynamic = 'force-dynamic';
-
-export default async function HomePage() {
-  let packages = [];
+export default function HomePage() {
+  const [selectedAppliances, setSelectedAppliances] = useState([]);
   
-  try {
-    packages = await prisma.package.findMany({
-      orderBy: { createdAt: 'desc' },
-    });
-  } catch (error) {
-    console.error("Failed to load packages from database:", error);
-  }
+  // Appliance power ratings (in Watts approx)
+  const applianceList = [
+    { name: 'Lights', watts: 50 },
+    { name: 'Fans', watts: 75 },
+    { name: 'TV', watts: 150 },
+    { name: 'Refrigerator', watts: 200 },
+    { name: 'Freezer', watts: 300 },
+    { name: 'AC (1HP)', watts: 1000 },
+    { name: 'Washing Machine', watts: 500 },
+    { name: 'Water Pump', watts: 750 },
+    { name: 'Computers', watts: 150 },
+  ];
+
+  const handleCheckboxChange = (appName) => {
+    if (selectedAppliances.includes(appName)) {
+      setSelectedAppliances(selectedAppliances.filter(item => item !== appName));
+    } else {
+      setSelectedAppliances([...selectedAppliances, appName]);
+    }
+  };
+
+  // Calculate total wattage dynamically
+  const totalWatts = selectedAppliances.reduce((sum, name) => {
+    const found = applianceList.find(a => a.name === name);
+    return sum + (found ? found.watts : 100);
+  }, 0);
+
+  // Suggest Inverter Size based on total load (adding a 30% headroom buffer)
+  const recommendedKva = Math.max(1.5, Math.ceil((totalWatts * 1.3) / 800 * 2) / 2);
 
   return (
     <div style={{ backgroundColor: '#ffffff', color: '#1f2937', minHeight: '100vh', fontFamily: 'system-ui, -apple-system, sans-serif', paddingBottom: '5rem', fontSize: '14px' }}>
@@ -91,7 +108,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* NEW: TRUST & GUARANTEE BAR */}
+      {/* TRUST & GUARANTEE BAR */}
       <section style={{ backgroundColor: '#f1f5f9', borderBottom: '1px solid #e2e8f0', padding: '0.75rem 1rem' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '0.5rem', textAlign: 'center', fontSize: '11px', fontWeight: '700', color: '#334155' }}>
           <div>🛡️ Genuine Components</div>
@@ -100,120 +117,49 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* LIVE DATABASE PACKAGES SECTION */}
+      {/* INTERACTIVE SYSTEM SIZER CALCULATOR ON HOMEPAGE */}
       <section style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-          <div>
-            <div style={{ fontSize: '10px', fontWeight: '800', color: '#2563eb', letterSpacing: '0.5px' }}>⚡ LIVE INVENTORY</div>
-            <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a' }}>Published Solar Packages</h2>
+        <div style={{ backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>🧮 INSTANT SYSTEM SIZER</div>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.5rem' }}>Calculate What Power You Need</h2>
+          <p style={{ fontSize: '12px', color: '#475569', marginBottom: '1rem' }}>Select the appliances you want to run to instantly view your estimated load and recommended inverter size:</p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.5rem', fontSize: '12px', marginBottom: '1.25rem' }}>
+            {applianceList.map((app, i) => (
+              <label key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#fff', padding: '0.5rem', borderRadius: '4px', border: '1px solid #cbd5e1', cursor: 'pointer' }}>
+                <input 
+                  type="checkbox" 
+                  checked={selectedAppliances.includes(app.name)}
+                  onChange={() => handleCheckboxChange(app.name)}
+                /> 
+                <span style={{ fontWeight: '600' }}>{app.name}</span>
+              </label>
+            ))}
           </div>
-        </div>
 
-        {packages.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#f8fafc', borderRadius: '0.5rem', border: '1px solid #e2e8f0' }}>
-            <p style={{ color: '#64748b', fontSize: '13px' }}>No packages published yet. Use your admin dashboard to upload items!</p>
-          </div>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-            {packages.map((pkg) => {
-              // Format price cleanly with commas and Naira sign if it's purely numeric
-              const formattedPrice = !isNaN(pkg.price) 
-                ? `₦${Number(pkg.price).toLocaleString()}` 
-                : pkg.price;
-
-              return (
-                <div key={pkg.id} style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-                  <div>
-                    <span style={{ display: 'inline-block', backgroundColor: '#eff6ff', color: '#1e3a8a', padding: '0.15rem 0.5rem', borderRadius: '9999px', fontSize: '11px', fontWeight: '700', marginBottom: '0.5rem', border: '1px solid #bfdbfe' }}>
-                      {pkg.capacity}
-                    </span>
-                    <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.4rem', color: '#1e3a8a', textTransform: 'capitalize' }}>{pkg.title}</h3>
-                    <p style={{ color: '#64748b', fontSize: '12px', marginBottom: '0.75rem', lineHeight: '1.4' }}>{pkg.description}</p>
-                    
-                    {pkg.features && pkg.features.length > 0 && (
-                      <ul style={{ listStyleType: 'disc', paddingLeft: '1rem', marginBottom: '1rem', color: '#475569', fontSize: '11px', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                        {pkg.features.map((feature, idx) => (
-                          <li key={idx}>{feature}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-
-                  <div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#16a34a', marginBottom: '0.75rem' }}>
-                      {formattedPrice}
-                    </div>
-                    <a 
-                      href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%20I%20am%20interested%20in%20the%20${encodeURIComponent(pkg.title)}%20(${encodeURIComponent(formattedPrice)})`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      style={{ display: 'block', textAlign: 'center', backgroundColor: '#2563eb', color: '#fff', padding: '0.5rem', borderRadius: '0.25rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px' }}
-                    >
-                      Enquire on WhatsApp 💬
-                    </a>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </section>
-
-      {/* NEW: ENERGY CALCULATOR / CUSTOM LOAD BANNER */}
-      <section style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1rem' }}>
-        <div style={{ backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '0.5rem', padding: '1.5rem', textAlign: 'center' }}>
-          <div style={{ fontSize: '10px', fontWeight: '800', color: '#2563eb', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>💡 NEED A CUSTOM CONFIGURATION?</div>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.4rem' }}>Unsure of your exact power requirement?</h3>
-          <p style={{ fontSize: '12px', color: '#475569', marginBottom: '1rem' }}>Tell us your appliances (TVs, ACs, Fridges), and our engineers will size the ideal system for your budget.</p>
-          <Link href="/request-a-quote" style={{ display: 'inline-block', backgroundColor: '#1e3a8a', color: '#fff', padding: '0.5rem 1rem', borderRadius: '0.25rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px' }}>
-            Request System Sizing ➔
-          </Link>
-        </div>
-      </section>
-
-      {/* RECENT PROJECTS PREVIEW */}
-      <section style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1rem' }}>
-        <div style={{ backgroundColor: '#f8fafc', padding: '1.25rem', borderRadius: '0.5rem', border: '1px solid #e2e8f0' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-            <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>⚡ RECENT INSTALLATIONS</div>
-            <Link href="/projects" style={{ fontSize: '11px', fontWeight: '700', color: '#2563eb', textDecoration: 'none' }}>View All ➔</Link>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
-            <div style={{ backgroundColor: '#fff', padding: '0.85rem', borderRadius: '0.35rem', border: '1px solid #e2e8f0' }}>
-              <div style={{ fontSize: '12px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.2rem' }}>5KVA Residential Hybrid System</div>
-              <div style={{ fontSize: '11px', color: '#64748b' }}>Ikeja, Lagos • Monocrystalline setup.</div>
+          <div style={{ backgroundColor: '#1e3a8a', color: '#fff', padding: '1rem', borderRadius: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
+            <div>
+              <div style={{ fontSize: '10px', color: '#93c5fd', fontWeight: '700' }}>ESTIMATED TOTAL LOAD</div>
+              <div style={{ fontSize: '1.15rem', fontWeight: '900' }}>{totalWatts} Watts</div>
             </div>
-            <div style={{ backgroundColor: '#fff', padding: '0.85rem', borderRadius: '0.35rem', border: '1px solid #e2e8f0' }}>
-              <div style={{ fontSize: '12px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.2rem' }}>10KVA Commercial Setup</div>
-              <div style={{ fontSize: '11px', color: '#64748b' }}>Ibadan, Oyo State • Zero downtime configuration.</div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: '10px', color: '#93c5fd', fontWeight: '700' }}>RECOMMENDED SYSTEM</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: '900', color: '#4ade80' }}>{recommendedKva} KVA System</div>
             </div>
           </div>
+
+          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+            <Link 
+              href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%20I%20used%20your%20calculator%20and%20need%20a%20quote%20for%20a%20${recommendedKva}KVA%20system%20(${totalWatts}W%20total%20load).`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ display: 'inline-block', backgroundColor: '#2563eb', color: '#fff', padding: '0.6rem 1.25rem', borderRadius: '0.3rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px' }}
+            >
+              Get Custom Quote for this Setup on WhatsApp 💬
+            </Link>
+          </div>
         </div>
       </section>
-
-      {/* FOOTER & CONTACT */}
-      <footer style={{ maxWidth: '900px', margin: '2rem auto 0 auto', padding: '1.5rem 1rem', backgroundColor: '#1e3a8a', color: '#ffffff', borderRadius: '0.5rem', textAlign: 'center' }}>
-        <div style={{ fontSize: '10px', fontWeight: '800', color: '#93c5fd', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>🤝 GET IN TOUCH</div>
-        <h2 style={{ fontSize: '1.1rem', fontWeight: '800', marginBottom: '0.4rem' }}>litesolarsolutions</h2>
-        <p style={{ fontSize: '11px', opacity: '0.9', marginBottom: '1rem' }}>Contact us for inspections, purchases, and nationwide installations:</p>
-        
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1.25rem', fontSize: '11px' }}>
-          <a href="tel:07030671806" style={{ backgroundColor: '#fff', color: '#1e3a8a', padding: '0.4rem 0.85rem', borderRadius: '0.25rem', textDecoration: 'none', fontWeight: '700' }}>
-            📞 07030671806
-          </a>
-          <a href="https://wa.me/2347030671806" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: '#25D366', color: '#fff', padding: '0.4rem 0.85rem', borderRadius: '0.25rem', textDecoration: 'none', fontWeight: '700' }}>
-            💬 WhatsApp Us
-          </a>
-        </div>
-
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', fontSize: '12px' }}>
-          <Link href="/projects" style={{ color: '#fff', textDecoration: 'none' }}>Projects</Link>
-          <Link href="/faq" style={{ color: '#fff', textDecoration: 'none' }}>FAQ</Link>
-          <Link href="/contact" style={{ color: '#fff', textDecoration: 'none' }}>Contact</Link>
-          <a href="https://instagram.com/litesolarsolutions" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none' }}>Instagram: @litesolarsolutions</a>
-          <a href="https://tiktok.com/@litesolarenergy" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none' }}>TikTok: @litesolarenergy</a>
-        </div>
-      </footer>
 
       {/* WHATSAPP FLOATING BUTTON */}
       <a 
