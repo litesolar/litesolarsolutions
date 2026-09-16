@@ -32,7 +32,7 @@ export async function POST(request) {
         price,
         description,
         image,
-        installationKits: installationKits || "", // Matches the new schema field name exactly
+        installationKits: installationKits || "",
       },
     });
 
