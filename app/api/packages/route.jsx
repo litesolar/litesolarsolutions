@@ -14,8 +14,19 @@ const prisma = globalForPrisma.prisma || new PrismaClient({
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// Helper to remove invisible broken/null characters that crash PostgreSQL
-const sanitize = (val) => (typeof val === 'string' ? val.replace(/\0/g, '') : val);
+// Deep cleaner to remove invisible null bytes (0x00) from all incoming text fields automatically
+const sanitizeData = (data) => {
+  if (typeof data === 'string') {
+    return data.replace(/\0/g, '');
+  } else if (Array.isArray(data)) {
+    return data.map(sanitizeData);
+  } else if (data !== null && typeof data === 'object') {
+    return Object.fromEntries(
+      Object.entries(data).map(([key, value]) => [key, sanitizeData(value)])
+    );
+  }
+  return data;
+};
 
 export async function GET() {
   try {
@@ -30,24 +41,27 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    const body = await request.json();
-    let { title, capacity, price, description, image, installationKits } = body;
+    const rawBody = await request.json();
+    
+    // Clean everything coming from the form
+    const body = sanitizeData(rawBody);
+    const { title, capacity, price, description, image, installationKits } = body;
 
     if (!capacity) {
       return NextResponse.json({ error: "Argument 'capacity' is missing." }, { status: 400 });
     }
 
-    // 1. CLEAN THE PRICE: Removes commas (e.g. "120,000" becomes 120000)
+    // Clean the price: remove commas and convert to a number
     const numericPrice = price ? parseFloat(price.toString().replace(/,/g, '')) : 0;
 
     const newPackage = await prisma.package.create({
       data: {
-        title: sanitize(title),
-        capacity: sanitize(capacity),
+        title,
+        capacity,
         price: numericPrice,
-        description: sanitize(description),
-        image: sanitize(image),
-        installationKits: sanitize(installationKits) || "",
+        description,
+        image,
+        installationKits: installationKits || "",
       },
     });
 
