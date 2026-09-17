@@ -13,9 +13,10 @@ export default function AdminDashboard() {
   // New Package Form State
   const [newTitle, setNewTitle] = useState('');
   const [newPrice, setNewPrice] = useState('');
+  const [newCategory, setNewCategory] = useState('inverter'); // Added category state
   const [newDescription, setNewDescription] = useState('');
   const [newImageUrl, setNewImageUrl] = useState('');
-  const [newFeatures, setNewFeatures] = useState(''); // Added state for Installation Kits
+  const [newFeatures, setNewFeatures] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   // Simple password check
@@ -57,18 +58,20 @@ export default function AdminDashboard() {
       body: JSON.stringify({
         title: newTitle,
         price: newPrice,
+        category: newCategory, // Sends the selected category
         description: newDescription,
         imageUrl: newImageUrl || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png',
-        features: newFeatures, // Sends the comma-separated installation kits
+        features: newFeatures,
       }),
     })
       .then((res) => res.json())
       .then(() => {
         setNewTitle('');
         setNewPrice('');
+        setNewCategory('inverter');
         setNewDescription('');
         setNewImageUrl('');
-        setNewFeatures(''); // Clears the installation kits input after submit
+        setNewFeatures('');
         setSubmitting(false);
         fetchPackages();
       })
@@ -224,6 +227,27 @@ export default function AdminDashboard() {
               />
             </div>
 
+            {/* CATEGORY SELECTOR DROPDOWN */}
+            <div>
+              <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: '#475569', marginBottom: '0.3rem' }}>PRODUCT CATEGORY</label>
+              <select
+                value={newCategory}
+                onChange={(e) => setNewCategory(e.target.value)}
+                style={{ width: '100%', padding: '0.5rem', borderRadius: '0.3rem', border: '1px solid #cbd5e1', fontSize: '12px', backgroundColor: '#fff', fontWeight: '600', color: '#1e3a8a' }}
+              >
+                <option value="inverter">Inverters</option>
+                <option value="panels">Solar Panels</option>
+                <option value="lithium batteries">Lithium Batteries</option>
+                <option value="tubular batteries">Tubular Batteries</option>
+                <option value="fans">Fans (AC/DC/Solar)</option>
+                <option value="streetlight">Streetlights & Floodlights</option>
+                <option value="solar cctv camera">Solar CCTV Cameras</option>
+                <option value="charge controller">Charge Controllers</option>
+                <option value="smart lock">Smart Locks</option>
+                <option value="solar power boxes">Solar Power Boxes</option>
+              </select>
+            </div>
+
             <div>
               <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: '#475569', marginBottom: '0.3rem' }}>IMAGE URL (Optional)</label>
               <input 
@@ -246,7 +270,6 @@ export default function AdminDashboard() {
               />
             </div>
 
-            {/* CHANGED FROM 'FEATURES' TO 'INSTALLATION KITS' */}
             <div style={{ gridColumn: '1 / -1' }}>
               <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: '#475569', marginBottom: '0.3rem' }}>INSTALLATION KITS (Comma separated)</label>
               <input 
@@ -287,7 +310,12 @@ export default function AdminDashboard() {
                     <img src={pkg.imageUrl || "https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png"} alt="" style={{ width: '45px', height: '45px', borderRadius: '0.3rem', objectFit: 'cover' }} />
                     <div>
                       <div style={{ fontSize: '13px', fontWeight: '800', color: '#1e3a8a' }}>{pkg.title}</div>
-                      <div style={{ fontSize: '12px', fontWeight: '700', color: '#16a34a' }}>₦{pkg.price}</div>
+                      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginTop: '0.15rem' }}>
+                        <span style={{ fontSize: '12px', fontWeight: '700', color: '#16a34a' }}>₦{pkg.price}</span>
+                        <span style={{ fontSize: '10px', backgroundColor: '#e2e8f0', color: '#475569', padding: '0.1rem 0.4rem', borderRadius: '9999px', fontWeight: '600' }}>
+                          {pkg.category || 'inverter'}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
