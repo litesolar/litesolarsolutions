@@ -14,10 +14,11 @@ const prisma = globalForPrisma.prisma || new PrismaClient({
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// Deep cleaner to remove invisible null bytes (0x00) from all incoming text fields automatically
+// Supercharged cleaner to remove null bytes and invisible control characters
 const sanitizeData = (data) => {
   if (typeof data === 'string') {
-    return data.replace(/\0/g, '');
+    // Removes null bytes (\u0000) and hidden control characters that break PostgreSQL
+    return data.replace(/[\u0000-\u001F\u007F-\u009F]/g, '');
   } else if (Array.isArray(data)) {
     return data.map(sanitizeData);
   } else if (data !== null && typeof data === 'object') {
@@ -43,7 +44,7 @@ export async function POST(request) {
   try {
     const rawBody = await request.json();
     
-    // Clean everything coming from the form
+    // Clean all incoming fields recursively
     const body = sanitizeData(rawBody);
     const { title, capacity, price, description, image, installationKits } = body;
 
