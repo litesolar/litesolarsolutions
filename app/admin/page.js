@@ -13,6 +13,7 @@ export default function AdminDashboard() {
   const [title, setTitle] = useState('');
   const [capacity, setCapacity] = useState('');
   const [price, setPrice] = useState('');
+  const [category, setCategory] = useState('inverter'); // Added category state
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [installationKits, setInstallationKits] = useState('');
@@ -55,6 +56,7 @@ export default function AdminDashboard() {
       title: title.trim(),
       capacity: capacity.trim(),
       price: price.trim(),
+      category: category.trim(), // Passes category for store filtering
       description: description.trim(),
       image: image.trim() || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png',
       installationKits: installationKits.trim(),
@@ -74,6 +76,7 @@ export default function AdminDashboard() {
         setTitle('');
         setCapacity('');
         setPrice('');
+        setCategory('inverter');
         setDescription('');
         setImage('');
         setInstallationKits('');
@@ -165,6 +168,23 @@ export default function AdminDashboard() {
               <input type="text" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="e.g. 600,000" style={{ width: '100%', padding: '0.5rem', borderRadius: '0.3rem', border: '1px solid #cbd5e1', fontSize: '12px' }} required />
             </div>
 
+            {/* PRODUCT CATEGORY SELECTOR */}
+            <div>
+              <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: '#475569', marginBottom: '0.3rem' }}>PRODUCT CATEGORY</label>
+              <select value={category} onChange={(e) => setCategory(e.target.value)} style={{ width: '100%', padding: '0.5rem', borderRadius: '0.3rem', border: '1px solid #cbd5e1', fontSize: '12px', backgroundColor: '#fff', fontWeight: '600', color: '#1e3a8a' }}>
+                <option value="inverter">Inverters</option>
+                <option value="panels">Solar Panels</option>
+                <option value="lithium batteries">Lithium Batteries</option>
+                <option value="tubular batteries">Tubular Batteries</option>
+                <option value="fans">Fans (AC/DC/Solar)</option>
+                <option value="streetlight">Streetlights & Floodlights</option>
+                <option value="solar cctv camera">Solar CCTV Cameras</option>
+                <option value="charge controller">Charge Controllers</option>
+                <option value="smart lock">Smart Locks</option>
+                <option value="solar power boxes">Solar Power Boxes</option>
+              </select>
+            </div>
+
             <div>
               <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: '#475569', marginBottom: '0.3rem' }}>IMAGE URL</label>
               <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image link..." style={{ width: '100%', padding: '0.5rem', borderRadius: '0.3rem', border: '1px solid #cbd5e1', fontSize: '12px' }} />
@@ -193,7 +213,8 @@ export default function AdminDashboard() {
           {loading ? <div>Loading...</div> : packages.map((pkg) => (
             <div key={pkg.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem 1rem', border: '1px solid #e2e8f0', borderRadius: '0.5rem', marginBottom: '0.5rem', background: '#f8fafc' }}>
               <div>
-                <strong>{pkg.title}</strong> — <span style={{ color: '#16a34a' }}>{pkg.capacity}</span> ({pkg.price})
+                <strong>{pkg.title}</strong> — <span style={{ color: '#16a34a' }}>{pkg.capacity}</span> ({pkg.price}) <br />
+                <span style={{ fontSize: '11px', color: '#64748b' }}>Category: <strong>{pkg.category || 'inverter'}</strong></span>
               </div>
               <button onClick={() => handleDeletePackage(pkg.id)} style={{ background: '#fee2e2', color: '#dc2626', border: '1px solid #fca5a5', padding: '0.3rem 0.6rem', borderRadius: '0.3rem', fontSize: '11px', fontWeight: 'bold', cursor: 'pointer' }}>Delete</button>
             </div>
