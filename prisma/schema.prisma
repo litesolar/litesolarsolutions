@@ -1,19 +1,12 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 model Package {
   id               Int      @id @default(autoincrement())
   title            String
-  capacity         String
-  price            String
+  category         String   // e.g., "panels", "inverters", "batteries", "fans", "cctv", etc.
+  capacity         String?
+  price            Float
   description      String?
   image            String?
-  installationKits String?  @map("features") 
+  installationKits String?
+  features         String?
   createdAt        DateTime @default(now())
 }
