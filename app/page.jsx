@@ -57,7 +57,10 @@ export default function HomePage({ initialProducts = [] }) {
               alt="litesolarsolutions logo" 
               style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} 
             />
-            <span style={{ fontSize: '15px', fontWeight: '800', letterSpacing: '0.3px' }}>litesolarsolutions</span>
+            <span style={{ fontSize: '15px', fontWeight: '800', letterSpacing: '0.3px' }}>
+              <span style={{ color: '#1e3a8a' }}>LITESOLAR</span>
+              <span style={{ color: '#dc2626' }}>SOLUTIONS</span>
+            </span>
           </Link>
 
           <Link 
@@ -73,7 +76,7 @@ export default function HomePage({ initialProducts = [] }) {
       <section style={{ backgroundColor: '#f0fdf4', borderBottom: '1px solid #dcfce7', padding: '0.75rem 1rem', textAlign: 'center' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <p style={{ fontSize: '12px', color: '#166534', fontWeight: '700', margin: 0 }}>
-            👋 Welcome to litesolarsolutions! Experience uninterrupted power with our certified solar systems, hybrid inverters, and lithium energy storage.
+            👋 Welcome to LITESOLARSOLUTIONS! Experience uninterrupted power with our certified solar systems, hybrid inverters, and lithium energy storage.
           </p>
         </div>
       </section>
@@ -128,11 +131,13 @@ export default function HomePage({ initialProducts = [] }) {
             
             {/* Genuine Components Card */}
             <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
-              <img 
-                src="https://i.ibb.co/0p7tfrvw/Whats-App-Image-2026-09-16-at-05-40-07-1.jpg" 
-                alt="Genuine Solar Components" 
-                style={{ width: '100%', height: '180px', objectFit: 'cover' }} 
-              />
+              <div style={{ width: '100%', height: '180px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img 
+                  src="https://i.ibb.co/0p7tfrvw/Whats-App-Image-2026-09-16-at-05-40-07-1.jpg" 
+                  alt="Genuine Solar Components" 
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                />
+              </div>
               <div style={{ padding: '1.25rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
                   <span style={{ fontSize: '18px' }}>🛡️</span>
@@ -146,11 +151,13 @@ export default function HomePage({ initialProducts = [] }) {
 
             {/* Expert Installation Card */}
             <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
-              <img 
-                src="https://i.ibb.co/JWZQnjHb/collage-export-0-C85-FA90-4-AF6-4-CB7-963-A-099578566274.jpg" 
-                alt="Expert Engineering Installation" 
-                style={{ width: '100%', height: '180px', objectFit: 'cover' }} 
-              />
+              <div style={{ width: '100%', height: '180px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img 
+                  src="https://i.ibb.co/JWZQnjHb/collage-export-0-C85-FA90-4-AF6-4-CB7-963-A-099578566274.jpg" 
+                  alt="Expert Engineering Installation" 
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                />
+              </div>
               <div style={{ padding: '1.25rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
                   <span style={{ fontSize: '18px' }}>🔧</span>
@@ -220,11 +227,13 @@ export default function HomePage({ initialProducts = [] }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
           
           <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-            <img 
-              src="https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png" 
-              alt="Residential Solar Setup" 
-              style={{ width: '100%', height: '160px', objectFit: 'cover' }} 
-            />
+            <div style={{ width: '100%', height: '160px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img 
+                src="https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png" 
+                alt="Residential Solar Setup" 
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+              />
+            </div>
             <div style={{ padding: '1rem' }}>
               <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>5KVA Residential Hybrid System</h3>
               <p style={{ fontSize: '11px', color: '#64748b' }}>Clean rooftop solar panel array with lithium battery backup in Ijebu Ode.</p>
@@ -232,11 +241,13 @@ export default function HomePage({ initialProducts = [] }) {
           </div>
 
           <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-            <img 
-              src="https://i.ibb.co/LXpJTbsP/Whats-App-Image-2026-09-14-at-15-40-58.jpg" 
-              alt="Commercial Inverter Setup" 
-              style={{ width: '100%', height: '160px', objectFit: 'cover' }} 
-            />
+            <div style={{ width: '100%', height: '160px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img 
+                src="https://i.ibb.co/LXpJTbsP/Whats-App-Image-2026-09-14-at-15-40-58.jpg" 
+                alt="Commercial Inverter Setup" 
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+              />
+            </div>
             <div style={{ padding: '1rem' }}>
               <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>3.5KVA Hybrid Setup</h3>
               <p style={{ fontSize: '11px', color: '#64748b' }}>Zero-downtime power configuration for modern homes.</p>
@@ -301,7 +312,10 @@ export default function HomePage({ initialProducts = [] }) {
                 alt="litesolarsolutions logo" 
                 style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }} 
               />
-              <span style={{ fontSize: '14px', fontWeight: '800' }}>litesolarsolutions</span>
+              <span style={{ fontSize: '14px', fontWeight: '800' }}>
+                <span style={{ color: '#ffffff' }}>LITESOLAR</span>
+                <span style={{ color: '#f87171' }}>SOLUTIONS</span>
+              </span>
             </div>
             <p style={{ fontSize: '11px', color: '#cbd5e1', maxWidth: '280px', lineHeight: '1.4' }}>
               Illuminating Nigerian homes and businesses with clean, reliable, and affordable solar energy solutions.
@@ -330,7 +344,7 @@ export default function HomePage({ initialProducts = [] }) {
         </div>
 
         <div style={{ maxWidth: '900px', margin: '0 auto', borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '1rem', textAlign: 'center', fontSize: '11px', color: '#94a3b8' }}>
-          &copy; 2026 litesolarsolutions. All rights reserved.
+          &copy; 2026 LITESOLARSOLUTIONS. All rights reserved.
         </div>
       </footer>
 
