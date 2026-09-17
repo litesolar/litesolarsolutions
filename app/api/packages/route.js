@@ -7,24 +7,15 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 export const dynamic = 'force-dynamic';
 
-const sanitizeDeep = (data) => {
-  if (typeof data === 'string') {
-    return data
-      .replace(/\u0000/g, '')
-      .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
-      .trim();
-  }
-  if (Array.isArray(data)) {
-    return data.map(sanitizeDeep);
-  }
-  if (data !== null && typeof data === 'object') {
-    const cleaned = {};
-    for (const key of Object.keys(data)) {
-      cleaned[key] = sanitizeDeep(data[key]);
-    }
-    return cleaned;
-  }
-  return data;
+// Ultra-aggressive cleaner that completely nukes null bytes, invisible spaces, and control codes
+const cleanStr = (val) => {
+  if (val === null || val === undefined) return '';
+  return String(val)
+    .replace(/\0/g, '')
+    .replace(/\u0000/g, '')
+    .replace(/[\x00-\x1F\x7F-\u009F]/g, '') // Removes all control codes & null bytes
+    .replace(/[\u200B-\u200D\uFEFF]/g, '') // Removes zero-width spaces
+    .trim();
 };
 
 export async function GET() {
@@ -42,44 +33,45 @@ export async function GET() {
 export async function POST(request) {
   try {
     const rawBody = await request.json().catch(() => ({}));
-    const body = sanitizeDeep(rawBody);
-
-    // Verify Secret Key (matches process.env.SEED_SECRET or defaults to 'mysecretkey123')
-    const secretKey = body.secretKey;
+    
+    const secretKey = cleanStr(rawBody.secretKey);
     const expectedSecret = process.env.SEED_SECRET || 'mysecretkey123';
 
     if (secretKey !== expectedSecret) {
       return NextResponse.json({ error: "Invalid Secret Key" }, { status: 401 });
     }
 
-    const items = body.items;
+    const items = rawBody.items;
     if (!Array.isArray(items) || items.length === 0) {
       return NextResponse.json({ error: "Provide a valid JSON array of products." }, { status: 400 });
     }
 
     let createdCount = 0;
     for (const item of items) {
-      const title = item.title || item.name;
-      const capacity = item.capacity || item.spec || 'Standard';
+      // Explicitly clean every single field individually
+      const title = cleanStr(item.title || item.name);
+      const capacity = cleanStr(item.capacity || item.spec || 'Standard');
       const priceRaw = item.price;
-      const category = item.category || 'inverter';
-      const description = item.description || '';
-      const image = item.image || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png';
-      const installationKits = item.installationKits || '';
+      const category = cleanStr(item.category || 'inverter');
+      const description = cleanStr(item.description);
+      const image = cleanStr(item.image || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png');
+      const installationKits = cleanStr(item.installationKits);
 
       if (!title) continue;
 
-      const numericPrice = typeof priceRaw === 'number' ? priceRaw : parseFloat(String(priceRaw || '0').replace(/,/g, '')) || 0;
+      const numericPrice = typeof priceRaw === 'number' 
+        ? priceRaw 
+        : parseFloat(cleanStr(String(priceRaw || '0')).replace(/,/g, '')) || 0;
 
       await prisma.package.create({
         data: {
-          title: String(title),
-          capacity: String(capacity),
+          title,
+          capacity,
           price: numericPrice,
-          category: String(category),
-          description: String(description),
-          image: String(image),
-          installationKits: String(installationKits),
+          category,
+          description,
+          image,
+          installationKits,
         },
       });
       createdCount++;
