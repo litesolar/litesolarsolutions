@@ -147,7 +147,7 @@ export default function HomePage() {
             {/* Expert Installation Card */}
             <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
               <img 
-                src="https://i.ibb.co/zHjNx5rm/Whats-App-Image-2026-09-16-at-06-16-42.jpg" 
+                src="https://i.ibb.co/q3SLqWZh/IMG-3890.jpg" 
                 alt="Expert Engineering Installation" 
                 style={{ width: '100%', height: '180px', objectFit: 'cover' }} 
               />
