@@ -14,11 +14,10 @@ const prisma = globalForPrisma.prisma || new PrismaClient({
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// Supercharged cleaner to remove null bytes and invisible control characters
+// Absolute sanitizer to strip null bytes (\0) and control characters
 const sanitizeData = (data) => {
   if (typeof data === 'string') {
-    // Removes null bytes (\u0000) and hidden control characters that break PostgreSQL
-    return data.replace(/[\u0000-\u001F\u007F-\u009F]/g, '');
+    return data.replace(/\0/g, '').replace(/[\u0000-\u001F\u007F-\u009F]/g, '').trim();
   } else if (Array.isArray(data)) {
     return data.map(sanitizeData);
   } else if (data !== null && typeof data === 'object') {
@@ -43,13 +42,11 @@ export async function GET() {
 export async function POST(request) {
   try {
     const rawBody = await request.json();
-    
-    // Clean all incoming fields recursively
     const body = sanitizeData(rawBody);
-    const { title, capacity, price, description, image, installationKits } = body;
+    const { title, capacity, price, category, description, image, installationKits } = body;
 
-    if (!capacity) {
-      return NextResponse.json({ error: "Argument 'capacity' is missing." }, { status: 400 });
+    if (!title || !capacity) {
+      return NextResponse.json({ error: "Title and capacity are required." }, { status: 400 });
     }
 
     // Clean the price: remove commas and convert to a number
@@ -60,9 +57,10 @@ export async function POST(request) {
         title,
         capacity,
         price: numericPrice,
-        description,
-        image,
-        installationKits: installationKits || "",
+        category: category || 'inverter',
+        description: description || '',
+        image: image || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png',
+        installationKits: installationKits || '',
       },
     });
 
