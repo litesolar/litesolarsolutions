@@ -34,11 +34,14 @@ export async function POST(request) {
       return NextResponse.json({ error: "Argument 'capacity' is missing." }, { status: 400 });
     }
 
+    // CLEAN THE PRICE: Removes commas (e.g. "120,000" becomes 120000) for Prisma
+    const numericPrice = price ? parseFloat(price.toString().replace(/,/g, '')) : 0;
+
     const newPackage = await prisma.package.create({
       data: {
         title,
         capacity,
-        price,
+        price: numericPrice, // Uses the cleaned number here
         description,
         image,
         installationKits: installationKits || "",
