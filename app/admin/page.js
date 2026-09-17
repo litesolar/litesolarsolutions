@@ -5,18 +5,10 @@ import Link from 'next/link';
 export default function AdminDashboard() {
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [secretKey, setSecretKey] = useState('');
+  const [jsonInput, setJsonInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState('all');
-  
-  const [form, setForm] = useState({
-    title: '',
-    capacity: '',
-    price: '',
-    category: 'inverter',
-    description: '',
-    image: '',
-    installationKits: '',
-  });
 
   const fetchPackages = async () => {
     try {
@@ -36,45 +28,38 @@ export default function AdminDashboard() {
     e.preventDefault();
     setLoading(true);
 
-    // Client-side sanitizer to completely strip out null bytes and control characters
-    const cleanInput = (val) => (val ? String(val).replace(/\u0000/g, '').replace(/[\x00-\x1F\x7F]/g, '').trim() : '');
-
-    const payload = {
-      title: cleanInput(form.title),
-      capacity: cleanInput(form.capacity),
-      price: cleanInput(form.price),
-      category: cleanInput(form.category),
-      description: cleanInput(form.description),
-      image: cleanInput(form.image),
-      installationKits: cleanInput(form.installationKits),
-    };
-
     try {
+      let parsedItems;
+      try {
+        parsedItems = JSON.parse(jsonInput);
+      } catch (err) {
+        throw new Error("Invalid JSON format. Please ensure your JSON array syntax is correct.");
+      }
+
+      if (!Array.isArray(parsedItems)) {
+        throw new Error("Input must be a JSON array starting with '[' and ending with ']'.");
+      }
+
       const res = await fetch('/api/packages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          secretKey,
+          items: parsedItems,
+        }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || 'Failed to publish');
+        throw new Error(data.error || 'Failed to publish items');
       }
 
-      alert('Item published successfully! 🚀');
-      setForm({
-        title: '',
-        capacity: '',
-        price: '',
-        category: 'inverter',
-        description: '',
-        image: '',
-        installationKits: '',
-      });
+      alert(data.message || 'Items published successfully! 🚀');
+      setJsonInput('');
       fetchPackages();
     } catch (err) {
-      alert(`Error publishing item:\n${err.message}`);
+      alert(`Error publishing:\n${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -94,7 +79,6 @@ export default function AdminDashboard() {
     }
   };
 
-  // Filter and search logic
   const filteredPackages = packages.filter((pkg) => {
     const matchesSearch = 
       pkg.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -109,90 +93,35 @@ export default function AdminDashboard() {
         
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#2563eb' }}>ADMIN DASHBOARD</h1>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#2563eb' }}>ADMIN JSON IMPORT</h1>
           <Link href="/" style={{ color: '#9ca3af', textDecoration: 'none', fontSize: '0.9rem' }}>← Back to Home</Link>
         </div>
 
-        {/* Publish Form */}
+        {/* Bulk Import Form */}
         <form onSubmit={handleSubmit} style={{ backgroundColor: '#0b0f19', border: '1px solid #1f2937', padding: '1.5rem', borderRadius: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '3rem' }}>
-          <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '0.5rem' }}>Add New Product / Package</h2>
+          <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '0.5rem' }}>Add Products via JSON Bulk Paste</h2>
 
           <div>
-            <label style={{ fontSize: '0.85rem', color: '#9ca3af', display: 'block', marginBottom: '0.25rem' }}>Title / Name</label>
+            <label style={{ fontSize: '0.85rem', color: '#9ca3af', display: 'block', marginBottom: '0.25rem' }}>Secret key</label>
             <input 
-              type="text" 
+              type="password" 
               required
-              placeholder="e.g. 4K Pro Solar CCTV Camera"
-              value={form.title}
-              onChange={(e) => setForm({ ...form, title: e.target.value })}
+              placeholder="Your SEED_SECRET"
+              value={secretKey}
+              onChange={(e) => setSecretKey(e.target.value)}
               style={{ width: '100%', padding: '0.75rem', backgroundColor: '#111827', border: '1px solid #374151', color: '#fff', borderRadius: '0.5rem' }}
             />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <div>
-              <label style={{ fontSize: '0.85rem', color: '#9ca3af', display: 'block', marginBottom: '0.25rem' }}>Capacity / Spec</label>
-              <input 
-                type="text" 
-                required
-                placeholder="e.g. 1.5KVA or 1080P"
-                value={form.capacity}
-                onChange={(e) => setForm({ ...form, capacity: e.target.value })}
-                style={{ width: '100%', padding: '0.75rem', backgroundColor: '#111827', border: '1px solid #374151', color: '#fff', borderRadius: '0.5rem' }}
-              />
-            </div>
-            <div>
-              <label style={{ fontSize: '0.85rem', color: '#9ca3af', display: 'block', marginBottom: '0.25rem' }}>Price (₦)</label>
-              <input 
-                type="text" 
-                required
-                placeholder="e.g. 450,000"
-                value={form.price}
-                onChange={(e) => setForm({ ...form, price: e.target.value })}
-                style={{ width: '100%', padding: '0.75rem', backgroundColor: '#111827', border: '1px solid #374151', color: '#fff', borderRadius: '0.5rem' }}
-              />
-            </div>
-          </div>
-
           <div>
-            <label style={{ fontSize: '0.85rem', color: '#9ca3af', display: 'block', marginBottom: '0.25rem' }}>Category</label>
-            <select
-              value={form.category}
-              onChange={(e) => setForm({ ...form, category: e.target.value })}
-              style={{ width: '100%', padding: '0.75rem', backgroundColor: '#111827', border: '1px solid #374151', color: '#fff', borderRadius: '0.5rem' }}
-            >
-              <option value="inverter">Inverter Package</option>
-              <option value="solar">Solar Panel Package</option>
-              <option value="battery">Battery Pack</option>
-              <option value="complete">Complete System</option>
-              <option value="cctv">CCTV Solar Camera</option>
-              <option value="fan-ac-dc">Fan AC/DC</option>
-              <option value="rechargeable-fan">Rechargeable Fan</option>
-              <option value="solar-power-box">Solar Power Box</option>
-              <option value="smart-lock">Smart Lock</option>
-              <option value="flood-street-light">Flood and Street Light</option>
-            </select>
-          </div>
-
-          <div>
-            <label style={{ fontSize: '0.85rem', color: '#9ca3af', display: 'block', marginBottom: '0.25rem' }}>Description</label>
+            <label style={{ fontSize: '0.85rem', color: '#9ca3af', display: 'block', marginBottom: '0.25rem' }}>Product JSON (paste array here)</label>
             <textarea 
-              rows="3"
-              placeholder="Enter product features and specs..."
-              value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
-              style={{ width: '100%', padding: '0.75rem', backgroundColor: '#111827', border: '1px solid #374151', color: '#fff', borderRadius: '0.5rem' }}
-            />
-          </div>
-
-          <div>
-            <label style={{ fontSize: '0.85rem', color: '#9ca3af', display: 'block', marginBottom: '0.25rem' }}>Image URL</label>
-            <input 
-              type="text" 
-              placeholder="https://..."
-              value={form.image}
-              onChange={(e) => setForm({ ...form, image: e.target.value })}
-              style={{ width: '100%', padding: '0.75rem', backgroundColor: '#111827', border: '1px solid #374151', color: '#fff', borderRadius: '0.5rem' }}
+              rows="10"
+              required
+              placeholder={`[{"title": "5KVA Inverter Package", "capacity": "5KVA", "price": 750000, "category": "inverter", "description": "Full setup"}]`}
+              value={jsonInput}
+              onChange={(e) => setJsonInput(e.target.value)}
+              style={{ width: '100%', padding: '0.75rem', backgroundColor: '#111827', border: '1px solid #374151', color: '#fff', borderRadius: '0.5rem', fontFamily: 'monospace', fontSize: '0.85rem' }}
             />
           </div>
 
@@ -201,7 +130,7 @@ export default function AdminDashboard() {
             disabled={loading}
             style={{ backgroundColor: '#2563eb', color: '#fff', padding: '0.85rem', borderRadius: '0.5rem', fontWeight: 'bold', border: 'none', cursor: 'pointer', marginTop: '0.5rem' }}
           >
-            {loading ? 'Publishing...' : 'Publish Item 🚀'}
+            {loading ? 'Submitting...' : 'Submit 🚀'}
           </button>
         </form>
 
