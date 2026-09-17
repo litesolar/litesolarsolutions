@@ -14,10 +14,20 @@ const prisma = globalForPrisma.prisma || new PrismaClient({
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// Universal cleaner to strip out null bytes and weird invisible characters
-const cleanText = (val) => {
-  if (typeof val !== 'string') return val;
-  return val.replace(/\0/g, '').replace(/[\u0000-\u001F\u007F-\u009F]/g, '').trim();
+// Deep recursive sanitizer to destroy null bytes (0x00 / \u0000) across the entire payload
+const sanitizeDeep = (obj) => {
+  if (typeof obj === 'string') {
+    return obj.replace(/\0/g, '').replace(/\u0000/g, '').replace(/[\u0000-\u001F\u007F-\u009F]/g, '').trim();
+  } else if (Array.isArray(obj)) {
+    return obj.map(sanitizeDeep);
+  } else if (obj !== null && typeof obj === 'object') {
+    const cleanedObj = {};
+    for (const key of Object.keys(obj)) {
+      cleanedObj[key] = sanitizeDeep(obj[key]);
+    }
+    return cleanedObj;
+  }
+  return obj;
 };
 
 export async function GET() {
@@ -33,36 +43,35 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    const body = await request.json();
+    const rawBody = await request.json();
     
-    const title = cleanText(body.title);
-    const capacity = cleanText(body.capacity);
-    const priceStr = cleanText(body.price);
-    const category = cleanText(body.category) || 'inverter';
-    const description = cleanText(body.description);
-    const image = cleanText(body.image);
-    const installationKits = cleanText(body.installationKits);
+    // Deep clean the entire request body
+    const body = sanitizeDeep(rawBody);
+    
+    const { title, capacity, price, category, description, image, installationKits } = body;
 
     if (!title || !capacity) {
       return NextResponse.json({ error: "Title and capacity are required." }, { status: 400 });
     }
 
-    const numericPrice = priceStr ? parseFloat(priceStr.replace(/,/g, '')) : 0;
+    // Clean the price: remove commas and convert to a number safely
+    const numericPrice = price ? parseFloat(price.toString().replace(/,/g, '')) : 0;
 
     const newPackage = await prisma.package.create({
       data: {
-        title,
-        capacity,
+        title: title.toString(),
+        capacity: capacity.toString(),
         price: numericPrice,
-        category,
-        description,
-        image: image || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png',
-        installationKits,
+        category: category ? category.toString() : 'inverter',
+        description: description ? description.toString() : '',
+        image: image ? image.toString() : 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png',
+        installationKits: installationKits ? installationKits.toString() : '',
       },
     });
 
     return NextResponse.json(newPackage, { status: 201 });
   } catch (error) {
+    console.error("DATABASE INSERT ERROR:", error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
