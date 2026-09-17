@@ -2,8 +2,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-export default function HomePage() {
+export default function HomePage({ initialProducts = [] }) {
   const [selectedAppliances, setSelectedAppliances] = useState([]);
+  
+  // New state for filtering and sorting
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [sortBy, setSortBy] = useState('default'); // 'default', 'low-high', 'high-low'
   
   // Appliance power ratings (in Watts approx)
   const applianceList = [
@@ -16,6 +21,21 @@ export default function HomePage() {
     { name: 'Washing Machine', watts: 500 },
     { name: 'Water Pump', watts: 750 },
     { name: 'Computers', watts: 150 },
+  ];
+
+  // Categories list requested by client
+  const categories = [
+    { label: 'All Products', value: 'all' },
+    { label: 'Inverters', value: 'inverter' },
+    { label: 'Panels', value: 'panels' },
+    { label: 'Lithium Batteries', value: 'lithium batteries' },
+    { label: 'Tubular Batteries', value: 'tubular batteries' },
+    { label: 'Fans (AC/DC/Solar)', value: 'fans' },
+    { label: 'Streetlights & Floodlights', value: 'streetlight' },
+    { label: 'Solar CCTV Cameras', value: 'solar cctv camera' },
+    { label: 'Charge Controllers', value: 'charge controller' },
+    { label: 'Smart Locks', value: 'smart lock' },
+    { label: 'Solar Power Boxes', value: 'solar power boxes' }
   ];
 
   const handleCheckboxChange = (appName) => {
@@ -34,6 +54,21 @@ export default function HomePage() {
 
   // Suggest Inverter Size based on total load (adding a 30% headroom buffer)
   const recommendedKva = Math.max(1.5, Math.ceil((totalWatts * 1.3) / 800 * 2) / 2);
+
+  // 1. Filter products based on search query and category
+  const filteredProducts = initialProducts.filter(product => {
+    const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          product.description?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  // 2. Sort filtered products by price
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortBy === 'low-high') return (a.price || 0) - (b.price || 0);
+    if (sortBy === 'high-low') return (b.price || 0) - (a.price || 0);
+    return 0; // default order
+  });
 
   return (
     <div style={{ backgroundColor: '#ffffff', color: '#1f2937', minHeight: '100vh', fontFamily: 'system-ui, -apple-system, sans-serif', paddingBottom: '5rem', fontSize: '14px' }}>
@@ -69,7 +104,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* WELCOME BANNER SECTION (ADDED HERE) */}
+      {/* WELCOME BANNER SECTION */}
       <section style={{ backgroundColor: '#f0fdf4', borderBottom: '1px solid #dcfce7', padding: '0.75rem 1rem', textAlign: 'center' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <p style={{ fontSize: '12px', color: '#166534', fontWeight: '700', margin: 0 }}>
@@ -163,6 +198,92 @@ export default function HomePage() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* SEARCH, CATEGORY FILTER & SORTING SECTION (NEWLY ADDED) */}
+      <section style={{ maxWidth: '1100px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>🔍 EXPLORE CATALOG</div>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a' }}>Search & Filter Products</h2>
+        </div>
+
+        {/* Search Bar & Price Sort Controls */}
+        <div style={{ display: 'flex', flexDirection: 'column', mdDirection: 'row', gap: '0.75rem', marginBottom: '1rem' }}>
+          <input
+            type="text"
+            placeholder="Search panels, inverters, cameras, fans, lithium batteries..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ width: '100%', padding: '0.75rem 1rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', fontSize: '13px', outline: 'none' }}
+          />
+          
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              style={{ padding: '0.6rem 1rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', backgroundColor: '#fff', fontSize: '12px', fontWeight: '600', color: '#1e3a8a', cursor: 'pointer' }}
+            >
+              <option value="default">Sort by: Featured</option>
+              <option value="low-high">Price: Low to High</option>
+              <option value="high-low">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Category Filter Pills */}
+        <div style={{ display: 'flex', overflowX: 'auto', gap: '0.5rem', paddingBottom: '0.5rem', whiteSpace: 'nowrap' }}>
+          {categories.map((cat) => (
+            <button
+              key={cat.value}
+              onClick={() => setSelectedCategory(cat.value)}
+              style={{
+                padding: '0.4rem 0.9rem',
+                borderRadius: '9999px',
+                fontSize: '12px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                border: '1px solid #cbd5e1',
+                backgroundColor: selectedCategory === cat.value ? '#1e3a8a' : '#f8fafc',
+                color: selectedCategory === cat.value ? '#ffffff' : '#475569',
+                transition: 'all 0.2s'
+              }}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Live Filtered Products Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem', marginTop: '1.5rem' }}>
+          {sortedProducts.length > 0 ? (
+            sortedProducts.map((product) => (
+              <div key={product.id || product.title} style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '0.5rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'between', padding: '1rem' }}>
+                <div>
+                  <img 
+                    src={product.image || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png'} 
+                    alt={product.title} 
+                    style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '0.25rem', marginBottom: '0.75rem' }} 
+                  />
+                  <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>{product.title}</h3>
+                  <p style={{ fontSize: '12px', fontWeight: '800', color: '#166534', marginBottom: '0.5rem' }}>₦{product.price?.toLocaleString() || 'Contact for Price'}</p>
+                  <p style={{ fontSize: '11px', color: '#64748b', lineHeight: '1.3', marginBottom: '1rem' }}>{product.description || 'High quality solar and energy accessory available for immediate installation.'}</p>
+                </div>
+                <a
+                  href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%20I%20am%20interested%20in%20ordering%20${encodeURIComponent(product.title)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: 'block', textAlign: 'center', backgroundColor: '#25D366', color: '#fff', padding: '0.5rem', borderRadius: '0.25rem', fontSize: '11px', fontWeight: '700', textDecoration: 'none' }}
+                >
+                  Order via WhatsApp 💬
+                </a>
+              </div>
+            ))
+          ) : (
+            <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '2rem', color: '#64748b', fontSize: '12px' }}>
+              No products found matching your search or category filter. Try looking for another item or request a custom quote!
+            </div>
+          )}
         </div>
       </section>
 
