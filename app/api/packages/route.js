@@ -7,6 +7,27 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 export const dynamic = 'force-dynamic';
 
+// Deep recursive function that strips null bytes from EVERY property and nested object
+const sanitizeDeep = (data) => {
+  if (typeof data === 'string') {
+    return data
+      .replace(/\u0000/g, '') // Explicitly targets null bytes
+      .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Strips control characters
+      .trim();
+  }
+  if (Array.isArray(data)) {
+    return data.map(sanitizeDeep);
+  }
+  if (data !== null && typeof data === 'object') {
+    const cleaned = {};
+    for (const key of Object.keys(data)) {
+      cleaned[key] = sanitizeDeep(data[key]);
+    }
+    return cleaned;
+  }
+  return data;
+};
+
 export async function GET() {
   try {
     const packages = await prisma.package.findMany({
@@ -23,28 +44,22 @@ export async function POST(request) {
   try {
     const rawBody = await request.json().catch(() => ({}));
     
-    // Aggressively strip null bytes and control characters
-    const clean = (val) => {
-      if (val === null || val === undefined) return '';
-      return String(val)
-        .replace(/\0/g, '')
-        .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
-        .trim();
-    };
+    // Clean the entire incoming request body recursively
+    const body = sanitizeDeep(rawBody);
 
-    const title = clean(rawBody.title);
-    const capacity = clean(rawBody.capacity);
-    const priceRaw = clean(rawBody.price);
-    const category = clean(rawBody.category) || 'inverter';
-    const description = clean(rawBody.description);
-    const image = clean(rawBody.image) || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png';
-    const installationKits = clean(rawBody.installationKits);
+    const title = body.title || '';
+    const capacity = body.capacity || '';
+    const priceRaw = body.price || '';
+    const category = body.category || 'inverter';
+    const description = body.description || '';
+    const image = body.image || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png';
+    const installationKits = body.installationKits || '';
 
     if (!title || !capacity) {
       return NextResponse.json({ error: "Title and capacity are required." }, { status: 400 });
     }
 
-    const numericPrice = priceRaw ? parseFloat(priceRaw.replace(/,/g, '')) : 0;
+    const numericPrice = priceRaw ? parseFloat(String(priceRaw).replace(/,/g, '')) : 0;
 
     const newPackage = await prisma.package.create({
       data: {
