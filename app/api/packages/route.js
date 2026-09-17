@@ -1,14 +1,34 @@
+import { NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+
+const globalForPrisma = global;
+const prisma = globalForPrisma.prisma || new PrismaClient();
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+
+export const dynamic = 'force-dynamic';
+
+export async function GET() {
+  try {
+    const packages = await prisma.package.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+    return NextResponse.json(packages);
+  } catch (error) {
+    console.error("GET error:", error);
+    return NextResponse.json({ error: error.message || "Failed to fetch packages" }, { status: 500 });
+  }
+}
+
 export async function POST(request) {
   try {
-    const rawBody = await request.json();
-    console.log("RAW SUBMISSION BODY:", JSON.stringify(rawBody));
-
-    // Helper to completely strip null bytes and invisible control characters from any value
+    const rawBody = await request.json().catch(() => ({}));
+    
+    // Aggressively strip null bytes and control characters
     const clean = (val) => {
       if (val === null || val === undefined) return '';
       return String(val)
-        .replace(/\0/g, '') // Removes null bytes (0x00)
-        .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Removes control chars
+        .replace(/\0/g, '')
+        .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
         .trim();
     };
 
@@ -41,6 +61,6 @@ export async function POST(request) {
     return NextResponse.json(newPackage, { status: 201 });
   } catch (error) {
     console.error("DATABASE INSERT ERROR:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
   }
 }
