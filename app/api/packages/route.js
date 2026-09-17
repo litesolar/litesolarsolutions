@@ -21,48 +21,33 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    const rawText = await request.text();
-    
-    // Completely wipe out any null bytes or control weirdness from the raw request string first
-    const sanitizedText = rawText
-      .replace(/\\u0000/g, '')
-      .replace(/\u0000/g, '')
-      .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+    const rawBody = await request.json().catch(() => ({}));
+    console.log("--- INCOMING RAW BODY ---", JSON.stringify(rawBody));
 
-    const body = JSON.parse(sanitizedText || '{}');
-
-    const clean = (val) => {
+    // Strict sanitizer that removes null bytes and low control codes while keeping normal newlines
+    const cleanStr = (val) => {
       if (val === null || val === undefined) return '';
       return String(val)
+        .replace(/\0/g, '')
         .replace(/\u0000/g, '')
-        .replace(/[\x00-\x1F\x7F]/g, '')
+        .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
         .trim();
     };
 
-    const title = clean(body.title);
-    const capacity = clean(body.capacity);
-    const priceRaw = clean(body.price);
-    const category = clean(body.category) || 'inverter';
-    const description = clean(body.description);
-    const image = clean(body.image) || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png';
-    const installationKits = clean(body.installationKits);
+    const dataToCreate = {
+      title: cleanStr(rawBody.title),
+      capacity: cleanStr(rawBody.capacity),
+      price: rawBody.price ? parseFloat(String(rawBody.price).replace(/,/g, '')) : 0,
+      category: cleanStr(rawBody.category) || 'inverter',
+      description: cleanStr(rawBody.description),
+      image: cleanStr(rawBody.image) || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png',
+      installationKits: cleanStr(rawBody.installationKits),
+    };
 
-    if (!title || !capacity) {
-      return NextResponse.json({ error: "Title and capacity are required." }, { status: 400 });
-    }
-
-    const numericPrice = priceRaw ? parseFloat(priceRaw.replace(/,/g, '')) : 0;
+    console.log("--- FINAL DATA TO PRISMA ---", JSON.stringify(dataToCreate));
 
     const newPackage = await prisma.package.create({
-      data: {
-        title,
-        capacity,
-        price: numericPrice,
-        category,
-        description,
-        image,
-        installationKits,
-      },
+      data: dataToCreate,
     });
 
     return NextResponse.json(newPackage, { status: 201 });
