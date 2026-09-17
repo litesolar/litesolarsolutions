@@ -36,11 +36,24 @@ export default function AdminDashboard() {
     e.preventDefault();
     setLoading(true);
 
+    // Client-side sanitizer to completely strip out null bytes and control characters
+    const cleanInput = (val) => (val ? String(val).replace(/\u0000/g, '').replace(/[\x00-\x1F\x7F]/g, '').trim() : '');
+
+    const payload = {
+      title: cleanInput(form.title),
+      capacity: cleanInput(form.capacity),
+      price: cleanInput(form.price),
+      category: cleanInput(form.category),
+      description: cleanInput(form.description),
+      image: cleanInput(form.image),
+      installationKits: cleanInput(form.installationKits),
+    };
+
     try {
       const res = await fetch('/api/packages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
