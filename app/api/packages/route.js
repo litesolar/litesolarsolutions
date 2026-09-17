@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
+// Force Next.js to never cache this API so new products show up instantly
+export const dynamic = 'force-dynamic';
+
 const globalForPrisma = global;
 const connectionString = process.env.DATABASE_URL + (process.env.DATABASE_URL?.includes('?') ? '&' : '?') + 'pgbouncer=true&connection_limit=1';
 
@@ -14,7 +17,7 @@ const prisma = globalForPrisma.prisma || new PrismaClient({
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// Deep recursive sanitizer to destroy null bytes (0x00 / \u0000) across the entire payload
+// Deep recursive sanitizer to destroy null bytes
 const sanitizeDeep = (obj) => {
   if (typeof obj === 'string') {
     return obj.replace(/\0/g, '').replace(/\u0000/g, '').replace(/[\u0000-\u001F\u007F-\u009F]/g, '').trim();
@@ -44,8 +47,6 @@ export async function GET() {
 export async function POST(request) {
   try {
     const rawBody = await request.json();
-    
-    // Deep clean the entire request body
     const body = sanitizeDeep(rawBody);
     
     const { title, capacity, price, category, description, image, installationKits } = body;
@@ -54,7 +55,6 @@ export async function POST(request) {
       return NextResponse.json({ error: "Title and capacity are required." }, { status: 400 });
     }
 
-    // Clean the price: remove commas and convert to a number safely
     const numericPrice = price ? parseFloat(price.toString().replace(/,/g, '')) : 0;
 
     const newPackage = await prisma.package.create({
