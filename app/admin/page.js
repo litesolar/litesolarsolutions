@@ -15,7 +15,7 @@ export default function AdminDashboard() {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
-  const [features, setFeatures] = useState(''); // Installation Kits
+  const [installationKits, setInstallationKits] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   const handleLogin = (e) => {
@@ -51,14 +51,13 @@ export default function AdminDashboard() {
 
     setSubmitting(true);
     
-    // Explicitly building payload object to guarantee capacity is included
     const payload = {
       title: title.trim(),
       capacity: capacity.trim(),
       price: price.trim(),
       description: description.trim(),
       image: image.trim() || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png',
-      features: features.trim(),
+      installationKits: installationKits.trim(),
     };
 
     fetch('/api/packages', {
@@ -77,7 +76,7 @@ export default function AdminDashboard() {
         setPrice('');
         setDescription('');
         setImage('');
-        setFeatures('');
+        setInstallationKits('');
         setSubmitting(false);
         fetchPackages();
         alert('Package published successfully! 🚀');
@@ -173,7 +172,7 @@ export default function AdminDashboard() {
 
             <div style={{ gridColumn: '1 / -1' }}>
               <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: '#475569', marginBottom: '0.3rem' }}>INSTALLATION KITS (Comma separated)</label>
-              <input type="text" value={features} onChange={(e) => setFeatures(e.target.value)} placeholder="e.g. Mounting rails, DC cables, Breakers" style={{ width: '100%', padding: '0.5rem', borderRadius: '0.3rem', border: '1px solid #cbd5e1', fontSize: '12px' }} />
+              <input type="text" value={installationKits} onChange={(e) => setInstallationKits(e.target.value)} placeholder="e.g. Mounting rails, DC cables, Breakers" style={{ width: '100%', padding: '0.5rem', borderRadius: '0.3rem', border: '1px solid #cbd5e1', fontSize: '12px' }} />
             </div>
 
             <div style={{ gridColumn: '1 / -1' }}>
