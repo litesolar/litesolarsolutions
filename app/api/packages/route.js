@@ -17,10 +17,13 @@ const prisma = globalForPrisma.prisma || new PrismaClient({
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// Deep recursive sanitizer to destroy null bytes
+// Bulletproof sanitizer that destroys all null bytes and hidden binary characters
 const sanitizeDeep = (obj) => {
   if (typeof obj === 'string') {
-    return obj.replace(/\0/g, '').replace(/\u0000/g, '').replace(/[\u0000-\u001F\u007F-\u009F]/g, '').trim();
+    return obj
+      .replace(/[\u0000-\u001F\u007F-\u009F\u200B-\u200D\uFEFF]/g, '') // Strips control chars & zero-width spaces
+      .replace(/\0/g, '') // Explicitly targets null bytes
+      .trim();
   } else if (Array.isArray(obj)) {
     return obj.map(sanitizeDeep);
   } else if (obj !== null && typeof obj === 'object') {
