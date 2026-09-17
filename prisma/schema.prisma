@@ -1,7 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // or "mongodb" / "mysql" depending on what you use
+  url      = env("DATABASE_URL")
+}
+
 model Package {
   id               Int      @id @default(autoincrement())
   title            String
-  category         String   // e.g., "panels", "inverters", "batteries", "fans", "cctv", etc.
+  category         String?
   capacity         String?
   price            Float
   description      String?
