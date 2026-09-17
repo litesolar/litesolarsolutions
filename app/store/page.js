@@ -8,6 +8,25 @@ export default function StorePage() {
   const [cart, setCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  // New states for search, category filtering, and sorting
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [sortBy, setSortBy] = useState('default');
+
+  const categories = [
+    { label: 'All Products', value: 'all' },
+    { label: 'Inverters', value: 'inverter' },
+    { label: 'Solar Panels', value: 'panels' },
+    { label: 'Lithium Batteries', value: 'lithium batteries' },
+    { label: 'Tubular Batteries', value: 'tubular batteries' },
+    { label: 'Fans (AC/DC/Solar)', value: 'fans' },
+    { label: 'Streetlights & Floodlights', value: 'streetlight' },
+    { label: 'Solar CCTV Cameras', value: 'solar cctv camera' },
+    { label: 'Charge Controllers', value: 'charge controller' },
+    { label: 'Smart Locks', value: 'smart lock' },
+    { label: 'Solar Power Boxes', value: 'solar power boxes' }
+  ];
+
   useEffect(() => {
     fetch('/api/packages')
       .then((res) => res.json())
@@ -41,6 +60,23 @@ export default function StorePage() {
     cart.map(item => `- ${item.title} (Qty: ${item.qty}) - ₦${item.price}`).join('\n') +
     `\n\nTotal Estimated Price: ₦${cartTotalPrice.toLocaleString()}`
   );
+
+  // 1. Filter products based on search query and category
+  const filteredProducts = packages.filter(product => {
+    const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          product.description?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  // 2. Sort filtered products by price
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    const priceA = parseFloat(String(a.price).replace(/,/g, '')) || 0;
+    const priceB = parseFloat(String(b.price).replace(/,/g, '')) || 0;
+    if (sortBy === 'low-high') return priceA - priceB;
+    if (sortBy === 'high-low') return priceB - priceA;
+    return 0; // default order
+  });
 
   return (
     <div style={{ backgroundColor: '#f8fafc', color: '#1f2937', minHeight: '100vh', fontFamily: 'system-ui, -apple-system, sans-serif', paddingBottom: '7rem', fontSize: '14px' }}>
@@ -80,19 +116,64 @@ export default function StorePage() {
         </div>
       </section>
 
-      {/* STORE GRID */}
+      {/* STORE MAIN CONTENT */}
       <main style={{ maxWidth: '1100px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        
+        {/* Search and Sort Control Bar */}
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+          <input
+            type="text"
+            placeholder="Search for inverters, batteries, solar cameras..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ flex: 1, minWidth: '240px', padding: '0.75rem 1rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', outline: 'none', backgroundColor: '#fff', fontSize: '14px' }}
+          />
+          
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            style={{ padding: '0.75rem 1rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', backgroundColor: '#fff', outline: 'none', fontSize: '14px', fontWeight: '600', color: '#1e3a8a' }}
+          >
+            <option value="default">Sort by: Featured</option>
+            <option value="low-high">Price: Low to High</option>
+            <option value="high-low">Price: High to Low</option>
+          </select>
+        </div>
+
+        {/* Category Filter Pills */}
+        <div style={{ display: 'flex', overflowX: 'auto', gap: '0.5rem', paddingBottom: '0.5rem', marginBottom: '2rem', whiteSpace: 'nowrap' }}>
+          {categories.map((cat) => (
+            <button
+              key={cat.value}
+              onClick={() => setSelectedCategory(cat.value)}
+              style={{
+                padding: '0.5rem 1rem',
+                borderRadius: '9999px',
+                fontSize: '12px',
+                fontWeight: '700',
+                cursor: 'pointer',
+                border: 'none',
+                backgroundColor: selectedCategory === cat.value ? '#1e3a8a' : '#e2e8f0',
+                color: selectedCategory === cat.value ? '#ffffff' : '#475569',
+                transition: 'background-color 0.2s'
+              }}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* LOADING / GRID STATES */}
         {loading ? (
           <div style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>Loading store catalog...</div>
-        ) : packages.length === 0 ? (
+        ) : sortedProducts.length === 0 ? (
           <div style={{ textAlign: 'center', backgroundColor: '#fff', padding: '3rem', borderRadius: '0.75rem', border: '1px solid #e2e8f0' }}>
-            <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.5rem' }}>No Packages Listed Yet</h2>
-            <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '1rem' }}>Check back soon or request a custom quote for your specific property.</p>
-            <Link href="/request-a-quote" style={{ backgroundColor: '#2563eb', color: '#fff', padding: '0.5rem 1rem', borderRadius: '0.3rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px' }}>Request Custom Quote</Link>
+            <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.5rem' }}>No Products Found</h2>
+            <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '1rem' }}>No items match your search or filter criteria. Try adjusting your keywords.</p>
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
-            {packages.map((pkg) => (
+            {sortedProducts.map((pkg) => (
               <div key={pkg.id} style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '0.75rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 2px 4px rgba(0,0,0,0.03)' }}>
                 
                 <div 
@@ -171,7 +252,7 @@ export default function StorePage() {
               </div>
             )}
 
-            {/* INSTALLATION KITS (Renamed & styled cleanly) */}
+            {/* INSTALLATION KITS */}
             {selectedProduct.features && (
               <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1.5rem' }}>
                 <h4 style={{ fontSize: '11px', fontWeight: '800', color: '#166534', marginBottom: '0.5rem', letterSpacing: '0.5px' }}>INSTALLATION KITS & INCLUSIONS:</h4>
