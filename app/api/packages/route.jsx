@@ -33,11 +33,14 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { title, capacity, price, description, image, installationKits } = body;
+    // Accept 'features' from frontend payload (or fallback to installationKits if sent elsewhere)
+    const { title, capacity, price, description, image, features, installationKits } = body;
 
     if (!capacity) {
       return NextResponse.json({ error: "Argument 'capacity' is missing." }, { status: 400 });
     }
+
+    const finalKits = features !== undefined ? features : installationKits;
 
     const newPackage = await prisma.package.create({
       data: {
@@ -46,7 +49,7 @@ export async function POST(request) {
         price,
         description,
         image,
-        installationKits: installationKits || "",
+        installationKits: finalKits || "",
       },
     });
 
