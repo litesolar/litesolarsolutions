@@ -10,12 +10,11 @@ datasource db {
 model Package {
   id               Int      @id @default(autoincrement())
   title            String
-  category         String?
-  capacity         String?
+  capacity         String
   price            Float
+  category         String   @default("inverter") // Make sure this line exists!
   description      String?
   image            String?
   installationKits String?
-  features         String?
   createdAt        DateTime @default(now())
 }
