@@ -14,6 +14,9 @@ const prisma = globalForPrisma.prisma || new PrismaClient({
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
+// Helper to remove invisible broken/null characters that crash PostgreSQL
+const sanitize = (val) => (typeof val === 'string' ? val.replace(/\0/g, '') : val);
+
 export async function GET() {
   try {
     const packages = await prisma.package.findMany({
@@ -28,23 +31,23 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { title, capacity, price, description, image, installationKits } = body;
+    let { title, capacity, price, description, image, installationKits } = body;
 
     if (!capacity) {
       return NextResponse.json({ error: "Argument 'capacity' is missing." }, { status: 400 });
     }
 
-    // CLEAN THE PRICE: Removes commas (e.g. "120,000" becomes 120000) for Prisma
+    // 1. CLEAN THE PRICE: Removes commas (e.g. "120,000" becomes 120000)
     const numericPrice = price ? parseFloat(price.toString().replace(/,/g, '')) : 0;
 
     const newPackage = await prisma.package.create({
       data: {
-        title,
-        capacity,
-        price: numericPrice, // Uses the cleaned number here
-        description,
-        image,
-        installationKits: installationKits || "",
+        title: sanitize(title),
+        capacity: sanitize(capacity),
+        price: numericPrice,
+        description: sanitize(description),
+        image: sanitize(image),
+        installationKits: sanitize(installationKits) || "",
       },
     });
 
