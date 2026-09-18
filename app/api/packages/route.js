@@ -7,30 +7,14 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 export const dynamic = 'force-dynamic';
 
-// Removes NUL bytes, all other control characters, lone/broken surrogate
-// pairs (corrupted emoji), and zero-width characters. This is the single
-// place all text cleaning happens, so every field goes through the same rules.
 function deepClean(value) {
   if (typeof value !== 'string') return value;
   return value
-    .replace(/\u0000/g, '')                     // literal NUL byte
-    .replace(/[\x00-\x1F\x7F-\x9F]/g, '')        // other control characters
-    .replace(/[\u200B-\u200D\uFEFF]/g, '')       // zero-width / BOM characters
-    .replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g, '') // broken surrogates
+    .replace(/\u0000/g, '')
+    .replace(/[\x00-\x1F\x7F-\x9F]/g, '')
+    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    .replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g, '')
     .trim();
-}
-
-// Finds the first bad character in a string and describes it, so we can
-// report exactly what's wrong instead of just "0x00".
-function findBadChar(value) {
-  if (typeof value !== 'string') return null;
-  for (let i = 0; i < value.length; i++) {
-    const code = value.charCodeAt(i);
-    if (code <= 0x1F || (code >= 0x7F && code <= 0x9F) || (code >= 0xD800 && code <= 0xDFFF)) {
-      return { index: i, code: '0x' + code.toString(16).padStart(4, '0'), context: value.slice(Math.max(0, i - 10), i + 10) };
-    }
-  }
-  return null;
 }
 
 export async function GET() {
@@ -48,7 +32,6 @@ export async function GET() {
 export async function POST(request) {
   try {
     const rawText = await request.text();
-
     const sanitizedRawText = deepClean(rawText);
 
     let rawBody;
@@ -81,17 +64,6 @@ export async function POST(request) {
         installationKits: deepClean(String(item.installationKits || '')),
       };
 
-      // Diagnostic check: if anything still looks bad after cleaning, report
-      // exactly which field and character, instead of letting Postgres fail.
-      for (const [fieldName, fieldValue] of Object.entries(fields)) {
-        const bad = findBadChar(fieldValue);
-        if (bad) {
-          return NextResponse.json({
-            error: `Item ${itemIndex + 1}: field "${fieldName}" still contains an invalid character (${bad.code}) near "...${bad.context}..." after cleaning. Please retype this field manually.`,
-          }, { status: 400 });
-        }
-      }
-
       if (!fields.title) continue;
 
       const priceRaw = item.price;
@@ -99,18 +71,26 @@ export async function POST(request) {
         ? priceRaw
         : parseFloat(String(priceRaw || '0').replace(/,/g, '')) || 0;
 
-      await prisma.package.create({
-        data: {
-          title: fields.title,
-          capacity: fields.capacity,
-          price: numericPrice,
-          category: fields.category,
-          description: fields.description,
-          image: fields.image,
-          installationKits: fields.installationKits,
-        },
-      });
-      createdCount++;
+      // Wrap just this insert so we can show exactly what we tried to save
+      // if it fails, instead of a generic Postgres error.
+      try {
+        await prisma.package.create({
+          data: {
+            title: fields.title,
+            capacity: fields.capacity,
+            price: numericPrice,
+            category: fields.category,
+            description: fields.description,
+            image: fields.image,
+            installationKits: fields.installationKits,
+          },
+        });
+        createdCount++;
+      } catch (dbError) {
+        return NextResponse.json({
+          error: `Item ${itemIndex + 1} failed to save.\n\nDatabase said: ${dbError.message}\n\nData sent: ${JSON.stringify(fields)}`,
+        }, { status: 500 });
+      }
     }
 
     return NextResponse.json({ message: `Successfully published ${createdCount} items!` }, { status: 201 });
@@ -138,4 +118,4 @@ export async function DELETE(request) {
     console.error("DELETE error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-}
+} 
