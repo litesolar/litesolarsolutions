@@ -55,40 +55,32 @@ export async function POST(request) {
 
     let createdCount = 0;
     for (const [itemIndex, item] of items.entries()) {
-      const fields = {
-        title: deepClean(String(item.title || item.name || '')),
-        capacity: deepClean(String(item.capacity || item.spec || 'Standard')),
-        category: deepClean(String(item.category || 'inverter')),
-        description: deepClean(String(item.description || '')),
-        image: deepClean(String(item.image || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png')),
-        installationKits: deepClean(String(item.installationKits || '')),
-      };
+      const title = deepClean(String(item.title || item.name || ''));
+      const capacity = deepClean(String(item.capacity || item.spec || 'Standard'));
+      const category = deepClean(String(item.category || 'inverter'));
+      const description = deepClean(String(item.description || ''));
+      const image = deepClean(String(item.image || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png'));
+      const installationKits = deepClean(String(item.installationKits || ''));
 
-      if (!fields.title) continue;
+      if (!title) continue;
 
       const priceRaw = item.price;
       const numericPrice = typeof priceRaw === 'number'
         ? priceRaw
         : parseFloat(String(priceRaw || '0').replace(/,/g, '')) || 0;
 
-      // Wrap just this insert so we can show exactly what we tried to save
-      // if it fails, instead of a generic Postgres error.
+      // Bypass prisma.package.create() (which has a known bug producing a
+      // false "invalid byte sequence" error) and insert directly with a
+      // safe, parameterized raw SQL query instead.
       try {
-        await prisma.package.create({
-          data: {
-            title: fields.title,
-            capacity: fields.capacity,
-            price: numericPrice,
-            category: fields.category,
-            description: fields.description,
-            image: fields.image,
-            installationKits: fields.installationKits,
-          },
-        });
+        await prisma.$executeRaw`
+          INSERT INTO "Package" (title, capacity, price, category, description, image, "installationKits", "createdAt")
+          VALUES (${title}, ${capacity}, ${numericPrice}, ${category}, ${description}, ${image}, ${installationKits}, NOW())
+        `;
         createdCount++;
       } catch (dbError) {
         return NextResponse.json({
-          error: `Item ${itemIndex + 1} failed to save.\n\nDatabase said: ${dbError.message}\n\nData sent: ${JSON.stringify(fields)}`,
+          error: `Item ${itemIndex + 1} failed to save.\n\nDatabase said: ${dbError.message}\n\nData sent: ${JSON.stringify({ title, capacity, numericPrice, category, description, image, installationKits })}`,
         }, { status: 500 });
       }
     }
@@ -118,4 +110,4 @@ export async function DELETE(request) {
     console.error("DELETE error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-} 
+}
