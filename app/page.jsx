@@ -119,7 +119,7 @@ export default function HomePage({ initialProducts = [] }) {
         </div>
       </section>
 
-      {/* TRUST & GUARANTEE SECTION */}
+      {/* TRUST & GUARANTEE SECTION (WITH SCROLLABLE GALLERY IN EXPERT INSTALLATION) */}
       <section style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', padding: '2.5rem 1rem' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
@@ -129,6 +129,7 @@ export default function HomePage({ initialProducts = [] }) {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
             
+            {/* Genuine Components Card */}
             <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
               <div style={{ width: '100%', height: '180px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
                 <img 
@@ -145,14 +146,37 @@ export default function HomePage({ initialProducts = [] }) {
               </div>
             </div>
 
+            {/* Expert Installation Card with Horizontal Scrollable Gallery */}
             <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-              <div style={{ width: '100%', height: '180px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
+              
+              {/* Scrollable Image Gallery Container */}
+              <div style={{ 
+                display: 'flex', 
+                overflowX: 'auto', 
+                gap: '0.75rem', 
+                padding: '0.75rem', 
+                backgroundColor: '#f8fafc', 
+                borderBottom: '1px solid #e2e8f0',
+                scrollSnapType: 'x mandatory',
+                WebkitOverflowScrolling: 'touch'
+              }}>
                 <img 
-                  src="https://i.ibb.co/JWZQnjHb/collage-export-0-C85-FA90-4-AF6-4-CB7-963-A-099578566274.jpg" 
-                  alt="Expert Engineering Installation" 
-                  style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                  src="https://i.ibb.co/4nF6hrQy/88185879-b4d1-4a39-847e-acb0cd516a32.jpg" 
+                  alt="Installation angle 1" 
+                  style={{ width: '220px', height: '180px', objectFit: 'cover', borderRadius: '0.5rem', flexShrink: 0, scrollSnapAlign: 'start', border: '1px solid #cbd5e1' }} 
+                />
+                <img 
+                  src="https://i.ibb.co/zV1hMTQS/e45300bd-7d95-4564-a156-7f7df9b44663.jpg" 
+                  alt="Installation angle 2" 
+                  style={{ width: '220px', height: '180px', objectFit: 'cover', borderRadius: '0.5rem', flexShrink: 0, scrollSnapAlign: 'start', border: '1px solid #cbd5e1' }} 
+                />
+                <img 
+                  src="https://i.ibb.co/hFt84vtx/4ec4bbcc-fbe9-41d8-b3f7-306946991a86.jpg" 
+                  alt="Installation angle 3" 
+                  style={{ width: '220px', height: '180px', objectFit: 'cover', borderRadius: '0.5rem', flexShrink: 0, scrollSnapAlign: 'start', border: '1px solid #cbd5e1' }} 
                 />
               </div>
+
               <div style={{ padding: '1.25rem' }}>
                 <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.5rem' }}>Expert Professional Installation</h3>
                 <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5' }}>
@@ -206,60 +230,6 @@ export default function HomePage({ initialProducts = [] }) {
               Get Custom Quote for this Setup on WhatsApp
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* EXPANDED PROJECT GALLERY SHOWCASE */}
-      <section style={{ maxWidth: '1000px', margin: '2.5rem auto', padding: '0 1rem' }}>
-        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>OUR WORK IN ACTION</div>
-          <h2 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e3a8a' }}>Engineering Gallery & Installations</h2>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
-          
-          <div style={{ backgroundColor: '#fff', border: '1px solid #cbd5e1', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
-            <div style={{ width: '100%', height: '200px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
-              <img 
-                src="https://i.ibb.co/4nF6hrQy/88185879-b4d1-4a39-847e-acb0cd516a32.jpg" 
-                alt="Solar Installation Project 1" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              />
-            </div>
-            <div style={{ padding: '1rem' }}>
-              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>Commercial Hybrid Setup</h3>
-              <p style={{ fontSize: '11px', color: '#64748b' }}>Precision inverter configuration and clean rack wiring by our technical team.</p>
-            </div>
-          </div>
-
-          <div style={{ backgroundColor: '#fff', border: '1px solid #cbd5e1', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
-            <div style={{ width: '100%', height: '200px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
-              <img 
-                src="https://i.ibb.co/zV1hMTQS/e45300bd-7d95-4564-a156-7f7df9b44663.jpg" 
-                alt="Solar Installation Project 2" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              />
-            </div>
-            <div style={{ padding: '1rem' }}>
-              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>Residential Battery Bank</h3>
-              <p style={{ fontSize: '11px', color: '#64748b' }}>High-capacity lithium battery integration for continuous nighttime uptime.</p>
-            </div>
-          </div>
-
-          <div style={{ backgroundColor: '#fff', border: '1px solid #cbd5e1', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
-            <div style={{ width: '100%', height: '200px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
-              <img 
-                src="https://i.ibb.co/hFt84vtx/4ec4bbcc-fbe9-41d8-b3f7-306946991a86.jpg" 
-                alt="Solar Installation Project 3" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              />
-            </div>
-            <div style={{ padding: '1rem' }}>
-              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>Inverter Control & Protection</h3>
-              <p style={{ fontSize: '11px', color: '#64748b' }}>Standardized circuit protection devices mounted safely for structural stability.</p>
-            </div>
-          </div>
-
         </div>
       </section>
 
