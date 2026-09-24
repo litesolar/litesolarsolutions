@@ -201,7 +201,7 @@ export default function HomePage({ initialProducts = [] }) {
           <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
             <div style={{ width: '100%', height: '220px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
               <img 
-                src="https://i.ibb.co/6y4b5t3W/Whats-App-Image-2026-09-16-at-05-40-07.jpg" 
+                src="https://i.ibb.co/DfpZWPVt/Whats-App-Image-2026-09-14-at-15-44-44.jpg" 
                 alt="5KVA Residential Hybrid System" 
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
               />
@@ -217,7 +217,7 @@ export default function HomePage({ initialProducts = [] }) {
           <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
             <div style={{ width: '100%', height: '220px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
               <img 
-                src="https://i.ibb.co/3ykC090Z/Whats-App-Image-2026-09-16-at-05-40-06.jpg" 
+                src="https://i.ibb.co/b9b8CqF/Whats-App-Image-2026-09-14-at-15-40-58.jpg" 
                 alt="3.5KVA Hybrid Setup" 
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
               />
