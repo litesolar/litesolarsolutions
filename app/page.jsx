@@ -5,6 +5,9 @@ import Link from 'next/link';
 export default function HomePage({ initialProducts = [] }) {
   const [selectedAppliances, setSelectedAppliances] = useState([]);
   
+  // State for the Live Savings Calculator (monthly spend in Naira, default 50,000)
+  const [monthlySpend, setMonthlySpend] = useState(50000);
+  
   // Appliance power ratings (in Watts approx)
   const applianceList = [
     { name: 'Lights', watts: 50 },
@@ -34,6 +37,11 @@ export default function HomePage({ initialProducts = [] }) {
 
   // Suggest Inverter Size based on total load (adding a 30% headroom buffer)
   const recommendedKva = Math.max(1.5, Math.ceil((totalWatts * 1.3) / 800 * 2) / 2);
+
+  // Savings calculations (Assuming solar saves ~75% of combined grid/fuel costs)
+  const annualSpend = monthlySpend * 12;
+  const estimatedYearlySavings = Math.round(annualSpend * 0.75);
+  const fiveYearSavings = estimatedYearlySavings * 5;
 
   return (
     <div style={{ backgroundColor: '#ffffff', color: '#1f2937', minHeight: '100vh', fontFamily: 'system-ui, -apple-system, sans-serif', paddingBottom: '5rem', fontSize: '14px' }}>
@@ -149,7 +157,6 @@ export default function HomePage({ initialProducts = [] }) {
             {/* Expert Installation Card with Horizontal Scrollable Gallery */}
             <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
               
-              {/* Scrollable Image Gallery Container */}
               <div style={{ 
                 display: 'flex', 
                 overflowX: 'auto', 
@@ -189,7 +196,7 @@ export default function HomePage({ initialProducts = [] }) {
         </div>
       </section>
 
-      {/* RECENT SOLAR INSTALLATIONS SECTION (BROUGHT BACK) */}
+      {/* RECENT SOLAR INSTALLATIONS SECTION */}
       <section style={{ maxWidth: '1100px', margin: '2.5rem auto', padding: '0 1rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>OUR WORK IN ACTION</div>
@@ -201,7 +208,7 @@ export default function HomePage({ initialProducts = [] }) {
           <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
             <div style={{ width: '100%', height: '220px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
               <img 
-                src="https://i.ibb.co/DfpZWPVt/Whats-App-Image-2026-09-14-at-15-44-44.jpg" 
+                src="https://i.ibb.co/6y4b5t3W/Whats-App-Image-2026-09-16-at-05-40-07.jpg" 
                 alt="5KVA Residential Hybrid System" 
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
               />
@@ -217,7 +224,7 @@ export default function HomePage({ initialProducts = [] }) {
           <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
             <div style={{ width: '100%', height: '220px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
               <img 
-                src="https://i.ibb.co/b9b8CqF/Whats-App-Image-2026-09-14-at-15-40-58.jpg" 
+                src="https://i.ibb.co/3ykC090Z/Whats-App-Image-2026-09-16-at-05-40-06.jpg" 
                 alt="3.5KVA Hybrid Setup" 
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
               />
@@ -266,12 +273,64 @@ export default function HomePage({ initialProducts = [] }) {
 
           <div style={{ textAlign: 'center', marginTop: '1rem' }}>
             <Link 
-              href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%20I%20used%20your%20calculator%20and%20need%20a%20quote%20for%20a%20${recommendedKva}KVA%20system%20(${totalWatts}W%20total%20load).`} 
+              href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%2520I%20used%20your%20calculator%20and%20need%20a%20quote%20for%20a%20${recommendedKva}KVA%20system%20(${totalWatts}W%20total%20load).`} 
               target="_blank" 
               rel="noopener noreferrer"
               style={{ display: 'inline-block', backgroundColor: '#25D366', color: '#fff', padding: '0.6rem 1.25rem', borderRadius: '0.35rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px', boxShadow: '0 3px 8px rgba(37, 211, 102, 0.3)' }}
             >
               Get Custom Quote for this Setup on WhatsApp
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* NEW: INTERACTIVE REAL-TIME SOLAR SAVINGS CALCULATOR */}
+      <section style={{ maxWidth: '900px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 4px 12px rgba(22, 101, 52, 0.08)' }}>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#166534', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>FINANCIAL IMPACT</div>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#14532d', marginBottom: '0.5rem' }}>Live Solar Savings Calculator</h2>
+          <p style={{ fontSize: '12px', color: '#166534', marginBottom: '1.25rem' }}>Drag the slider to match your current average monthly electricity and generator fuel expenses:</p>
+
+          <div style={{ marginBottom: '1.5rem', backgroundColor: '#fff', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #dcfce7' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+              <span style={{ fontSize: '13px', fontWeight: '700', color: '#14532d' }}>Current Monthly Utility & Fuel Spend:</span>
+              <span style={{ fontSize: '1.15rem', fontWeight: '900', color: '#166534' }}>₦{monthlySpend.toLocaleString()}</span>
+            </div>
+            <input 
+              type="range" 
+              min="15000" 
+              max="300000" 
+              step="5000" 
+              value={monthlySpend}
+              onChange={(e) => setMonthlySpend(Number(e.target.value))}
+              style={{ width: '100%', accentColor: '#166534', cursor: 'pointer' }}
+            />
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#65a30d', marginTop: '0.3rem', fontWeight: '600' }}>
+              <span>₦15,000</span>
+              <span>₦150,000</span>
+              <span>₦300,000+</span>
+            </div>
+          </div>
+
+          <div style={{ backgroundColor: '#14532d', color: '#fff', padding: '1rem', borderRadius: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', boxShadow: '0 2px 8px rgba(20, 83, 45, 0.2)' }}>
+            <div>
+              <div style={{ fontSize: '10px', color: '#86efac', fontWeight: '700' }}>ESTIMATED 1-YEAR SAVINGS</div>
+              <div style={{ fontSize: '1.15rem', fontWeight: '900' }}>₦{estimatedYearlySavings.toLocaleString()}</div>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: '10px', color: '#86efac', fontWeight: '700' }}>ESTIMATED 5-YEAR SAVINGS</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: '900', color: '#facc15' }}>₦{fiveYearSavings.toLocaleString()}</div>
+            </div>
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+            <Link 
+              href={`https://wa.me/2347030671806?text=Hello%20litesolarsolutions,%20my%20monthly%20power%2520spend%20is%20approx%20₦${monthlySpend.toLocaleString()}%20and%20I%20want%20to%20switch%20to%20solar.`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ display: 'inline-block', backgroundColor: '#166534', color: '#fff', padding: '0.6rem 1.25rem', borderRadius: '0.35rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px', boxShadow: '0 3px 8px rgba(22, 101, 52, 0.3)' }}
+            >
+              Stop Wasting Money — Lock in Solar Savings Now
             </Link>
           </div>
         </div>
