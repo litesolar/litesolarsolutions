@@ -97,7 +97,7 @@ export default function HomePage({ initialProducts = [] }) {
             ✨ POWERING NIGERIA SUSTAINABLY
           </div>
           <h1 style={{ fontSize: '1.75rem', fontWeight: '800', lineHeight: '1.3', marginBottom: '0.75rem', color: '#ffffff' }}>
-            Illuminating your world with <span style={{ color: '#93c5fd' }}>affordable solar energy</span>
+            ILLUMINATING YOUR WORLD WITH AFFORDABLE SOLATRT ENERGY <span style={{ color: '#93c5fd' }}>affordable solar energy</span>
           </h1>
           <p style={{ fontSize: '13px', color: '#e2e8f0', lineHeight: '1.5', marginBottom: '1.25rem' }}>
             Reliable solar panels, high-performance inverters, and lithium batteries engineered for modern homes and businesses.
