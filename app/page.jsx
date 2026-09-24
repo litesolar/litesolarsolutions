@@ -189,6 +189,50 @@ export default function HomePage({ initialProducts = [] }) {
         </div>
       </section>
 
+      {/* RECENT SOLAR INSTALLATIONS SECTION (BROUGHT BACK) */}
+      <section style={{ maxWidth: '1100px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>OUR WORK IN ACTION</div>
+          <h2 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e3a8a' }}>Recent Solar Installations</h2>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+          
+          <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+            <div style={{ width: '100%', height: '220px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
+              <img 
+                src="https://i.ibb.co/6y4b5t3W/Whats-App-Image-2026-09-16-at-05-40-07.jpg" 
+                alt="5KVA Residential Hybrid System" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+              />
+            </div>
+            <div style={{ padding: '1.25rem' }}>
+              <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.5rem' }}>5KVA Residential Hybrid System</h3>
+              <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5' }}>
+                Clean rooftop solar panel array with lithium battery backup in Ijebu Ode.
+              </p>
+            </div>
+          </div>
+
+          <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+            <div style={{ width: '100%', height: '220px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
+              <img 
+                src="https://i.ibb.co/3ykC090Z/Whats-App-Image-2026-09-16-at-05-40-06.jpg" 
+                alt="3.5KVA Hybrid Setup" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+              />
+            </div>
+            <div style={{ padding: '1.25rem' }}>
+              <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.5rem' }}>3.5KVA Hybrid Setup</h3>
+              <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5' }}>
+                Zero-downtime power configuration for modern homes.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       {/* INTERACTIVE SYSTEM SIZER CALCULATOR */}
       <section style={{ maxWidth: '900px', margin: '2.5rem auto', padding: '0 1rem' }}>
         <div style={{ backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 4px 12px rgba(30, 58, 138, 0.08)' }}>
