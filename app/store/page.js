@@ -172,42 +172,74 @@ export default function StorePage() {
             <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '1rem' }}>No items match your search or filter criteria. Try adjusting your keywords.</p>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(2, 1fr)', // Strict 2 columns side-by-side layout on mobile
+            gap: '0.75rem', 
+            '@media (min-width: 640px)': { gridTemplateColumns: 'repeat(3, 1fr)' },
+            '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(4, 1fr)' }
+          }}>
             {sortedProducts.map((pkg) => (
-              <div key={pkg.id} style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '0.75rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 2px 4px rgba(0,0,0,0.03)' }}>
+              <div key={pkg.id} style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.5rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
                 
+                {/* SQUARE IMAGE CONTAINER (1:1 Aspect Ratio) */}
                 <div 
                   onClick={() => setSelectedProduct(pkg)}
-                  style={{ width: '100%', height: '220px', backgroundColor: '#f8fafc', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderBottom: '1px solid #f1f5f9' }}
+                  style={{ 
+                    width: '100%', 
+                    aspectRatio: '1 / 1', 
+                    backgroundColor: '#f8fafc', 
+                    padding: '8px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    cursor: 'pointer', 
+                    borderBottom: '1px solid #e2e8f0',
+                    position: 'hidden',
+                    overflow: 'hidden'
+                  }}
                   title="Click to view full specifications"
                 >
                   <img 
                     src={pkg.image || "https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png"} 
                     alt={pkg.title} 
-                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} 
+                    style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
                   />
                 </div>
 
-                <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                  <h3 
-                    onClick={() => setSelectedProduct(pkg)}
-                    style={{ fontSize: '15px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.3rem', cursor: 'pointer' }}
-                  >
-                    {pkg.title}
-                  </h3>
-                  <div style={{ fontSize: '1.1rem', fontWeight: '900', color: '#16a34a', marginBottom: '1rem' }}>₦{pkg.price}</div>
+                <div style={{ padding: '0.65rem', display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
+                  <div>
+                    <h3 
+                      onClick={() => setSelectedProduct(pkg)}
+                      style={{ 
+                        fontSize: '12px', 
+                        fontWeight: '700', 
+                        color: '#1e3a8a', 
+                        marginBottom: '0.3rem', 
+                        cursor: 'pointer',
+                        lineHeight: '1.3',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      {pkg.title}
+                    </h3>
+                    <div style={{ fontSize: '13px', fontWeight: '950', color: '#16a34a', marginBottom: '0.5rem' }}>₦{pkg.price}</div>
+                  </div>
                   
-                  <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto' }}>
+                  <div style={{ display: 'flex', gap: '0.4rem', marginTop: 'auto' }}>
                     <button 
                       onClick={() => setSelectedProduct(pkg)}
-                      style={{ flex: 1, backgroundColor: '#f1f5f9', color: '#1e3a8a', border: '1px solid #cbd5e1', padding: '0.5rem', borderRadius: '0.3rem', fontWeight: '700', fontSize: '11px', cursor: 'pointer' }}
+                      style={{ flex: 1, backgroundColor: '#f1f5f9', color: '#1e3a8a', border: '1px solid #cbd5e1', padding: '0.4rem', borderRadius: '0.25rem', fontWeight: '700', fontSize: '10px', cursor: 'pointer' }}
                     >
                       View Specs 🔍
                     </button>
                     
                     <button 
                       onClick={() => addToCart(pkg)}
-                      style={{ backgroundColor: '#1e3a8a', color: '#fff', border: 'none', padding: '0.5rem 0.8rem', borderRadius: '0.3rem', fontWeight: '700', fontSize: '11px', cursor: 'pointer' }}
+                      style={{ backgroundColor: '#1e3a8a', color: '#fff', border: 'none', padding: '0.4rem 0.6rem', borderRadius: '0.25rem', fontWeight: '700', fontSize: '10px', cursor: 'pointer' }}
                       title="Add to Cart"
                     >
                       🛒 +
