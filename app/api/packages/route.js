@@ -41,16 +41,23 @@ export async function POST(request) {
       return NextResponse.json({ error: "Invalid JSON format. Please make sure you are using straight double quotes (\") for keys and values." }, { status: 400 });
     }
 
-    const secretKey = String(rawBody.secretKey || '').trim();
-    const expectedSecret = process.env.SEED_SECRET || 'mysecretkey123';
+    // Determine if this is a bulk JSON import or a single product submission from the admin form
+    const isBulk = Array.isArray(rawBody.items);
 
-    if (secretKey !== expectedSecret) {
-      return NextResponse.json({ error: "Invalid Secret Key" }, { status: 401 });
+    if (isBulk) {
+      const secretKey = String(rawBody.secretKey || '').trim();
+      const expectedSecret = process.env.SEED_SECRET || 'mysecretkey123';
+
+      if (secretKey !== expectedSecret) {
+        return NextResponse.json({ error: "Invalid Secret Key" }, { status: 401 });
+      }
     }
 
-    const items = rawBody.items;
-    if (!Array.isArray(items) || items.length === 0) {
-      return NextResponse.json({ error: "Provide a valid JSON array of products." }, { status: 400 });
+    // Normalize items to always process as an array
+    const items = isBulk ? rawBody.items : [rawBody];
+
+    if (items.length === 0) {
+      return NextResponse.json({ error: "Provide a valid product or array of products." }, { status: 400 });
     }
 
     let createdCount = 0;
@@ -59,8 +66,12 @@ export async function POST(request) {
       const capacity = deepClean(String(item.capacity || item.spec || 'Standard'));
       const category = deepClean(String(item.category || 'inverter'));
       const description = deepClean(String(item.description || ''));
+      
+      // Handles Base64 strings or standard image URLs safely
       const image = deepClean(String(item.image || 'https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png'));
-      const installationKits = deepClean(String(item.installationKits || ''));
+      
+      // Maps both 'installationKits' (from bulk import) and 'features' (from the new admin form)
+      const installationKits = deepClean(String(item.installationKits || item.features || ''));
 
       if (!title) continue;
 
@@ -69,9 +80,7 @@ export async function POST(request) {
         ? priceRaw
         : parseFloat(String(priceRaw || '0').replace(/,/g, '')) || 0;
 
-      // Bypass prisma.package.create() (which has a known bug producing a
-      // false "invalid byte sequence" error) and insert directly with a
-      // safe, parameterized raw SQL query instead.
+      // Safe raw SQL insertion preserving your custom database bug workaround
       try {
         await prisma.$executeRaw`
           INSERT INTO "Package" (title, capacity, price, category, description, image, "installationKits", "createdAt")
@@ -85,9 +94,9 @@ export async function POST(request) {
       }
     }
 
-    return NextResponse.json({ message: `Successfully published ${createdCount} items!` }, { status: 201 });
+    return NextResponse.json({ message: `Successfully published ${createdCount} item(s)!` }, { status: 201 });
   } catch (error) {
-    console.error("BULK INSERT ERROR:", error);
+    console.error("POST / BULK INSERT ERROR:", error);
     return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
   }
 }
