@@ -86,7 +86,7 @@ export default function AdminPage() {
               onChange={(e) => setTitle(e.target.value)} 
               placeholder="e.g. 3.5KVA Hybrid Inverter Complete Package"
               required
-              style={{ width: '100%', padding: '0.75rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', fontSize: '14px', outline: 'none' }}
+              style={{ width: '100%', padding: '0.75rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', fontSize: '14px', outline: 'none', backgroundColor: '#fff', color: '#1f2937' }}
             />
           </div>
 
@@ -98,7 +98,7 @@ export default function AdminPage() {
               onChange={(e) => setPrice(e.target.value)} 
               placeholder="e.g. 450,000"
               required
-              style={{ width: '100%', padding: '0.75rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', fontSize: '14px', outline: 'none' }}
+              style={{ width: '100%', padding: '0.75rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', fontSize: '14px', outline: 'none', backgroundColor: '#fff', color: '#1f2937' }}
             />
           </div>
 
@@ -129,7 +129,7 @@ export default function AdminPage() {
               type="file" 
               accept="image/*" 
               onChange={handleImageChange}
-              style={{ width: '100%', fontSize: '13px', padding: '0.5rem', border: '1px dashed #cbd5e1', borderRadius: '0.5rem', backgroundColor: '#f8fafc', cursor: 'pointer' }}
+              style={{ width: '100%', fontSize: '13px', padding: '0.5rem', border: '1px dashed #cbd5e1', borderRadius: '0.5rem', backgroundColor: '#f8fafc', cursor: 'pointer', color: '#1f2937' }}
             />
             {preview && (
               <div style={{ marginTop: '0.75rem', width: '90px', height: '90px', border: '1px solid #cbd5e1', borderRadius: '0.5rem', overflow: 'hidden', backgroundColor: '#f1f5f9', padding: '4px' }}>
@@ -145,7 +145,7 @@ export default function AdminPage() {
               onChange={(e) => setDescription(e.target.value)} 
               rows="3"
               placeholder="Detailed product overview..."
-              style={{ width: '100%', padding: '0.75rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', fontSize: '14px', outline: 'none' }}
+              style={{ width: '100%', padding: '0.75rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', fontSize: '14px', outline: 'none', backgroundColor: '#fff', color: '#1f2937' }}
             />
           </div>
 
@@ -156,7 +156,7 @@ export default function AdminPage() {
               value={features} 
               onChange={(e) => setFeatures(e.target.value)} 
               placeholder="e.g. 2x Solar Panels, 1x Tubular Battery, 10m DC Cable"
-              style={{ width: '100%', padding: '0.75rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', fontSize: '14px', outline: 'none' }}
+              style={{ width: '100%', padding: '0.75rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', fontSize: '14px', outline: 'none', backgroundColor: '#fff', color: '#1f2937' }}
             />
           </div>
 
