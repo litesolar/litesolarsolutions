@@ -127,7 +127,7 @@ export default function HomePage({ initialProducts = [] }) {
         </div>
       </section>
 
-      {/* TRUST & GUARANTEE SECTION (WITH SCROLLABLE GALLERY IN EXPERT INSTALLATION) */}
+      {/* TRUST & GUARANTEE SECTION */}
       <section style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', padding: '2.5rem 1rem' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
@@ -156,7 +156,6 @@ export default function HomePage({ initialProducts = [] }) {
 
             {/* Expert Installation Card with Horizontal Scrollable Gallery */}
             <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-              
               <div style={{ 
                 display: 'flex', 
                 overflowX: 'auto', 
@@ -284,7 +283,7 @@ export default function HomePage({ initialProducts = [] }) {
         </div>
       </section>
 
-      {/* NEW: INTERACTIVE REAL-TIME SOLAR SAVINGS CALCULATOR */}
+      {/* LIVE SOLAR SAVINGS CALCULATOR */}
       <section style={{ maxWidth: '900px', margin: '2.5rem auto', padding: '0 1rem' }}>
         <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 4px 12px rgba(22, 101, 52, 0.08)' }}>
           <div style={{ fontSize: '10px', fontWeight: '800', color: '#166534', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>FINANCIAL IMPACT</div>
