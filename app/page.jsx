@@ -67,7 +67,7 @@ export default function HomePage({ initialProducts = [] }) {
             href="/store"
             style={{ backgroundColor: '#2563eb', color: '#fff', textDecoration: 'none', padding: '0.4rem 0.75rem', borderRadius: '0.25rem', fontWeight: '600', fontSize: '12px', boxShadow: '0 2px 5px rgba(37, 99, 235, 0.2)' }}
           >
-            Store Catalog 🏪
+            Store Catalog
           </Link>
         </div>
       </header>
@@ -76,7 +76,7 @@ export default function HomePage({ initialProducts = [] }) {
       <section style={{ backgroundColor: '#f0fdf4', borderBottom: '1px solid #dcfce7', padding: '0.75rem 1rem', textAlign: 'center' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <p style={{ fontSize: '12px', color: '#166534', fontWeight: '700', margin: 0 }}>
-            👋 Welcome to LITESOLARSOLUTIONS! Experience uninterrupted power with our certified solar systems, hybrid inverters, and lithium energy storage.
+            Welcome to LITESOLARSOLUTIONS. Experience uninterrupted power with certified solar systems, hybrid inverters, and lithium energy storage.
           </p>
         </div>
       </section>
@@ -93,11 +93,11 @@ export default function HomePage({ initialProducts = [] }) {
         borderBottom: '1px solid #cbd5e1'
       }}>
         <div style={{ maxWidth: '650px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.2)', color: '#ffffff', border: '1px solid rgba(255, 255, 255, 0.4)', padding: '0.2rem 0.6rem', borderRadius: '1rem', fontSize: '10px', fontWeight: '700', marginBottom: '0.75rem' }}>
-            ✨ POWERING NIGERIA SUSTAINABLY
+          <div style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.2)', color: '#ffffff', border: '1px solid rgba(255, 255, 255, 0.4)', padding: '0.2rem 0.6rem', borderRadius: '1rem', fontSize: '10px', fontWeight: '700', marginBottom: '0.75rem', letterSpacing: '0.5px' }}>
+            POWERING NIGERIA SUSTAINABLY
           </div>
           <h1 style={{ fontSize: '1.75rem', fontWeight: '800', lineHeight: '1.3', marginBottom: '0.75rem', color: '#ffffff' }}>
-            ILLUMINATING YOUR WORLD WITH <span style={{ color: '#93c5fd' }}>AFFORDABLE SOLAR ENERGY</span>
+            Illuminating your world with <span style={{ color: '#93c5fd' }}>affordable solar energy</span>
           </h1>
           <p style={{ fontSize: '13px', color: '#e2e8f0', lineHeight: '1.5', marginBottom: '1.25rem' }}>
             Reliable solar panels, high-performance inverters, and lithium batteries engineered for modern homes and businesses.
@@ -107,7 +107,7 @@ export default function HomePage({ initialProducts = [] }) {
               href="/store"
               style={{ backgroundColor: '#ffffff', color: '#1e3a8a', textDecoration: 'none', padding: '0.6rem 1.25rem', borderRadius: '0.35rem', fontWeight: '800', fontSize: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
             >
-              Browse Packages ➔
+              Browse Packages
             </Link>
             <Link 
               href="/request-a-quote"
@@ -119,17 +119,16 @@ export default function HomePage({ initialProducts = [] }) {
         </div>
       </section>
 
-      {/* TRUST & GUARANTEE SECTION WITH DETAILED IMAGES & DESCRIPTIONS */}
+      {/* TRUST & GUARANTEE SECTION */}
       <section style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', padding: '2.5rem 1rem' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>💎 WHY CHOOSE US</div>
+            <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>WHY CHOOSE US</div>
             <h2 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e3a8a' }}>Our Core Guarantees & Excellence</h2>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
             
-            {/* Genuine Components Card */}
             <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
               <div style={{ width: '100%', height: '180px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
                 <img 
@@ -139,17 +138,13 @@ export default function HomePage({ initialProducts = [] }) {
                 />
               </div>
               <div style={{ padding: '1.25rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                  <span style={{ fontSize: '18px' }}>🛡️</span>
-                  <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e3a8a' }}>Genuine High-Grade Components</h3>
-                </div>
+                <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.5rem' }}>Genuine High-Grade Components</h3>
                 <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5' }}>
                   We source and supply 100% authentic, durable solar panels, high-efficiency hybrid inverters, and long-lasting deep-cycle lithium batteries designed to withstand tough power conditions and deliver optimal energy output for decades.
                 </p>
               </div>
             </div>
 
-            {/* Expert Installation Card */}
             <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
               <div style={{ width: '100%', height: '180px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
                 <img 
@@ -159,10 +154,7 @@ export default function HomePage({ initialProducts = [] }) {
                 />
               </div>
               <div style={{ padding: '1.25rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                  <span style={{ fontSize: '18px' }}>🔧</span>
-                  <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e3a8a' }}>Expert Professional Installation</h3>
-                </div>
+                <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.5rem' }}>Expert Professional Installation</h3>
                 <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5' }}>
                   Our certified electrical engineers execute meticulous, clean wiring, proper load balancing, and secure circuit configurations. From our base in Ijebu Ode to locations nationwide, we guarantee safe and flawless setup.
                 </p>
@@ -173,10 +165,10 @@ export default function HomePage({ initialProducts = [] }) {
         </div>
       </section>
 
-      {/* INTERACTIVE SYSTEM SIZER CALCULATOR ON HOMEPAGE */}
+      {/* INTERACTIVE SYSTEM SIZER CALCULATOR */}
       <section style={{ maxWidth: '900px', margin: '2.5rem auto', padding: '0 1rem' }}>
         <div style={{ backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 4px 12px rgba(30, 58, 138, 0.08)' }}>
-          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>🧮 INSTANT SYSTEM SIZER</div>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>INSTANT SYSTEM SIZER</div>
           <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a', marginBottom: '0.5rem' }}>Calculate What Power You Need</h2>
           <p style={{ fontSize: '12px', color: '#475569', marginBottom: '1rem' }}>Select the appliances you want to run to instantly view your estimated load and recommended inverter size:</p>
 
@@ -211,46 +203,60 @@ export default function HomePage({ initialProducts = [] }) {
               rel="noopener noreferrer"
               style={{ display: 'inline-block', backgroundColor: '#25D366', color: '#fff', padding: '0.6rem 1.25rem', borderRadius: '0.35rem', textDecoration: 'none', fontWeight: '700', fontSize: '12px', boxShadow: '0 3px 8px rgba(37, 211, 102, 0.3)' }}
             >
-              Get Custom Quote for this Setup on WhatsApp 💬
+              Get Custom Quote for this Setup on WhatsApp
             </Link>
           </div>
         </div>
       </section>
 
-      {/* PHOTO GALLERY / INSTALLATION SHOWCASE */}
-      <section style={{ maxWidth: '900px', margin: '2.5rem auto', padding: '0 1rem' }}>
-        <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
-          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>📸 OUR WORK IN ACTION</div>
-          <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a' }}>Recent Solar Installations</h2>
+      {/* EXPANDED PROJECT GALLERY SHOWCASE */}
+      <section style={{ maxWidth: '1000px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>OUR WORK IN ACTION</div>
+          <h2 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#1e3a8a' }}>Engineering Gallery & Installations</h2>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
           
           <div style={{ backgroundColor: '#fff', border: '1px solid #cbd5e1', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
-            <div style={{ width: '100%', height: '160px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
+            <div style={{ width: '100%', height: '200px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
               <img 
-                src="https://i.ibb.co/B2McsRW6/Screenshot-2026-09-14-200213.png" 
-                alt="Residential Solar Setup" 
-                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                src="https://i.ibb.co/4nF6hrQy/88185879-b4d1-4a39-847e-acb0cd516a32.jpg" 
+                alt="Solar Installation Project 1" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
               />
             </div>
             <div style={{ padding: '1rem' }}>
-              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>5KVA Residential Hybrid System</h3>
-              <p style={{ fontSize: '11px', color: '#64748b' }}>Clean rooftop solar panel array with lithium battery backup in Ijebu Ode.</p>
+              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>Commercial Hybrid Setup</h3>
+              <p style={{ fontSize: '11px', color: '#64748b' }}>Precision inverter configuration and clean rack wiring by our technical team.</p>
             </div>
           </div>
 
           <div style={{ backgroundColor: '#fff', border: '1px solid #cbd5e1', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
-            <div style={{ width: '100%', height: '160px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
+            <div style={{ width: '100%', height: '200px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
               <img 
-                src="https://i.ibb.co/LXpJTbsP/Whats-App-Image-2026-09-14-at-15-40-58.jpg" 
-                alt="Commercial Inverter Setup" 
-                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                src="https://i.ibb.co/zV1hMTQS/e45300bd-7d95-4564-a156-7f7df9b44663.jpg" 
+                alt="Solar Installation Project 2" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
               />
             </div>
             <div style={{ padding: '1rem' }}>
-              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>3.5KVA Hybrid Setup</h3>
-              <p style={{ fontSize: '11px', color: '#64748b' }}>Zero-downtime power configuration for modern homes.</p>
+              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>Residential Battery Bank</h3>
+              <p style={{ fontSize: '11px', color: '#64748b' }}>High-capacity lithium battery integration for continuous nighttime uptime.</p>
+            </div>
+          </div>
+
+          <div style={{ backgroundColor: '#fff', border: '1px solid #cbd5e1', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
+            <div style={{ width: '100%', height: '200px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #e2e8f0' }}>
+              <img 
+                src="https://i.ibb.co/hFt84vtx/4ec4bbcc-fbe9-41d8-b3f7-306946991a86.jpg" 
+                alt="Solar Installation Project 3" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+              />
+            </div>
+            <div style={{ padding: '1rem' }}>
+              <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#1e3a8a', marginBottom: '0.25rem' }}>Inverter Control & Protection</h3>
+              <p style={{ fontSize: '11px', color: '#64748b' }}>Standardized circuit protection devices mounted safely for structural stability.</p>
             </div>
           </div>
 
@@ -260,7 +266,7 @@ export default function HomePage({ initialProducts = [] }) {
       {/* CLIENT TESTIMONIALS */}
       <section style={{ maxWidth: '900px', margin: '2.5rem auto', padding: '0 1rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
-          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>⭐ TRUSTED REVIEWS</div>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>TRUSTED REVIEWS</div>
           <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a' }}>What Our Customers Say</h2>
         </div>
 
@@ -284,7 +290,7 @@ export default function HomePage({ initialProducts = [] }) {
       {/* FREQUENTLY ASKED QUESTIONS */}
       <section style={{ maxWidth: '900px', margin: '2.5rem auto', padding: '0 1rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
-          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>❓ GOT QUESTIONS?</div>
+          <div style={{ fontSize: '10px', fontWeight: '800', color: '#1e3a8a', letterSpacing: '0.5px' }}>GOT QUESTIONS?</div>
           <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1e3a8a' }}>Frequently Asked Questions</h2>
         </div>
 
@@ -335,9 +341,9 @@ export default function HomePage({ initialProducts = [] }) {
           <div>
             <div style={{ fontSize: '11px', fontWeight: '800', color: '#93c5fd', marginBottom: '0.75rem' }}>CONTACT US</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '12px' }}>
-              <a href="tel:07030671806" style={{ color: '#fff', textDecoration: 'none' }}>📞 07030671806</a>
-              <a href="https://wa.me/2347030671806" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none' }}>💬 WhatsApp Support</a>
-              <span style={{ color: '#cbd5e1', fontSize: '11px' }}>📍 Ijebu Ode, Ogun State</span>
+              <a href="tel:07030671806" style={{ color: '#fff', textDecoration: 'none' }}>Phone: 07030671806</a>
+              <a href="https://wa.me/2347030671806" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none' }}>WhatsApp Support</a>
+              <span style={{ color: '#cbd5e1', fontSize: '11px' }}>Ijebu Ode, Ogun State</span>
             </div>
           </div>
 
@@ -353,10 +359,10 @@ export default function HomePage({ initialProducts = [] }) {
         href="https://wa.me/2347030671806" 
         target="_blank" 
         rel="noopener noreferrer" 
-        style={{ position: 'fixed', bottom: '1rem', right: '1rem', backgroundColor: '#25D366', color: '#fff', width: '42px', height: '42px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem', boxShadow: '0 3px 8px rgba(37, 211, 102, 0.4)', zIndex: 1100, textDecoration: 'none' }}
+        style={{ position: 'fixed', bottom: '1rem', right: '1rem', backgroundColor: '#25D366', color: '#fff', padding: '0.6rem 1rem', borderRadius: '2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '12px', fontWeight: '700', boxShadow: '0 3px 8px rgba(37, 211, 102, 0.4)', zIndex: 1100, textDecoration: 'none' }}
         title="Chat on WhatsApp"
       >
-        💬
+        <span>WhatsApp Chat</span>
       </a>
 
     </div>
